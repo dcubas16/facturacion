@@ -31,32 +31,6 @@ public class GeneradorFacturaElectronica {
 	@Test
 	public void cuandoGeneroFacturaElectronicaPeru() {
 		BasicConfigurator.configure();
-
-//		final ESuccess eSuccess = generadorFactura.generarFactura(FacturaMock.retornarFactura());
-		
-//		EUBLPEDocumentType ublpeDocumentTypes = EUBLPEDocumentType.INVOICE;
-		
-//		EUBLPEDocumentType ublpeDocumentType = EUBLPEDocumentType.INVOICE;
-		
-//		UBLPEDocumentTypes.getDocumentTypeOfLocalName ("Invoice");
-		
-//		InvoiceType invoiceType = (InvoiceType) UBLPEDocumentTypes.getImplementationClassOfLocalName("Invoice").cast(InvoiceType.class);
-		
-//		(InvoiceType.class)
-		
-//		UBLPEDocumentTypes.getSchemaOfLocalName ("Invoice");
-		
-//		InvoiceType invoiceType = EUBLPEDocumentType.INVOICE.getClass();
-//		
-//		ublpeDocumentTypes.getImplementationClass();
-
-//		UBLPEDocumentTypes ublpeDocumentTypes = UBLPEDocumentTypes.getDocumentTypeOfLocalName("Invoice").getClass();
-		
-//		UBLPEDocumentTypes ublpeDocumentTypes;
-//		Class<InvoiceType> invoiceType = (Class<InvoiceType>) UBLPEDocumentTypes.getImplementationClassOfLocalName(EUBLPEDocumentType.INVOICE.getLocalName());
-//		= EUBLPEDocumentType.INVOICE.getImplementationClass();
-		
-		
 		
 		assertTrue(true);
 
