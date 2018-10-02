@@ -41,6 +41,49 @@ public class CabeceraFactura {
 	
 	private String leyenda;
 
+	public CabeceraFactura() {}
+		
+	public CabeceraFactura(String idFactura, String idCustomization, Date fechaEmision, String firmaDigital,
+			String razonSocial, String nombreComercial, String codigoUbigeo, String direccionCompleta,
+			String urbanizacion, String provincia, String departamento, String distrito, String codigoPais,
+			BigInteger numeroDocumento, int tipoDocumento, String tipoDocumentoFactura, String serie,
+			String numeroCorrelativo, String numeroDocumentoCliente, String tipoDocumentoCliente,
+			String razonSocialCliente, BigDecimal totalValorVentaOpGravadas, BigDecimal totalValorVentaOpInafecta,
+			BigDecimal totalValorVentaOpExoneradas, BigDecimal totalValorVentaOpGratuitas, BigDecimal sumatoriaIGV,
+			BigDecimal sumatoriaISC, BigDecimal totalDescuentos, BigDecimal importeTotalVenta, String leyenda) {
+		super();
+		this.idFactura = idFactura;
+		this.idCustomization = idCustomization;
+		this.fechaEmision = fechaEmision;
+		this.firmaDigital = firmaDigital;
+		this.razonSocial = razonSocial;
+		this.nombreComercial = nombreComercial;
+		this.codigoUbigeo = codigoUbigeo;
+		this.direccionCompleta = direccionCompleta;
+		this.urbanizacion = urbanizacion;
+		this.provincia = provincia;
+		this.departamento = departamento;
+		this.distrito = distrito;
+		this.codigoPais = codigoPais;
+		this.numeroDocumento = numeroDocumento;
+		this.tipoDocumento = tipoDocumento;
+		this.tipoDocumentoFactura = tipoDocumentoFactura;
+		this.serie = serie;
+		this.numeroCorrelativo = numeroCorrelativo;
+		this.numeroDocumentoCliente = numeroDocumentoCliente;
+		this.tipoDocumentoCliente = tipoDocumentoCliente;
+		this.razonSocialCliente = razonSocialCliente;
+		this.totalValorVentaOpGravadas = totalValorVentaOpGravadas;
+		this.totalValorVentaOpInafecta = totalValorVentaOpInafecta;
+		this.totalValorVentaOpExoneradas = totalValorVentaOpExoneradas;
+		this.totalValorVentaOpGratuitas = totalValorVentaOpGratuitas;
+		this.sumatoriaIGV = sumatoriaIGV;
+		this.sumatoriaISC = sumatoriaISC;
+		TotalDescuentos = totalDescuentos;
+		ImporteTotalVenta = importeTotalVenta;
+		this.leyenda = leyenda;
+	}
+
 	public Date getFechaEmision() {
 		return fechaEmision;
 	}

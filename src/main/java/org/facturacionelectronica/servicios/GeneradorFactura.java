@@ -9,21 +9,17 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXB;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.dom.DOMResult;
-
 import org.facturacionelectronica.entidades.CabeceraFactura;
+import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.entidades.Factura;
 import org.w3c.dom.Document;
-
 import com.helger.commons.state.ESuccess;
 import com.helger.datetime.util.PDTXMLConverter;
-import com.helger.ublpe.UBLPEDocumentTypes;
 import com.helger.ublpe.UBLPEWriter;
-
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_2.AddressType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_2.AttachmentType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_2.CountryType;
@@ -75,106 +71,36 @@ public class GeneradorFactura {
 		aInvoice.setIssueDate(PDTXMLConverter.getXMLCalendarDateNow());
 
 		// Zona Informacion Adicional
-//		UBLExtensionsType ublExtensionsTypeAdditional = new UBLExtensionsType();
-//		UBLExtensionType ublExtensionTypeAdditional = new UBLExtensionType();
-//		ExtensionContentType extensionContentType = new ExtensionContentType();
-//
-//		AdditionalInformationType additionalInformationType = new AdditionalInformationType();
-//		AdditionalMonetaryTotalType additionalMonetaryTotalType = new AdditionalMonetaryTotalType();
-//		PayableAmountType payableAmountType = new PayableAmountType();
-//		AdditionalPropertyType additionalPropertyType = new AdditionalPropertyType();
-//
-//		additionalMonetaryTotalType.setID(new IDType("001"));
-//		payableAmountType.setCurrencyID(eCurrency);
-//		payableAmountType.setValue(new BigDecimal("3000"));
-//		additionalMonetaryTotalType.setPayableAmount(payableAmountType);
-//		additionalInformationType.addAdditionalMonetaryTotal(additionalMonetaryTotalType);
-//		additionalPropertyType.setID(new IDType("1000"));
-//		additionalPropertyType.setValue(new ValueType("CUATROCIENTOS VEINTITRES MIL DOSCIENTOS VEINTICINCO Y 00/100"));
-//		additionalInformationType.addAdditionalProperty(additionalPropertyType);
-//
-//		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-//		JAXB.marshal(additionalInformationType, new DOMResult(document));
-//		org.w3c.dom.Element element = document.getDocumentElement();
-//
-//		extensionContentType.setAny(element);
-//
-//		ublExtensionTypeAdditional.setExtensionContent(extensionContentType);
-//
-//		ublExtensionsTypeAdditional.addUBLExtension(ublExtensionTypeAdditional);
-		
 		UBLExtensionsType ublExtensionsTypeAdditional = generarInformacionAdicional(factura.getCabeceraFactura());
-
 		aInvoice.setUBLExtensions(ublExtensionsTypeAdditional);
 
-		
-
-		
 		// Zona firma detalle
-//		SignatureType signatureTypeDetail = new SignatureType();
-//		signatureTypeDetail.setID("SignatureSP");
-		
-		org.w3._2000._09.xmldsig_.SignatureType signatureTypeDetail = new org.w3._2000._09.xmldsig_.SignatureType();
-		SignedInfoType signedInfoType = new SignedInfoType();
-				
-		CanonicalizationMethodType canonicalizationMethodType = new CanonicalizationMethodType();
-		canonicalizationMethodType.setAlgorithm("http://www.w3.org/TR/2001/REC-xml-c14n-20010315");
-		
-		SignatureMethodType signatureMethodType = new SignatureMethodType();
-		signatureMethodType.setAlgorithm("http://www.w3.org/2000/09/xmldsig#rsa-sha1");
-		
-		ReferenceType referenceType = new ReferenceType();
-		referenceType.setURI("");
-		TransformsType transformsType = new TransformsType();
-		TransformType transformType = new TransformType();
-		
-		transformType.setAlgorithm("http://www.w3.org/2000/09/xmldsig#enveloped-signature");
-		
-		transformsType.getTransform().add(transformType);
-		
-		referenceType.setTransforms(transformsType);
-		
-		
-		DigestMethodType digestMethodType = new DigestMethodType();
-		digestMethodType.setAlgorithm("http://www.w3.org/2000/09/xmldsig#sha1");
-		
-		referenceType.setDigestValue(null);//-------------------------------------Ingresar esto
-		
-		referenceType.setTransforms(transformsType);
-		referenceType.setDigestMethod(digestMethodType);
-		
-		
-		signatureTypeDetail.setId("SignatureSP");
-		signedInfoType.setCanonicalizationMethod(canonicalizationMethodType);
-		signedInfoType.setSignatureMethod(signatureMethodType);
-		signedInfoType.getReference().add(referenceType);
-		
-		signatureTypeDetail.setSignedInfo(signedInfoType);
-		
-		SignatureValueType signatureValueType = new SignatureValueType();
-		signatureValueType.setValue(null);
-		
-		signatureTypeDetail.setSignatureValue(signatureValueType);
-		
-		KeyInfoType keyInfoType = new KeyInfoType();
+		ublExtensionsTypeAdditional.addUBLExtension(generarDetalleFirma(factura.getCabeceraFactura()));
 
-		
-		UBLExtensionType ublExtensionTypeSignDetail = new UBLExtensionType(); 
-		ExtensionContentType extensionContentTypeSignDetail = new ExtensionContentType();
-		
-		Document documentSignDetail = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-		JAXB.marshal(signatureTypeDetail, new DOMResult(documentSignDetail));
-		org.w3c.dom.Element elementSignDetail = documentSignDetail.getDocumentElement();
-		
-		extensionContentTypeSignDetail.setAny(elementSignDetail);
-		
-		ublExtensionTypeSignDetail.setExtensionContent(extensionContentTypeSignDetail);
-		
-		ublExtensionsTypeAdditional.addUBLExtension(ublExtensionTypeSignDetail);
-		
-		
-		
 		// Zona firma cabecera
+		aInvoice.addSignature(generarCabeceraFirma(factura.getCabeceraFactura()));
+
+		// Zona Cliente
+		aInvoice.setAccountingCustomerParty(generarZonaInformacionCliente(factura.getCabeceraFactura()));
+
+		// Zona Emisor
+		aInvoice.setAccountingSupplierParty(generarZonaInformacionEmisor(factura.getCabeceraFactura()));
+
+		// Zona Impuesto Total
+		aInvoice.addTaxTotal(generarImpuestosTotales(factura.getCabeceraFactura(), eCurrency));
+
+		// Detalle Factura
+		aInvoice.addInvoiceLine(generarDetalleFactura(factura.getDetalleFactura(), eCurrency));
+
+		// Total Monetario
+		aInvoice.setLegalMonetaryTotal(generarTotalMonetario(factura.getCabeceraFactura(), eCurrency));
+
+		// Escribir archivo
+		return imprimirFacturaArchivo(aInvoice, "D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\example.xml", "utf-8");
+
+	}
+
+	private SignatureType generarCabeceraFirma(CabeceraFactura cabeceraFactura) {
 		SignatureType signatureType = new SignatureType();
 		signatureType.setID("IDSignSP");
 
@@ -197,38 +123,77 @@ public class GeneradorFactura {
 
 		signatureType.setDigitalSignatureAttachment(attachmentType);
 
-		aInvoice.addSignature(signatureType);
+		return signatureType;
+	}
 
-		// Zona Cliente
-		aInvoice.setAccountingCustomerParty(generarZonaInformacionCliente(factura.getCabeceraFactura()));
+	private UBLExtensionType generarDetalleFirma(CabeceraFactura cabeceraFactura) throws ParserConfigurationException {
+		org.w3._2000._09.xmldsig_.SignatureType signatureTypeDetail = new org.w3._2000._09.xmldsig_.SignatureType();
+		SignedInfoType signedInfoType = new SignedInfoType();
 
-		// Zona Emisor
-		aInvoice.setAccountingSupplierParty(generarZonaInformacionEmisor(factura.getCabeceraFactura()));
+		CanonicalizationMethodType canonicalizationMethodType = new CanonicalizationMethodType();
+		canonicalizationMethodType.setAlgorithm("http://www.w3.org/TR/2001/REC-xml-c14n-20010315");
 
-		// Zona Impuesto Total
-		TaxTotalType taxTotalTypeTotal = new TaxTotalType();
+		SignatureMethodType signatureMethodType = new SignatureMethodType();
+		signatureMethodType.setAlgorithm("http://www.w3.org/2000/09/xmldsig#rsa-sha1");
 
-		taxTotalTypeTotal.setTaxAmount(new BigDecimal("62675.85")).setCurrencyID(eCurrency);
+		ReferenceType referenceType = new ReferenceType();
+		referenceType.setURI("");
+		TransformsType transformsType = new TransformsType();
+		TransformType transformType = new TransformType();
 
-		TaxSubtotalType taxSubtotalTypeTotal = new TaxSubtotalType();
-		taxSubtotalTypeTotal.setTaxAmount(new BigDecimal("62675.85")).setCurrencyID(eCurrency);
+		transformType.setAlgorithm("http://www.w3.org/2000/09/xmldsig#enveloped-signature");
 
-		TaxCategoryType taxCategoryTypeTotal = new TaxCategoryType();
+		transformsType.getTransform().add(transformType);
 
-		TaxSchemeType taxSchemeTypeTotal = new TaxSchemeType();
-		taxSchemeTypeTotal.setID("1000");
-		taxSchemeTypeTotal.setName("IGV");
-		taxSchemeTypeTotal.setTaxTypeCode("VAT");
+		referenceType.setTransforms(transformsType);
 
-		taxCategoryTypeTotal.setTaxScheme(taxSchemeTypeTotal);
+		DigestMethodType digestMethodType = new DigestMethodType();
+		digestMethodType.setAlgorithm("http://www.w3.org/2000/09/xmldsig#sha1");
 
-		taxSubtotalTypeTotal.setTaxCategory(taxCategoryTypeTotal);
+		referenceType.setDigestValue(null);// -------------------------------------Ingresar esto
 
-		taxTotalTypeTotal.addTaxSubtotal(taxSubtotalTypeTotal);
+		referenceType.setTransforms(transformsType);
+		referenceType.setDigestMethod(digestMethodType);
 
-		aInvoice.addTaxTotal(taxTotalTypeTotal);
+		signatureTypeDetail.setId("SignatureSP");
+		signedInfoType.setCanonicalizationMethod(canonicalizationMethodType);
+		signedInfoType.setSignatureMethod(signatureMethodType);
+		signedInfoType.getReference().add(referenceType);
 
-		// Detalle Factura
+		signatureTypeDetail.setSignedInfo(signedInfoType);
+
+		SignatureValueType signatureValueType = new SignatureValueType();
+		signatureValueType.setValue(null);
+
+		signatureTypeDetail.setSignatureValue(signatureValueType);
+
+		KeyInfoType keyInfoType = new KeyInfoType();
+
+		UBLExtensionType ublExtensionTypeSignDetail = new UBLExtensionType();
+		ExtensionContentType extensionContentTypeSignDetail = new ExtensionContentType();
+
+		Document documentSignDetail = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		JAXB.marshal(signatureTypeDetail, new DOMResult(documentSignDetail));
+		org.w3c.dom.Element elementSignDetail = documentSignDetail.getDocumentElement();
+
+		extensionContentTypeSignDetail.setAny(elementSignDetail);
+
+		ublExtensionTypeSignDetail.setExtensionContent(extensionContentTypeSignDetail);
+
+		return ublExtensionTypeSignDetail;
+	}
+
+	private MonetaryTotalType generarTotalMonetario(CabeceraFactura cabeceraFactura,
+			CurrencyCodeContentType eCurrency) {
+
+		final MonetaryTotalType aMT = new MonetaryTotalType();
+		aMT.setPayableAmount(new BigDecimal("3000.00")).setCurrencyID(eCurrency);
+
+		return aMT;
+	}
+
+	private InvoiceLineType generarDetalleFactura(List<DetalleFactura> detalleFactura,
+			CurrencyCodeContentType eCurrency) {
 		InvoicedQuantityType invoicedQuantityType = new InvoicedQuantityType();
 		invoicedQuantityType.setValue(new BigDecimal("3000.00"));
 		invoicedQuantityType.setUnitCode(UnitCodeContentType.MEGAHERTZ);
@@ -289,41 +254,38 @@ public class GeneradorFactura {
 
 		invoiceLineType.setPrice(priceType);
 		invoiceLineType.addTaxTotal(taxTotalType);
-		aInvoice.addInvoiceLine(invoiceLineType);
 
-		final MonetaryTotalType aMT = new MonetaryTotalType();
-		aMT.setPayableAmount(new BigDecimal("3000.00")).setCurrencyID(eCurrency);
-		aInvoice.setLegalMonetaryTotal(aMT);
+		return invoiceLineType;
+	}
 
-		// ------> Enviar la escritura del archivo a una clase
-		Writer writer = null;
+	private TaxTotalType generarImpuestosTotales(CabeceraFactura cabeceraFactura, CurrencyCodeContentType eCurrency) {
+		TaxTotalType taxTotalTypeTotal = new TaxTotalType();
 
-		try {
-			writer = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream(
-							"D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\example.xml"),
-					"utf-8"));
-		} catch (IOException ex) {
-			// Report
-		} finally {
-			try {
-				writer.close();
-			} catch (Exception ex) {
-				/* ignore */}
-		}
+		taxTotalTypeTotal.setTaxAmount(new BigDecimal("62675.85")).setCurrencyID(eCurrency);
 
-		// final ESuccess eSuccess = UBL20Writer.invoice().write(aInvoice, new
-		// File("D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\example.xml"));
+		TaxSubtotalType taxSubtotalTypeTotal = new TaxSubtotalType();
+		taxSubtotalTypeTotal.setTaxAmount(new BigDecimal("62675.85")).setCurrencyID(eCurrency);
 
-		final ESuccess eSuccess = UBLPEWriter.invoice().write(aInvoice,
-				new File("D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\example.xml"));
+		TaxCategoryType taxCategoryTypeTotal = new TaxCategoryType();
 
-		return eSuccess;
+		TaxSchemeType taxSchemeTypeTotal = new TaxSchemeType();
+		taxSchemeTypeTotal.setID("1000");
+		taxSchemeTypeTotal.setName("IGV");
+		taxSchemeTypeTotal.setTaxTypeCode("VAT");
+
+		taxCategoryTypeTotal.setTaxScheme(taxSchemeTypeTotal);
+
+		taxSubtotalTypeTotal.setTaxCategory(taxCategoryTypeTotal);
+
+		taxTotalTypeTotal.addTaxSubtotal(taxSubtotalTypeTotal);
+
+		return taxTotalTypeTotal;
 
 	}
-	
-	public UBLExtensionsType generarInformacionAdicional(CabeceraFactura cabeceraFactura) throws ParserConfigurationException {
-		
+
+	public UBLExtensionsType generarInformacionAdicional(CabeceraFactura cabeceraFactura)
+			throws ParserConfigurationException {
+
 		UBLExtensionsType ublExtensionsTypeAdditional = new UBLExtensionsType();
 		UBLExtensionType ublExtensionTypeAdditional = new UBLExtensionType();
 		ExtensionContentType extensionContentType = new ExtensionContentType();
@@ -339,7 +301,7 @@ public class GeneradorFactura {
 		additionalMonetaryTotalType.setPayableAmount(payableAmountType);
 		additionalInformationType.addAdditionalMonetaryTotal(additionalMonetaryTotalType);
 		additionalPropertyType.setID(new IDType("1000"));
-		additionalPropertyType.setValue(new ValueType("CUATROCIENTOS VEINTITRES MIL DOSCIENTOS VEINTICINCO Y 00/100"));
+		additionalPropertyType.setValue(new ValueType(cabeceraFactura.getLeyenda()));
 		additionalInformationType.addAdditionalProperty(additionalPropertyType);
 
 		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
@@ -351,20 +313,17 @@ public class GeneradorFactura {
 		ublExtensionTypeAdditional.setExtensionContent(extensionContentType);
 
 		ublExtensionsTypeAdditional.addUBLExtension(ublExtensionTypeAdditional);
-		
+
 		return ublExtensionsTypeAdditional;
-		
+
 	}
-	
-	public ESuccess imprimirFactura(InvoiceType invoiceType, String ruta) {
-		
+
+	public ESuccess imprimirFacturaArchivo(InvoiceType invoiceType, String ruta, String formato) {
+
 		Writer writer = null;
 		
 		try {
-			writer = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream(
-							"D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\example.xml"),
-					"utf-8"));
+			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ruta), formato));
 		} catch (IOException ex) {
 			// Report
 		} finally {
@@ -373,13 +332,11 @@ public class GeneradorFactura {
 			} catch (Exception ex) {
 				/* ignore */}
 		}
-		
-		final ESuccess eSuccess = UBLPEWriter.invoice().write(invoiceType,
-				new File("D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\example.xml"));
+
+		final ESuccess eSuccess = UBLPEWriter.invoice().write(invoiceType, new File(ruta));
 
 		return eSuccess;
 	}
-	
 
 	public CustomerPartyType generarZonaInformacionCliente(CabeceraFactura cabeceraFactura) {
 		CustomerPartyType customerPartyType = new CustomerPartyType();

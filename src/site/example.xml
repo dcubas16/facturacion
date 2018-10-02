@@ -51,8 +51,8 @@
 		</cec:UBLExtension>
 	</cec:UBLExtensions>
 	<cbc:CustomizationID>1.0</cbc:CustomizationID>
-	<cbc:ID>Clave_Primaria_Factura</cbc:ID>
-	<cbc:IssueDate>2018-09-29</cbc:IssueDate>
+	<cbc:ID>F001-4355</cbc:ID>
+	<cbc:IssueDate>2018-10-02</cbc:IssueDate>
 	<cbc:InvoiceTypeCode>01</cbc:InvoiceTypeCode>
 	<cac:Signature>
 		<cbc:ID>IDSignSP</cbc:ID>
@@ -76,21 +76,22 @@
 		<cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
 		<cac:Party>
 			<cac:PartyName>
-				<cbc:Name>Soporte Tecnológicos EIRL</cbc:Name>
+				<cbc:Name></cbc:Name>
 			</cac:PartyName>
 			<cac:PostalAddress>
 				<cbc:ID></cbc:ID>
 				<cbc:StreetName>Av. Los Precursores # 1245</cbc:StreetName>
 				<cbc:CitySubdivisionName></cbc:CitySubdivisionName>
-				<cbc:CityName>El Agustino</cbc:CityName>
+				<cbc:CityName>Lima</cbc:CityName>
 				<cbc:CountrySubentity>Lima</cbc:CountrySubentity>
-				<cbc:District>El Agustino</cbc:District>
+				<cbc:District>Lima</cbc:District>
 				<cac:Country>
 					<cbc:IdentificationCode>PE</cbc:IdentificationCode>
 				</cac:Country>
 			</cac:PostalAddress>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName></cbc:RegistrationName>
+				<cbc:RegistrationName>Soporte Tecnológicos EIRL
+				</cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:AccountingSupplierParty>
