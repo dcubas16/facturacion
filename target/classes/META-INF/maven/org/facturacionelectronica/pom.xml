@@ -62,11 +62,11 @@
 			<version>6.0.2</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.helger</groupId>
-			<artifactId>ph-xmldsig</artifactId>
-			<version>4.1.1</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.helger</groupId> -->
+<!-- 			<artifactId>ph-xmldsig</artifactId> -->
+<!-- 			<version>4.1.1</version> -->
+<!-- 		</dependency> -->
 
 		<!-- https://mvnrepository.com/artifact/com.helger/ph-datetime -->
 		<dependency>

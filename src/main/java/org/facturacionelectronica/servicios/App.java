@@ -16,7 +16,7 @@ public class App
     	BasicConfigurator.configure();
         System.out.println( "Hello World!" );
         GeneradorFactura generadorFactura = new GeneradorFactura();
-        generadorFactura.generarFactura(FacturaMock.retornarFactura());
+//        generadorFactura.generarFactura(FacturaMock.retornarFactura());
         
     }
 }

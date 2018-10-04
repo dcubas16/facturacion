@@ -10,12 +10,30 @@ public class DetalleFactura {
 	private String descripcionItem;
 		
 	private int cantidad;
-	private BigDecimal valorUnitarioPorItem;
-	private BigDecimal valorVentaBruto;
-	private BigDecimal descuentosPorItem;
-	private BigDecimal valorVentaPorItem;
-	private BigDecimal impuesto;
+	private BigDecimal valorUnitarioPorItem;//83.05 -- precio del item sin IGV
+	private BigDecimal precioVentaUnitarioPorItem;//98.00 -- precio de item con IGV
+	private BigDecimal impuestoUnitarioPorItem;//98.00 -- precio de item con IGV
+	private BigDecimal valorVentaBruto;//valorUnitarioPorItem x cantidad
+	private BigDecimal valorVentaPorItem;//149,491.53 -- precio total del item con impuestos y descuentos
+	private BigDecimal impuestoPorItem;//26,908.47 -- 
 	
+	public DetalleFactura() {}
+	
+	public DetalleFactura(int numeroOrden, String unidadMedida, String codigoItem, String descripcionItem, int cantidad,
+			BigDecimal valorUnitarioPorItem, BigDecimal precioVentaUnitarioPorItem, BigDecimal valorVentaBruto,
+			BigDecimal valorVentaPorItem, BigDecimal impuestoPorItem) {
+		super();
+		this.numeroOrden = numeroOrden;
+		this.unidadMedida = unidadMedida;
+		this.codigoItem = codigoItem;
+		this.descripcionItem = descripcionItem;
+		this.cantidad = cantidad;
+		this.valorUnitarioPorItem = valorUnitarioPorItem;
+		this.precioVentaUnitarioPorItem = precioVentaUnitarioPorItem;
+		this.valorVentaBruto = valorVentaBruto;
+		this.valorVentaPorItem = valorVentaPorItem;
+		this.impuestoPorItem = impuestoPorItem;
+	}
 	public int getNumeroOrden() {
 		return numeroOrden;
 	}
@@ -58,24 +76,34 @@ public class DetalleFactura {
 	public void setValorVentaBruto(BigDecimal valorVentaBruto) {
 		this.valorVentaBruto = valorVentaBruto;
 	}
-	public BigDecimal getDescuentosPorItem() {
-		return descuentosPorItem;
-	}
-	public void setDescuentosPorItem(BigDecimal descuentosPorItem) {
-		this.descuentosPorItem = descuentosPorItem;
-	}
+
 	public BigDecimal getValorVentaPorItem() {
 		return valorVentaPorItem;
 	}
 	public void setValorVentaPorItem(BigDecimal valorVentaPorItem) {
 		this.valorVentaPorItem = valorVentaPorItem;
 	}
-	public BigDecimal getImpuesto() {
-		return impuesto;
+	public BigDecimal getPrecioVentaUnitarioPorItem() {
+		return precioVentaUnitarioPorItem;
 	}
-	public void setImpuesto(BigDecimal impuesto) {
-		this.impuesto = impuesto;
+	public void setPrecioVentaUnitarioPorItem(BigDecimal precioVentaUnitarioPorItem) {
+		this.precioVentaUnitarioPorItem = precioVentaUnitarioPorItem;
 	}
+	public BigDecimal getImpuestoPorItem() {
+		return impuestoPorItem;
+	}
+	public void setImpuestoPorItem(BigDecimal impuestoPorItem) {
+		this.impuestoPorItem = impuestoPorItem;
+	}
+
+	public BigDecimal getImpuestoUnitarioPorItem() {
+		return impuestoUnitarioPorItem;
+	}
+
+	public void setImpuestoUnitarioPorItem(BigDecimal impuestoUnitarioPorItem) {
+		this.impuestoUnitarioPorItem = impuestoUnitarioPorItem;
+	}
+
 	
 	
 	

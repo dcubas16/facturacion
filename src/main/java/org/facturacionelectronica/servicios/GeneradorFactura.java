@@ -96,7 +96,9 @@ public class GeneradorFactura {
 		aInvoice.setLegalMonetaryTotal(generarTotalMonetario(factura.getCabeceraFactura(), eCurrency));
 
 		// Escribir archivo
-		return imprimirFacturaArchivo(aInvoice, "D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\example.xml", "utf-8");
+//		return imprimirFacturaArchivo(aInvoice, "D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\example.xml", "utf-8");
+		
+		return imprimirFacturaArchivo(aInvoice, "C:\\DANC\\Spring\\proyectos\\facturacionelectronica\\src\\site\\example.xml", "utf-8");
 
 	}
 
