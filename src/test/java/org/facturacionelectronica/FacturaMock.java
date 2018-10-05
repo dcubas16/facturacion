@@ -5,7 +5,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.entidades.Factura;
@@ -29,6 +28,10 @@ public final class FacturaMock {
 	private static List<DetalleFactura> obtenerDetalleFactura() {
 
 		List<DetalleFactura> detalleFactura = new ArrayList<DetalleFactura>();
+
+		DetalleFactura detalleFactura1 = new DetalleFactura(1, "NIU", "GLG199", "Grabadora LG Externo Modelo: GE20LU10", 2000, new BigDecimal("83.05"), new BigDecimal("98.00"), new BigDecimal("14.95"), new BigDecimal("166100.00"), new BigDecimal("149491.53"), new BigDecimal("26908.47"), new BigDecimal("18.00"));
+		
+		detalleFactura.add(detalleFactura1);
 
 		return detalleFactura;
 	}

@@ -2,6 +2,11 @@ package org.facturacionelectronica.entidades;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "DETALLE_FACTURA")
 public class DetalleFactura {
 	
 	private int numeroOrden;
@@ -16,12 +21,14 @@ public class DetalleFactura {
 	private BigDecimal valorVentaBruto;//valorUnitarioPorItem x cantidad
 	private BigDecimal valorVentaPorItem;//149,491.53 -- precio total del item con impuestos y descuentos
 	private BigDecimal impuestoPorItem;//26,908.47 -- 
+	private BigDecimal porcentajeImpuestoItem;//18% -- porcentaje del impuesto del item
 	
 	public DetalleFactura() {}
-	
+		
 	public DetalleFactura(int numeroOrden, String unidadMedida, String codigoItem, String descripcionItem, int cantidad,
-			BigDecimal valorUnitarioPorItem, BigDecimal precioVentaUnitarioPorItem, BigDecimal valorVentaBruto,
-			BigDecimal valorVentaPorItem, BigDecimal impuestoPorItem) {
+			BigDecimal valorUnitarioPorItem, BigDecimal precioVentaUnitarioPorItem, BigDecimal impuestoUnitarioPorItem,
+			BigDecimal valorVentaBruto, BigDecimal valorVentaPorItem, BigDecimal impuestoPorItem,
+			BigDecimal porcentajeImpuestoItem) {
 		super();
 		this.numeroOrden = numeroOrden;
 		this.unidadMedida = unidadMedida;
@@ -30,10 +37,14 @@ public class DetalleFactura {
 		this.cantidad = cantidad;
 		this.valorUnitarioPorItem = valorUnitarioPorItem;
 		this.precioVentaUnitarioPorItem = precioVentaUnitarioPorItem;
+		this.impuestoUnitarioPorItem = impuestoUnitarioPorItem;
 		this.valorVentaBruto = valorVentaBruto;
 		this.valorVentaPorItem = valorVentaPorItem;
 		this.impuestoPorItem = impuestoPorItem;
+		this.porcentajeImpuestoItem = porcentajeImpuestoItem;
 	}
+
+
 	public int getNumeroOrden() {
 		return numeroOrden;
 	}
@@ -102,6 +113,14 @@ public class DetalleFactura {
 
 	public void setImpuestoUnitarioPorItem(BigDecimal impuestoUnitarioPorItem) {
 		this.impuestoUnitarioPorItem = impuestoUnitarioPorItem;
+	}
+
+	public BigDecimal getPorcentajeImpuestoItem() {
+		return porcentajeImpuestoItem;
+	}
+
+	public void setPorcentajeImpuestoItem(BigDecimal porcentajeImpuestoItem) {
+		this.porcentajeImpuestoItem = porcentajeImpuestoItem;
 	}
 
 	

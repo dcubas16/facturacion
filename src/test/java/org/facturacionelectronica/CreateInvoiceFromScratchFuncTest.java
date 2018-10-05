@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.math.BigDecimal;
 
-import javax.xml.bind.JAXBContext;
 
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -16,7 +15,6 @@ import com.helger.xml.serialize.read.DOMReader;
 import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.ublpe.EUBLPEDocumentType;
 import com.helger.ublpe.UBLPEWriter;
-import com.helger.ublpe.UBLPEWriterBuilder;
 
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_2.CustomerPartyType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_2.InvoiceLineType;
