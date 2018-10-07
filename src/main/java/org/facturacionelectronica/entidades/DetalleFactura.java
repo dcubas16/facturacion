@@ -2,26 +2,27 @@ package org.facturacionelectronica.entidades;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "DETALLE_FACTURA")
 public class DetalleFactura {
 	
-	private int numeroOrden;
-	private String unidadMedida;
-	private String codigoItem;
-	private String descripcionItem;
+	private int numeroOrden;//33
+	private String unidadMedida;//11
+	private String codigoItem;//34
+	private String descripcionItem;//13
 		
-	private int cantidad;
-	private BigDecimal valorUnitarioPorItem;//83.05 -- precio del item sin IGV
-	private BigDecimal precioVentaUnitarioPorItem;//98.00 -- precio de item con IGV
-	private BigDecimal impuestoUnitarioPorItem;//98.00 -- precio de item con IGV
-	private BigDecimal valorVentaBruto;//valorUnitarioPorItem x cantidad
-	private BigDecimal valorVentaPorItem;//149,491.53 -- precio total del item con impuestos y descuentos
-	private BigDecimal impuestoPorItem;//26,908.47 -- 
-	private BigDecimal porcentajeImpuestoItem;//18% -- porcentaje del impuesto del item
+	private int cantidad;//12
+	private BigDecimal valorUnitarioPorItem;//14		//83.05 -- precio del item sin IGV
+	private BigDecimal precioVentaUnitarioPorItem;//15	//98.00 -- precio de item con IGV
+	private BigDecimal impuestoUnitarioPorItem;			//98.00 -- precio de item con IGV
+	private BigDecimal valorVentaBruto;					//valorUnitarioPorItem x cantidad
+	private BigDecimal valorVentaPorItem;//21			//149,491.53 -- precio total del item con impuestos y descuentos
+	private BigDecimal impuestoPorItem;//16				//26,908.47 -- 
+	private BigDecimal porcentajeImpuestoItem;			//18% -- porcentaje del impuesto del item
+	
+//	private String codigoRazonExencionImpuesto;//16
+//	private String codigoTributo;//16
+//	private String nombreTributo;//16
+//	private String codigoTipoTributo;//16
+	
 	
 	public DetalleFactura() {}
 		

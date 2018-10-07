@@ -1,65 +1,151 @@
-package org.facturacionelectronica.entidades;
+package org.facturacionelectronica.dao.entidades;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-public class CabeceraFactura {
+import org.facturacionelectronica.entidades.CabeceraFactura;
+import org.facturacionelectronica.entidades.Factura;
 
+
+@Entity
+@Table(name = "FACTURA", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "ID_FACTURA")})
+@Inheritance(strategy=InheritanceType.JOINED)
+public class FacturaDao {
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="facturaDao")
+	private Set<DetalleFacturaDao> detalleFacturaDao;
+	
+	
+	@Id
+	@Column(name = "ID_FACTURA", unique = true, nullable = false)
 	private String idFactura;
-	private String idCustomization;//37
+		
+	@Column(name = "FECHA_EMISION", nullable=true)
+	private Date fechaEmision;
 	
-	private Date fechaEmision;//1
-	private String firmaDigital;//2
-	private String razonSocial;//3
-	private String nombreComercial;//4
-	private String codigoUbigeo;//5
-	private String direccionCompleta;//5
-	private String urbanizacion;//5
-	private String provincia;//5
-	private String departamento;//5
-	private String distrito;//5
-	private String codigoPais;//5
-	private BigInteger numeroDocumento;//6
-	private int tipoDocumento;//7
+//	@Column(name = "ID_CUSTOMIZACION", nullable=true)
+//	private String idCustomization;
+	
+//	@Column(name = "FIRMA_DIGITAL", nullable=true)
+//	private String firmaDigital;
+	
+	@Column(name = "RAZON_SOCIAL", nullable=true)
+	private String razonSocial;
+	
+	@Column(name = "NOMBRE_COMERCIAL", nullable=true)
+	private String nombreComercial;
+	
+	@Column(name = "CODIGO_UBIGEO", nullable=true)
+	private String codigoUbigeo;
+	
+	@Column(name = "DIRECCION_COMPLETA", nullable=true)
+	private String direccionCompleta;
+
+	@Column(name = "URBANIZACION", nullable=true)
+	private String urbanizacion;
+
+	@Column(name = "PROVINCIA", nullable=true)
+	private String provincia;
+
+	@Column(name = "DEPARTAMENTO", nullable=true)
+	private String departamento;
+
+	@Column(name = "DISTRITO", nullable=true)
+	private String distrito;
+
+	@Column(name = "CODIGO_PAIS", nullable=true)
+	private String codigoPais;
+
+	@Column(name = "NUMERO_DOC", nullable=true)
+	private BigInteger numeroDocumento;
+
+	@Column(name = "TIPO_DOCUMENTO", nullable=true)
+	private int tipoDocumento;
+
+	@Column(name = "TIPO_DOC_FACTURA", nullable=true)
 	private String tipoDocumentoFactura;
-	private String serie;//8
-	private String numeroCorrelativo;//8
-	
-	private String numeroDocumentoCliente;//10
-	private String tipoDocumentoCliente;//9
+
+	@Column(name = "SERIE", nullable=true)
+	private String serie;
+
+	@Column(name = "NUMERO_CORRELATIVO", nullable=true)
+	private String numeroCorrelativo;
+
+
+	@Column(name = "NUMERO_DOC_CLIENTE", nullable=true)
+	private String numeroDocumentoCliente;
+
+	@Column(name = "TIPO_DOC_CLIENTE", nullable=true)
+	private String tipoDocumentoCliente;
+
+	@Column(name = "RAZON_SOCIAL_CLIENTE", nullable=true)
 	private String razonSocialCliente;
-	
-	private BigDecimal totalValorVentaOpGravadas;//18
-	private BigDecimal totalValorVentaOpInafecta;//19
-	private BigDecimal totalValorVentaOpExoneradas;//20
-	private BigDecimal totalValorVentaOpGratuitas;//49
+
+
+	@Column(name = "TOTAL_VALOR_VENTA_OP_GRAVADA", nullable=true)
+	private BigDecimal totalValorVentaOpGravadas;
+
+	@Column(name = "TOTAL_VALOR_VENTA_OP_INAFEC", nullable=true)
+	private BigDecimal totalValorVentaOpInafecta;
+
+	@Column(name = "TOTAL_VALOR_VENTA_OP_EXONERA", nullable=true)
+	private BigDecimal totalValorVentaOpExoneradas;
+
+	@Column(name = "TOTAL_VALOR_VENTA_OP_GRAT", nullable=true)
+	private BigDecimal totalValorVentaOpGratuitas;
+
+	@Column(name = "SUMATORIA_IGV", nullable=true)
 	private BigDecimal sumatoriaIGV;
+
+	@Column(name = "SUMATORIA_ISC", nullable=true)
 	private BigDecimal sumatoriaISC;
+
+	@Column(name = "TOTAL_DESCUENTOS", nullable=true)
 	private BigDecimal TotalDescuentos;
-	private BigDecimal ImporteTotalVenta;//27
-	
-//	private String moneda;//28
-//	private String versionUBL;//36
-	
-	
+
+	@Column(name = "IMPORTE_TOTAL_VENTA", nullable=true)
+	private BigDecimal ImporteTotalVenta;
+
+	@Column(name = "LEYENDA", nullable=true)
 	private String leyenda;
 
-	public CabeceraFactura() {}
+	@Column(name = "PORCENTAJE_IMPUESTO", nullable=true)
+	private double porcentajeImpuesto;
+
+	@Column(name = "MONEDA", nullable=true)
+	private String moneda;
+	
+	
+	public FacturaDao() {}
+	
+	public FacturaDao(CabeceraFactura cabeceraFactura) {
 		
-	public CabeceraFactura(String idFactura, String idCustomization, Date fechaEmision, String firmaDigital,
-			String razonSocial, String nombreComercial, String codigoUbigeo, String direccionCompleta,
-			String urbanizacion, String provincia, String departamento, String distrito, String codigoPais,
-			BigInteger numeroDocumento, int tipoDocumento, String tipoDocumentoFactura, String serie,
-			String numeroCorrelativo, String numeroDocumentoCliente, String tipoDocumentoCliente,
-			String razonSocialCliente, BigDecimal totalValorVentaOpGravadas, BigDecimal totalValorVentaOpInafecta,
+	}
+		
+	public FacturaDao(String idFactura, Date fechaEmision, String razonSocial,
+			String nombreComercial, String codigoUbigeo, String direccionCompleta, String urbanizacion,
+			String provincia, String departamento, String distrito, String codigoPais, BigInteger numeroDocumento,
+			int tipoDocumento, String tipoDocumentoFactura, String serie, String numeroCorrelativo,
+			String numeroDocumentoCliente, String tipoDocumentoCliente, String razonSocialCliente,
+			BigDecimal totalValorVentaOpGravadas, BigDecimal totalValorVentaOpInafecta,
 			BigDecimal totalValorVentaOpExoneradas, BigDecimal totalValorVentaOpGratuitas, BigDecimal sumatoriaIGV,
-			BigDecimal sumatoriaISC, BigDecimal totalDescuentos, BigDecimal importeTotalVenta, String leyenda) {
+			BigDecimal sumatoriaISC, BigDecimal totalDescuentos, BigDecimal importeTotalVenta, String leyenda,
+			double porcentajeImpuesto, String moneda) {
 		super();
 		this.idFactura = idFactura;
-		this.idCustomization = idCustomization;
 		this.fechaEmision = fechaEmision;
-		this.firmaDigital = firmaDigital;
 		this.razonSocial = razonSocial;
 		this.nombreComercial = nombreComercial;
 		this.codigoUbigeo = codigoUbigeo;
@@ -86,6 +172,24 @@ public class CabeceraFactura {
 		TotalDescuentos = totalDescuentos;
 		ImporteTotalVenta = importeTotalVenta;
 		this.leyenda = leyenda;
+		this.porcentajeImpuesto = porcentajeImpuesto;
+		this.moneda = moneda;
+	}
+
+	public Set<DetalleFacturaDao> getDetalleFacturaDao() {
+		return detalleFacturaDao;
+	}
+
+	public void setDetalleFacturaDao(Set<DetalleFacturaDao> detalleFacturaDao) {
+		this.detalleFacturaDao = detalleFacturaDao;
+	}
+
+	public String getIdFactura() {
+		return idFactura;
+	}
+
+	public void setIdFactura(String idFactura) {
+		this.idFactura = idFactura;
 	}
 
 	public Date getFechaEmision() {
@@ -94,14 +198,6 @@ public class CabeceraFactura {
 
 	public void setFechaEmision(Date fechaEmision) {
 		this.fechaEmision = fechaEmision;
-	}
-
-	public String getFirmaDigital() {
-		return firmaDigital;
-	}
-
-	public void setFirmaDigital(String firmaDigital) {
-		this.firmaDigital = firmaDigital;
 	}
 
 	public String getRazonSocial() {
@@ -312,20 +408,20 @@ public class CabeceraFactura {
 		this.leyenda = leyenda;
 	}
 
-	public String getIdFactura() {
-		return idFactura;
+	public double getPorcentajeImpuesto() {
+		return porcentajeImpuesto;
 	}
 
-	public void setIdFactura(String idFactura) {
-		this.idFactura = idFactura;
+	public void setPorcentajeImpuesto(double porcentajeImpuesto) {
+		this.porcentajeImpuesto = porcentajeImpuesto;
 	}
 
-	public String getIdCustomization() {
-		return idCustomization;
+	public String getMoneda() {
+		return moneda;
 	}
 
-	public void setIdCustomization(String idCustomization) {
-		this.idCustomization = idCustomization;
+	public void setMoneda(String moneda) {
+		this.moneda = moneda;
 	}
 	
 }
