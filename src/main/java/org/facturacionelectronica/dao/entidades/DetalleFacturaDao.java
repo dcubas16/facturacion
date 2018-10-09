@@ -93,7 +93,20 @@ public class DetalleFacturaDao {
 	}
 
 	public DetalleFacturaDao(DetalleFactura detalleFactura, FacturaDao facturaDao) {
-		// TODO Auto-generated constructor stub
+		super();
+		
+		this.numeroOrden = detalleFactura.getNumeroOrden();
+		this.unidadMedida = detalleFactura.getUnidadMedida();
+		this.codigoItem = detalleFactura.getCodigoItem();
+		this.descripcionItem = detalleFactura.getDescripcionItem();
+		this.cantidad = detalleFactura.getCantidad();
+		this.valorUnitarioPorItem = detalleFactura.getValorUnitarioPorItem();
+		this.precioVentaUnitarioPorItem = detalleFactura.getPrecioVentaUnitarioPorItem();
+		this.impuestoUnitarioPorItem = detalleFactura.getImpuestoUnitarioPorItem();
+		this.valorVentaBruto = detalleFactura.getValorVentaBruto();
+		this.valorVentaPorItem = detalleFactura.getValorVentaPorItem();
+		this.impuestoPorItem = detalleFactura.getImpuestoPorItem();
+		this.porcentajeImpuestoItem = detalleFactura.getPorcentajeImpuestoItem();
 	}
 
 	public FacturaDao getFacturaDao() {

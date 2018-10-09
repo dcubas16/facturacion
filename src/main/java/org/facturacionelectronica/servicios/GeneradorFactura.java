@@ -70,58 +70,54 @@ public class GeneradorFactura {
 		final ECountry eCountry = ECountry.PE;
 
 		final InvoiceType aInvoice = new InvoiceType();
-		
+
 		// Zona Informacion Basica
-		generarDatosBasicosFactura(aInvoice ,factura.getCabeceraFactura(), eCurrency, "2.0");
-		
-		
+		generarDatosBasicosFactura(aInvoice, factura.getCabeceraFactura(), eCurrency, "2.0");
+
 		// Zona Informacion Adicional
 		UBLExtensionsType ublExtensionsTypeAdditional = generarInformacionAdicional(factura.getCabeceraFactura(),
 				eCurrency);
 		aInvoice.setUBLExtensions(ublExtensionsTypeAdditional);
 
-		
 		// Zona firma detalle
 		ublExtensionsTypeAdditional.addUBLExtension(generarDetalleFirma(factura.getCabeceraFactura()));
 
-		
 		// Zona firma cabecera
 		aInvoice.addSignature(generarCabeceraFirma(factura.getCabeceraFactura()));
 
-		
 		// Zona Cliente
 		aInvoice.setAccountingCustomerParty(generarZonaInformacionCliente(factura.getCabeceraFactura()));
 
-		
 		// Zona Emisor
 		aInvoice.setAccountingSupplierParty(generarZonaInformacionEmisor(factura.getCabeceraFactura(), eCountry));
 
-		
 		// Zona Impuesto Total
 		aInvoice.addTaxTotal(generarImpuestosTotales(factura.getCabeceraFactura(), eCurrency));
 
-		
 		// Detalle Factura
 		for (int i = 0; i < factura.getDetalleFactura().size(); i++) {
 			aInvoice.addInvoiceLine(generarDetalleFactura(factura.getCabeceraFactura(),
 					factura.getDetalleFactura().get(i), eCurrency, i));
 		}
 
-		
 		// Total Monetario
 		aInvoice.setLegalMonetaryTotal(generarTotalMonetario(factura.getCabeceraFactura(), eCurrency));
 
-		
+		// 20100454523-01-F001-4375
+		String nombreArchivo = factura.getCabeceraFactura().getNumeroDocumento() + "-01-"
+				+ factura.getCabeceraFactura().getSerie() + "-" + factura.getCabeceraFactura().getNumeroCorrelativo()+".xml";
+
 		// Escribir archivo
 		return imprimirFacturaArchivo(aInvoice,
-				"D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\example.xml", "ISO-8859-1");
+				"D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\"+nombreArchivo, "ISO-8859-1");
 
-//		return imprimirFacturaArchivo(aInvoice,
-//				"C:\\DANC\\Spring\\proyectos\\facturacionelectronica\\src\\site\\example.xml", "ISO-8859-1");
+		// return imprimirFacturaArchivo(aInvoice,
+		// "C:\\DANC\\Spring\\proyectos\\facturacionelectronica\\src\\site\\example.xml",
+		// "ISO-8859-1");
 	}
-	
 
-//	----------------------------------------------------------------------------INICIO Generar Conversiones
+	// ----------------------------------------------------------------------------INICIO
+	// Generar Conversiones
 	private String obtenerCodigoTipoImpuesto(String tipoDocumentoFactura) {
 		// TODO Auto-generated method stub
 		return "VAT";
@@ -136,9 +132,9 @@ public class GeneradorFactura {
 		// TODO Auto-generated method stub
 		return UnitCodeContentType.ACRE;
 	}
-//	----------------------------------------------------------------------------FIN Generar Conversiones
-	
-	
+	// ----------------------------------------------------------------------------FIN
+	// Generar Conversiones
+
 	private void generarDatosBasicosFactura(InvoiceType aInvoice, CabeceraFactura cabeceraFactura,
 			CurrencyCodeContentType eCurrency, String versionUbl) {
 		aInvoice.setID(cabeceraFactura.getIdFactura());
@@ -216,7 +212,7 @@ public class GeneradorFactura {
 
 		signatureTypeDetail.setSignatureValue(signatureValueType);
 
-//		KeyInfoType keyInfoType = new KeyInfoType();
+		// KeyInfoType keyInfoType = new KeyInfoType();
 
 		UBLExtensionType ublExtensionTypeSignDetail = new UBLExtensionType();
 		ExtensionContentType extensionContentTypeSignDetail = new ExtensionContentType();
@@ -264,36 +260,34 @@ public class GeneradorFactura {
 		itemIdentificationType.setID(lineaDetalleFactura.getCodigoItem());
 
 		itemType.setSellersItemIdentification(itemIdentificationType);
-		
+
 		invoiceLineType.setItem(itemType);
-		
 
 		PricingReferenceType pricingReferenceType = new PricingReferenceType();
-		
+
 		List<PriceType> priceTypes = new ArrayList<PriceType>();
 
 		PriceAmountType priceAmountType = new PriceAmountType();
 		priceAmountType.setValue(lineaDetalleFactura.getValorUnitarioPorItem());
 		priceAmountType.setCurrencyID(eCurrency);
-		
+
 		PriceType priceTypeCode = new PriceType();
 		priceTypeCode.setPriceTypeCode(obtenerCodigoTipoPrecio(cabeceraFactura.getTipoDocumentoFactura()));
 		priceTypeCode.setPriceAmount(priceAmountType);
-		
+
 		priceTypes.add(priceTypeCode);
-		
+
 		pricingReferenceType.getAlternativeConditionPrice();
-		
+
 		pricingReferenceType.setAlternativeConditionPrice(priceTypes);
 
 		invoiceLineType.setPricingReference(pricingReferenceType);
 
 		PriceType priceType = new PriceType();
 		priceType.setPriceAmount(lineaDetalleFactura.getValorUnitarioPorItem()).setCurrencyID(eCurrency);
-		
+
 		invoiceLineType.setPrice(priceType);
-		
-		
+
 		// Zona Impuesto Items
 		TaxTotalType taxTotalType = new TaxTotalType();
 		taxTotalType.setTaxAmount(lineaDetalleFactura.getImpuestoPorItem()).setCurrencyID(eCurrency);
@@ -318,7 +312,6 @@ public class GeneradorFactura {
 
 		taxTotalType.addTaxSubtotal(taxSubtotalType);
 
-		
 		invoiceLineType.addTaxTotal(taxTotalType);
 
 		return invoiceLineType;
@@ -328,8 +321,6 @@ public class GeneradorFactura {
 		// TODO Auto-generated method stub
 		return "01";
 	}
-
-
 
 	private TaxTotalType generarImpuestosTotales(CabeceraFactura cabeceraFactura, CurrencyCodeContentType eCurrency) {
 		TaxTotalType taxTotalTypeTotal = new TaxTotalType();

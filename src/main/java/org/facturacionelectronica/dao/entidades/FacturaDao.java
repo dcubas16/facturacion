@@ -15,7 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.facturacionelectronica.entidades.CabeceraFactura;
-import org.facturacionelectronica.entidades.Factura;
 
 
 @Entity
@@ -113,10 +112,10 @@ public class FacturaDao {
 	private BigDecimal sumatoriaISC;
 
 	@Column(name = "TOTAL_DESCUENTOS", nullable=true)
-	private BigDecimal TotalDescuentos;
+	private BigDecimal totalDescuentos;
 
 	@Column(name = "IMPORTE_TOTAL_VENTA", nullable=true)
-	private BigDecimal ImporteTotalVenta;
+	private BigDecimal importeTotalVenta;
 
 	@Column(name = "LEYENDA", nullable=true)
 	private String leyenda;
@@ -128,10 +127,58 @@ public class FacturaDao {
 	private String moneda;
 	
 	
+	
+	@Column(name = "ESTADO", nullable=true)
+	private int estado;// 0=impotado ------ 1=enviado exito ------ 2=pendiente respuesta ------ -1=enviado con error
+	
+	@Column(name = "MENSAJE_ENVIO", nullable=true)
+	private String mensajeEnvio;
+	
+	@Column(name = "MENSAJE_RESPUESTA", nullable=true)
+	private String mensajeRespuesta;
+	
+	
+//	Fecha envio
+//	Fecha respuesta
+	
+	
+	
 	public FacturaDao() {}
 	
 	public FacturaDao(CabeceraFactura cabeceraFactura) {
+		super();
+		this.idFactura = cabeceraFactura.getIdFactura();
+		this.fechaEmision = cabeceraFactura.getFechaEmision();
+		this.razonSocial = cabeceraFactura.getRazonSocial();
+		this.nombreComercial = cabeceraFactura.getNombreComercial();
+		this.codigoUbigeo = cabeceraFactura.getCodigoUbigeo();
+		this.direccionCompleta = cabeceraFactura.getDireccionCompleta();
+		this.urbanizacion = cabeceraFactura.getUrbanizacion();
+		this.provincia = cabeceraFactura.getProvincia();
+		this.departamento = cabeceraFactura.getDepartamento();
+		this.distrito = cabeceraFactura.getDistrito();
+		this.codigoPais = cabeceraFactura.getCodigoPais();
+		this.numeroDocumento = cabeceraFactura.getNumeroDocumento();
+		this.tipoDocumento = cabeceraFactura.getTipoDocumento();
+		this.tipoDocumentoFactura = cabeceraFactura.getTipoDocumentoFactura();
+		this.serie = cabeceraFactura.getSerie();
+		this.numeroCorrelativo = cabeceraFactura.getNumeroCorrelativo();
+		this.numeroDocumentoCliente = cabeceraFactura.getNumeroDocumentoCliente();
+		this.tipoDocumentoCliente = cabeceraFactura.getTipoDocumentoCliente();
+		this.razonSocialCliente = cabeceraFactura. getRazonSocialCliente();
+		this.totalValorVentaOpGravadas = cabeceraFactura.getTotalValorVentaOpGravadas();
+		this.totalValorVentaOpInafecta = cabeceraFactura.getTotalValorVentaOpInafecta();
+		this.totalValorVentaOpExoneradas = cabeceraFactura.getTotalValorVentaOpExoneradas();
+		this.totalValorVentaOpGratuitas = cabeceraFactura.getTotalValorVentaOpGratuitas();
+		this.sumatoriaIGV = cabeceraFactura.getSumatoriaIGV();
+		this.sumatoriaISC = cabeceraFactura.getSumatoriaISC();
+		this.totalDescuentos = cabeceraFactura.getTotalDescuentos();
+		this.importeTotalVenta = cabeceraFactura.getImporteTotalVenta();
+		this.leyenda = cabeceraFactura.getLeyenda();
 		
+//------------->OJO
+		this.porcentajeImpuesto = 18.0;
+		this.moneda = "";
 	}
 		
 	public FacturaDao(String idFactura, Date fechaEmision, String razonSocial,
@@ -169,8 +216,8 @@ public class FacturaDao {
 		this.totalValorVentaOpGratuitas = totalValorVentaOpGratuitas;
 		this.sumatoriaIGV = sumatoriaIGV;
 		this.sumatoriaISC = sumatoriaISC;
-		TotalDescuentos = totalDescuentos;
-		ImporteTotalVenta = importeTotalVenta;
+		this.totalDescuentos = totalDescuentos;
+		this.importeTotalVenta = importeTotalVenta;
 		this.leyenda = leyenda;
 		this.porcentajeImpuesto = porcentajeImpuesto;
 		this.moneda = moneda;
@@ -385,19 +432,19 @@ public class FacturaDao {
 	}
 
 	public BigDecimal getTotalDescuentos() {
-		return TotalDescuentos;
+		return totalDescuentos;
 	}
 
 	public void setTotalDescuentos(BigDecimal totalDescuentos) {
-		TotalDescuentos = totalDescuentos;
+		this.totalDescuentos = totalDescuentos;
 	}
 
 	public BigDecimal getImporteTotalVenta() {
-		return ImporteTotalVenta;
+		return importeTotalVenta;
 	}
 
 	public void setImporteTotalVenta(BigDecimal importeTotalVenta) {
-		ImporteTotalVenta = importeTotalVenta;
+		this.importeTotalVenta = importeTotalVenta;
 	}
 
 	public String getLeyenda() {
@@ -422,6 +469,30 @@ public class FacturaDao {
 
 	public void setMoneda(String moneda) {
 		this.moneda = moneda;
+	}
+
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+
+	public String getMensajeEnvio() {
+		return mensajeEnvio;
+	}
+
+	public void setMensajeEnvio(String mensajeEnvio) {
+		this.mensajeEnvio = mensajeEnvio;
+	}
+
+	public String getMensajeRespuesta() {
+		return mensajeRespuesta;
+	}
+
+	public void setMensajeRespuesta(String mensajeRespuesta) {
+		this.mensajeRespuesta = mensajeRespuesta;
 	}
 	
 }

@@ -2,6 +2,8 @@ package org.facturacionelectronica.entidades;
 
 import java.math.BigDecimal;
 
+import org.facturacionelectronica.dao.entidades.DetalleFacturaDao;
+
 public class DetalleFactura {
 	
 	private int numeroOrden;//33
@@ -25,6 +27,22 @@ public class DetalleFactura {
 	
 	
 	public DetalleFactura() {}
+	
+	public DetalleFactura(DetalleFacturaDao detalleFacturaDao) {
+		super();
+		this.numeroOrden = detalleFacturaDao.getNumeroOrden();
+		this.unidadMedida = detalleFacturaDao.getUnidadMedida() ;
+		this.codigoItem = detalleFacturaDao.getCodigoItem() ;
+		this.descripcionItem = detalleFacturaDao.getDescripcionItem() ;
+		this.cantidad = detalleFacturaDao.getCantidad() ;
+		this.valorUnitarioPorItem = detalleFacturaDao.getValorUnitarioPorItem() ;
+		this.precioVentaUnitarioPorItem = detalleFacturaDao.getPrecioVentaUnitarioPorItem() ;
+		this.impuestoUnitarioPorItem = detalleFacturaDao.getImpuestoUnitarioPorItem() ;
+		this.valorVentaBruto = detalleFacturaDao.getValorVentaBruto() ;
+		this.valorVentaPorItem = detalleFacturaDao.getValorVentaPorItem() ;
+		this.impuestoPorItem = detalleFacturaDao.getImpuestoPorItem() ;
+		this.porcentajeImpuestoItem = detalleFacturaDao.getPorcentajeImpuestoItem() ;
+	}
 		
 	public DetalleFactura(int numeroOrden, String unidadMedida, String codigoItem, String descripcionItem, int cantidad,
 			BigDecimal valorUnitarioPorItem, BigDecimal precioVentaUnitarioPorItem, BigDecimal impuestoUnitarioPorItem,

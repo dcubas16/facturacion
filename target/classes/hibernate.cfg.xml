@@ -21,8 +21,8 @@
 		<property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
 
 <!-- 		<property name="hbm2ddl.auto">create-drop</property> -->
-		<property name="hbm2ddl.auto">update</property>
-<!-- 		<property name="import_files">/import.sql</property> -->
+<!-- 		<property name="hbm2ddl.auto">create</property> -->
+<!-- 		<property name="hbm2ddl.auto">update</property> -->
 
 		<!-- Mapping With Model Class Containing Annotations -->
 		<mapping class="org.facturacionelectronica.dao.entidades.FacturaDao" />

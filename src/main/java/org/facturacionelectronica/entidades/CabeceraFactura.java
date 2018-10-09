@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
+import org.facturacionelectronica.dao.entidades.FacturaDao;
+
 public class CabeceraFactura {
 
 	private String idFactura;
@@ -36,16 +38,50 @@ public class CabeceraFactura {
 	private BigDecimal totalValorVentaOpGratuitas;//49
 	private BigDecimal sumatoriaIGV;
 	private BigDecimal sumatoriaISC;
-	private BigDecimal TotalDescuentos;
-	private BigDecimal ImporteTotalVenta;//27
+	private BigDecimal totalDescuentos;
+	private BigDecimal importeTotalVenta;//27
 	
-//	private String moneda;//28
-//	private String versionUBL;//36
+	private String moneda;//28
+	private String versionUBL;//36
 	
 	
 	private String leyenda;
 
 	public CabeceraFactura() {}
+	
+	public CabeceraFactura(FacturaDao facturaDao) {
+		super();
+		this.idFactura = facturaDao.getIdFactura();
+//		this.idCustomization = facturaDao.idCustomization;
+		this.fechaEmision = facturaDao.getFechaEmision();
+//		this.firmaDigital = facturaDao.firmaDigital;
+		this.razonSocial = facturaDao.getRazonSocial();
+		this.nombreComercial = facturaDao.getNombreComercial();
+		this.codigoUbigeo = facturaDao.getCodigoUbigeo();
+		this.direccionCompleta = facturaDao.getDireccionCompleta();
+		this.urbanizacion = facturaDao.getUrbanizacion();
+		this.provincia = facturaDao.getProvincia();
+		this.departamento = facturaDao.getDepartamento();
+		this.distrito = facturaDao.getDistrito();
+		this.codigoPais = facturaDao.getCodigoPais();
+		this.numeroDocumento = facturaDao.getNumeroDocumento();
+		this.tipoDocumento = facturaDao.getTipoDocumento();
+		this.tipoDocumentoFactura = facturaDao.getTipoDocumentoFactura();
+		this.serie = facturaDao.getSerie();
+		this.numeroCorrelativo = facturaDao.getNumeroCorrelativo();
+		this.numeroDocumentoCliente = facturaDao.getNumeroDocumentoCliente();
+		this.tipoDocumentoCliente = facturaDao.getTipoDocumentoCliente();
+		this.razonSocialCliente = facturaDao.getRazonSocialCliente();
+		this.totalValorVentaOpGravadas = facturaDao.getTotalValorVentaOpGravadas();
+		this.totalValorVentaOpInafecta = facturaDao.getTotalValorVentaOpInafecta();
+		this.totalValorVentaOpExoneradas = facturaDao.getTotalValorVentaOpExoneradas();
+		this.totalValorVentaOpGratuitas = facturaDao.getTotalValorVentaOpGratuitas();
+		this.sumatoriaIGV = facturaDao.getSumatoriaIGV();
+		this.sumatoriaISC = facturaDao.getSumatoriaISC();
+		this.totalDescuentos = facturaDao.getTotalDescuentos();
+		this.importeTotalVenta = facturaDao.getImporteTotalVenta();
+		this.leyenda = facturaDao.getLeyenda();
+	}
 		
 	public CabeceraFactura(String idFactura, String idCustomization, Date fechaEmision, String firmaDigital,
 			String razonSocial, String nombreComercial, String codigoUbigeo, String direccionCompleta,
@@ -83,8 +119,8 @@ public class CabeceraFactura {
 		this.totalValorVentaOpGratuitas = totalValorVentaOpGratuitas;
 		this.sumatoriaIGV = sumatoriaIGV;
 		this.sumatoriaISC = sumatoriaISC;
-		TotalDescuentos = totalDescuentos;
-		ImporteTotalVenta = importeTotalVenta;
+		this.totalDescuentos = totalDescuentos;
+		this.importeTotalVenta = importeTotalVenta;
 		this.leyenda = leyenda;
 	}
 
@@ -289,19 +325,19 @@ public class CabeceraFactura {
 	}
 
 	public BigDecimal getTotalDescuentos() {
-		return TotalDescuentos;
+		return totalDescuentos;
 	}
 
 	public void setTotalDescuentos(BigDecimal totalDescuentos) {
-		TotalDescuentos = totalDescuentos;
+		this.totalDescuentos = totalDescuentos;
 	}
 
 	public BigDecimal getImporteTotalVenta() {
-		return ImporteTotalVenta;
+		return importeTotalVenta;
 	}
 
 	public void setImporteTotalVenta(BigDecimal importeTotalVenta) {
-		ImporteTotalVenta = importeTotalVenta;
+		this.importeTotalVenta = importeTotalVenta;
 	}
 
 	public String getLeyenda() {
@@ -326,6 +362,22 @@ public class CabeceraFactura {
 
 	public void setIdCustomization(String idCustomization) {
 		this.idCustomization = idCustomization;
+	}
+
+	public String getMoneda() {
+		return moneda;
+	}
+
+	public void setMoneda(String moneda) {
+		this.moneda = moneda;
+	}
+
+	public String getVersionUBL() {
+		return versionUBL;
+	}
+
+	public void setVersionUBL(String versionUBL) {
+		this.versionUBL = versionUBL;
 	}
 	
 }
