@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.DetalleFactura;
+import org.facturacionelectronica.util.Constantes;
 
 public class ManejadorArchivos {
 
@@ -196,5 +197,7 @@ public class ManejadorArchivos {
 		}
 		return false;
 	}
+	
+
 
 }

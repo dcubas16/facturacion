@@ -110,6 +110,8 @@ public class GeneradorFactura {
 		// Escribir archivo
 		return imprimirFacturaArchivo(aInvoice,
 				"D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\"+nombreArchivo, "ISO-8859-1");
+		
+		
 
 		// return imprimirFacturaArchivo(aInvoice,
 		// "C:\\DANC\\Spring\\proyectos\\facturacionelectronica\\src\\site\\example.xml",

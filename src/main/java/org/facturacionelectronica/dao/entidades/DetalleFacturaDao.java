@@ -33,34 +33,34 @@ public class DetalleFacturaDao {
 	@Column(name = "ID_DETALLE_FACTURA", nullable = false)
 	private int idDetalleFactura;
 	
-	@Column(name = "NUMERO_ORDEN", nullable=true)
+	@Column(name = "NUMERO_ORDEN", nullable=false, length=3)
 	private int numeroOrden;
 
-	@Column(name = "UNIDAD_MEDIDA", nullable=true)
+	@Column(name = "UNIDAD_MEDIDA", nullable=false, length=3)
 	private String unidadMedida;
 
-	@Column(name = "CODIGO_ITEM", nullable=true)
+	@Column(name = "CODIGO_ITEM", nullable=true, length=30 )
 	private String codigoItem;
 
-	@Column(name = "DESCRIPCION_ITEM", nullable=true)
+	@Column(name = "DESCRIPCION_ITEM", nullable=false, length=250)
 	private String descripcionItem;
 
-	@Column(name = "CANTIDAD", nullable=true)	
+	@Column(name = "CANTIDAD", nullable=false, precision=12, scale=3)	
 	private int cantidad;
 
-	@Column(name = "VALOR_UNITARIO_POR_ITEM", nullable=true)
+	@Column(name = "VALOR_UNITARIO_POR_ITEM", nullable=false, precision=12, scale=2)
 	private BigDecimal valorUnitarioPorItem;//83.05 -- precio del item sin IGV
 
-	@Column(name = "PRECIO_VENTA_UNITARIO_POR_ITEM", nullable=true)
+	@Column(name = "PRECIO_VENTA_UNITARIO_POR_ITEM", nullable=false, precision=12, scale=3)
 	private BigDecimal precioVentaUnitarioPorItem;//98.00 -- precio de item con IGV
 
-	@Column(name = "IMPUESTO_UNITARIO_POR_ITEM", nullable=true)
+	@Column(name = "IMPUESTO_UNITARIO_POR_ITEM", nullable=false, precision=12, scale=3)
 	private BigDecimal impuestoUnitarioPorItem;//98.00 -- precio de item con IGV
 
 	@Column(name = "VALOR_VENTA_BRUTO", nullable=true)
 	private BigDecimal valorVentaBruto;//valorUnitarioPorItem x cantidad
 
-	@Column(name = "VALOR_VENTA_POR_ITEM", nullable=true)
+	@Column(name = "VALOR_VENTA_POR_ITEM", nullable=false, precision=14, scale=2)
 	private BigDecimal valorVentaPorItem;//149,491.53 -- precio total del item con impuestos y descuentos
 
 	@Column(name = "IMPUESTO_POR_ITEM", nullable=true)

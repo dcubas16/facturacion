@@ -31,7 +31,7 @@ public class FacturaDao {
 	@Column(name = "ID_FACTURA", unique = true, nullable = false)
 	private String idFactura;
 		
-	@Column(name = "FECHA_EMISION", nullable=true)
+	@Column(name = "FECHA_EMISION", nullable=false)
 	private Date fechaEmision;
 	
 //	@Column(name = "ID_CUSTOMIZACION", nullable=true)
@@ -40,90 +40,90 @@ public class FacturaDao {
 //	@Column(name = "FIRMA_DIGITAL", nullable=true)
 //	private String firmaDigital;
 	
-	@Column(name = "RAZON_SOCIAL", nullable=true)
+	@Column(name = "RAZON_SOCIAL", nullable=false, length=100)
 	private String razonSocial;
 	
-	@Column(name = "NOMBRE_COMERCIAL", nullable=true)
+	@Column(name = "NOMBRE_COMERCIAL", nullable=false, length=100)
 	private String nombreComercial;
 	
-	@Column(name = "CODIGO_UBIGEO", nullable=true)
+	@Column(name = "CODIGO_UBIGEO", nullable=true, length=6)
 	private String codigoUbigeo;
 	
-	@Column(name = "DIRECCION_COMPLETA", nullable=true)
+	@Column(name = "DIRECCION_COMPLETA", nullable=true, length=100)
 	private String direccionCompleta;
 
-	@Column(name = "URBANIZACION", nullable=true)
+	@Column(name = "URBANIZACION", nullable=true, length=25)
 	private String urbanizacion;
 
-	@Column(name = "PROVINCIA", nullable=true)
+	@Column(name = "PROVINCIA", nullable=true, length=30)
 	private String provincia;
 
-	@Column(name = "DEPARTAMENTO", nullable=true)
+	@Column(name = "DEPARTAMENTO", nullable=true, length=30)
 	private String departamento;
 
-	@Column(name = "DISTRITO", nullable=true)
+	@Column(name = "DISTRITO", nullable=true, length=30)
 	private String distrito;
 
-	@Column(name = "CODIGO_PAIS", nullable=true)
+	@Column(name = "CODIGO_PAIS", nullable=true, length=2)
 	private String codigoPais;
 
-	@Column(name = "NUMERO_DOC", nullable=true)
+	@Column(name = "NUMERO_DOC", nullable=false, precision=11, scale=0)
 	private BigInteger numeroDocumento;
 
-	@Column(name = "TIPO_DOCUMENTO", nullable=true)
+	@Column(name = "TIPO_DOCUMENTO", nullable=false, length=1)
 	private int tipoDocumento;
 
-	@Column(name = "TIPO_DOC_FACTURA", nullable=true)
+	@Column(name = "TIPO_DOC_FACTURA", nullable=false, length=2)
 	private String tipoDocumentoFactura;
 
-	@Column(name = "SERIE", nullable=true)
+	@Column(name = "SERIE", nullable=false, length=4)
 	private String serie;
 
-	@Column(name = "NUMERO_CORRELATIVO", nullable=true)
+	@Column(name = "NUMERO_CORRELATIVO", nullable=false, length=8)
 	private String numeroCorrelativo;
 
 
-	@Column(name = "NUMERO_DOC_CLIENTE", nullable=true)
+	@Column(name = "NUMERO_DOC_CLIENTE", nullable=false, length=15)
 	private String numeroDocumentoCliente;
 
-	@Column(name = "TIPO_DOC_CLIENTE", nullable=true)
+	@Column(name = "TIPO_DOC_CLIENTE", nullable=false, length=1)
 	private String tipoDocumentoCliente;
 
-	@Column(name = "RAZON_SOCIAL_CLIENTE", nullable=true)
+	@Column(name = "RAZON_SOCIAL_CLIENTE", nullable=false, length=100)
 	private String razonSocialCliente;
 
 
-	@Column(name = "TOTAL_VALOR_VENTA_OP_GRAVADA", nullable=true)
+	@Column(name = "TOTAL_VALOR_VENTA_OP_GRAVADA", nullable=false, precision=14, scale=2)
 	private BigDecimal totalValorVentaOpGravadas;
 
-	@Column(name = "TOTAL_VALOR_VENTA_OP_INAFEC", nullable=true)
+	@Column(name = "TOTAL_VALOR_VENTA_OP_INAFEC", nullable=false, precision=14, scale=2)
 	private BigDecimal totalValorVentaOpInafecta;
 
-	@Column(name = "TOTAL_VALOR_VENTA_OP_EXONERA", nullable=true)
+	@Column(name = "TOTAL_VALOR_VENTA_OP_EXONERA", nullable=true, precision=15, scale=2)
 	private BigDecimal totalValorVentaOpExoneradas;
 
-	@Column(name = "TOTAL_VALOR_VENTA_OP_GRAT", nullable=true)
+	@Column(name = "TOTAL_VALOR_VENTA_OP_GRAT", nullable=true, precision=15, scale=2)
 	private BigDecimal totalValorVentaOpGratuitas;
 
-	@Column(name = "SUMATORIA_IGV", nullable=true)
+	@Column(name = "SUMATORIA_IGV", nullable=true, precision=14, scale=2)
 	private BigDecimal sumatoriaIGV;
 
-	@Column(name = "SUMATORIA_ISC", nullable=true)
+	@Column(name = "SUMATORIA_ISC", nullable=true, precision=14, scale=2)
 	private BigDecimal sumatoriaISC;
 
-	@Column(name = "TOTAL_DESCUENTOS", nullable=true)
+	@Column(name = "TOTAL_DESCUENTOS", nullable=true, precision=14, scale=2)
 	private BigDecimal totalDescuentos;
 
-	@Column(name = "IMPORTE_TOTAL_VENTA", nullable=true)
+	@Column(name = "IMPORTE_TOTAL_VENTA", nullable=false, precision=14, scale=2)
 	private BigDecimal importeTotalVenta;
 
-	@Column(name = "LEYENDA", nullable=true)
+	@Column(name = "LEYENDA", nullable=true, length=100)
 	private String leyenda;
 
-	@Column(name = "PORCENTAJE_IMPUESTO", nullable=true)
+	@Column(name = "PORCENTAJE_IMPUESTO", nullable=true, precision=4, scale=2)
 	private double porcentajeImpuesto;
 
-	@Column(name = "MONEDA", nullable=true)
+	@Column(name = "MONEDA", nullable=false, length=3)
 	private String moneda;
 	
 	
@@ -131,10 +131,10 @@ public class FacturaDao {
 	@Column(name = "ESTADO", nullable=true)
 	private int estado;// 0=impotado ------ 1=enviado exito ------ 2=pendiente respuesta ------ -1=enviado con error
 	
-	@Column(name = "MENSAJE_ENVIO", nullable=true)
+	@Column(name = "MENSAJE_ENVIO", nullable=true, length=1000)
 	private String mensajeEnvio;
 	
-	@Column(name = "MENSAJE_RESPUESTA", nullable=true)
+	@Column(name = "MENSAJE_RESPUESTA", nullable=true, length=1000)
 	private String mensajeRespuesta;
 	
 	
