@@ -1,11 +1,5 @@
 package org.facturacionelectronica.servicios;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +10,12 @@ import javax.xml.transform.dom.DOMResult;
 import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.entidades.Factura;
+import org.facturacionelectronica.util.Constantes;
 import org.w3c.dom.Document;
 
 import com.helger.commons.locale.country.ECountry;
 import com.helger.commons.state.ESuccess;
 import com.helger.datetime.util.PDTXMLConverter;
-import com.helger.ublpe.UBLPEWriter;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_2.AddressType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_2.AttachmentType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_2.CountryType;
@@ -104,18 +98,23 @@ public class GeneradorFactura {
 		aInvoice.setLegalMonetaryTotal(generarTotalMonetario(factura.getCabeceraFactura(), eCurrency));
 
 		// 20100454523-01-F001-4375
-		String nombreArchivo = factura.getCabeceraFactura().getNumeroDocumento() + "-01-"
-				+ factura.getCabeceraFactura().getSerie() + "-" + factura.getCabeceraFactura().getNumeroCorrelativo()+".xml";
+		String nombreArchivo = factura.getCabeceraFactura().getNumeroDocumento() + Constantes.separadorNombreArchivo
+				+ factura.getCabeceraFactura().getTipoDocumentoFactura() + Constantes.separadorNombreArchivo
+				+ factura.getCabeceraFactura().getSerie() + Constantes.separadorNombreArchivo
+				+ factura.getCabeceraFactura().getNumeroCorrelativo();
 
-		// Escribir archivo
-		return imprimirFacturaArchivo(aInvoice,
-				"D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\"+nombreArchivo, "ISO-8859-1");
-		
-		
+		// Escribir archivo XML
+		ESuccess eSuccess = GestorArchivosXML.imprimirFacturaArchivo(aInvoice,
+				Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
+				Constantes.estandarXml);
 
-		// return imprimirFacturaArchivo(aInvoice,
-		// "C:\\DANC\\Spring\\proyectos\\facturacionelectronica\\src\\site\\example.xml",
-		// "ISO-8859-1");
+		// Generar archivo ZIP
+		Compresor.comprimirArchivo(
+				Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionZip,
+				Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
+				nombreArchivo + Constantes.extensionXml);
+
+		return eSuccess;
 	}
 
 	// ----------------------------------------------------------------------------INICIO
@@ -383,26 +382,6 @@ public class GeneradorFactura {
 
 		return ublExtensionsTypeAdditional;
 
-	}
-
-	public ESuccess imprimirFacturaArchivo(InvoiceType invoiceType, String ruta, String formato) {
-
-		Writer writer = null;
-
-		try {
-			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ruta), formato));
-		} catch (IOException ex) {
-			// Report
-		} finally {
-			try {
-				writer.close();
-			} catch (Exception ex) {
-				/* ignore */}
-		}
-
-		final ESuccess eSuccess = UBLPEWriter.invoice().write(invoiceType, new File(ruta));
-
-		return eSuccess;
 	}
 
 	public CustomerPartyType generarZonaInformacionCliente(CabeceraFactura cabeceraFactura) {

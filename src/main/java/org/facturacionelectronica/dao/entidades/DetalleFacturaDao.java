@@ -54,7 +54,7 @@ public class DetalleFacturaDao {
 	@Column(name = "PRECIO_VENTA_UNITARIO_POR_ITEM", nullable=false, precision=12, scale=3)
 	private BigDecimal precioVentaUnitarioPorItem;//98.00 -- precio de item con IGV
 
-	@Column(name = "IMPUESTO_UNITARIO_POR_ITEM", nullable=false, precision=12, scale=3)
+	@Column(name = "IMPUESTO_UNITARIO_POR_ITEM", nullable=true, precision=12, scale=3)
 	private BigDecimal impuestoUnitarioPorItem;//98.00 -- precio de item con IGV
 
 	@Column(name = "VALOR_VENTA_BRUTO", nullable=true)

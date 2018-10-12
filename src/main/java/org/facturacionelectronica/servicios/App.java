@@ -1,6 +1,5 @@
 package org.facturacionelectronica.servicios;
 
-import java.math.BigInteger;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,12 +7,12 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.BasicConfigurator;
+import org.facturacionelectronica.dao.ConfiguracionBaseDatos;
 import org.facturacionelectronica.dao.entidades.DetalleFacturaDao;
 import org.facturacionelectronica.dao.entidades.FacturaDao;
 import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.entidades.Factura;
-import org.facturacionelectronica.servicios.*;
 import org.facturacionelectronica.util.Constantes;
 
 import com.helger.commons.state.ESuccess;
@@ -23,6 +22,7 @@ import com.helger.commons.state.ESuccess;
  *
  */
 public class App {
+
 	public static void main(String[] args) throws ParserConfigurationException {
 		BasicConfigurator.configure();
 		System.out.println("------------------>Iniciando Importacion Archivos");
@@ -32,8 +32,8 @@ public class App {
 		ExportadorBaseDatos exportadorBaseDatos = new ExportadorBaseDatos();
 
 		try {
-			boolean respuesta = exportadorBaseDatos.exportarFacturas(
-					"D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\factura.txt");
+			boolean respuesta = exportadorBaseDatos
+					.exportarFacturas(Constantes.rutaCompleta + Constantes.rutaImportar + Constantes.archivoImportar);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,14 +41,17 @@ public class App {
 
 		System.out.println("------------------>Obteniendo Facturas Importadas de Base de Datos");
 		GestorWebService gestorWebService = new GestorWebService();
-		GeneradorZip generadorZip = new GeneradorZip();
+
+		// AQUI SE DEBE GENERAR EL ZIP
 
 		List<FacturaDao> listaFacturaDao = exportadorBaseDatos.obtenerFacturasImportadas();
-
+		
 		for (FacturaDao facturaDao : listaFacturaDao) {
+		
 
 			List<DetalleFacturaDao> listDetalleFacturaDao = exportadorBaseDatos
 					.obtenerDetalleFactura(facturaDao.getIdFactura());
+			
 			List<DetalleFactura> listaDetalleFactura = new ArrayList<DetalleFactura>();
 
 			for (DetalleFacturaDao detalleFacturaDao : listDetalleFacturaDao) {
@@ -60,24 +63,24 @@ public class App {
 			factura.setDetalleFactura(listaDetalleFactura);
 
 			GeneradorFactura generadorFactura = new GeneradorFactura();
-			
+
 			ESuccess eSuccess = generadorFactura.generarFactura(factura);
-			String nombreArchivo = gestorWebService.obtenerNombreArchivoFactura(factura.getCabeceraFactura().getNumeroDocumento(), factura.getCabeceraFactura().getTipoDocumentoFactura(), factura.getCabeceraFactura().getSerie() , factura.getCabeceraFactura().getNumeroCorrelativo());
-			String nombreArchivoXml = nombreArchivo+Constantes.extensionXml;
-			String nombreArchivoZip = nombreArchivo+Constantes.extensionZip;;
-			
-			if(eSuccess.isSuccess()) {
-				
-				
-				gestorWebService.enviarFacturaSunat(Constantes.rutaCompleta, nombreArchivoZip, Constantes.usuarioPruebas, Constantes.contraseniaPruebas);
+			String nombreArchivo = gestorWebService.obtenerNombreArchivoFactura(
+					factura.getCabeceraFactura().getNumeroDocumento(),
+					factura.getCabeceraFactura().getTipoDocumentoFactura(), factura.getCabeceraFactura().getSerie(),
+					factura.getCabeceraFactura().getNumeroCorrelativo());
+
+			if (eSuccess.isSuccess()) {
+
+				gestorWebService.enviarFacturaSunat(factura.getCabeceraFactura().getIdFactura(),
+						Constantes.rutaCompleta + Constantes.rutaSolicitud, nombreArchivo + Constantes.extensionZip,
+						nombreArchivo + Constantes.extensionXml,
+						factura.getCabeceraFactura().getNumeroDocumento() + Constantes.usuarioPruebas,
+						Constantes.contraseniaPruebas);
 			}
-			
-			
-			
+
 		}
 
 	}
-
-	
 
 }

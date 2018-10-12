@@ -71,28 +71,30 @@ public class GeneradorFacturaDao {
 
 		session = ConfiguracionBaseDatos.getSessionFactory().openSession();
 
-		Query query = session.createSQLQuery("SELECT * FROM DETALLE_FACTURA where id_factura = :id_factura");
+		Query query = session.createQuery("FROM DetalleFacturaDao where id_factura = :id_factura");
 		query.setParameter("id_factura", idFactura);
 
-		listaDetalleFacturaDao = query.list();
+		listaDetalleFacturaDao = (List<DetalleFacturaDao>) query.list();
 
 		session.close();
 
 		return listaDetalleFacturaDao;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<FacturaDao> obtenerFacturasImportadas() {
 		
 		List<FacturaDao> listaFacturaDao = new ArrayList<FacturaDao>();
 
 		session = ConfiguracionBaseDatos.getSessionFactory().openSession();
 
-		Query query = session.createSQLQuery("SELECT * FROM FACTURA WHERE ESTADO = 0");
-
-		listaFacturaDao = query.list();
+		Query query = session.createQuery("FROM FacturaDao WHERE ESTADO = :estado");
+		query.setParameter("estado", 0);
+				
+		listaFacturaDao = (List<FacturaDao>)query.list();
 
 		session.close();
-
+		
 		return listaFacturaDao;
 	}
 

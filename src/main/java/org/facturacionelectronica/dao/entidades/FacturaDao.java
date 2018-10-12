@@ -96,7 +96,7 @@ public class FacturaDao {
 	@Column(name = "TOTAL_VALOR_VENTA_OP_GRAVADA", nullable=false, precision=14, scale=2)
 	private BigDecimal totalValorVentaOpGravadas;
 
-	@Column(name = "TOTAL_VALOR_VENTA_OP_INAFEC", nullable=false, precision=14, scale=2)
+	@Column(name = "TOTAL_VALOR_VENTA_OP_INAFEC", nullable=true, precision=14, scale=2)
 	private BigDecimal totalValorVentaOpInafecta;
 
 	@Column(name = "TOTAL_VALOR_VENTA_OP_EXONERA", nullable=true, precision=15, scale=2)
