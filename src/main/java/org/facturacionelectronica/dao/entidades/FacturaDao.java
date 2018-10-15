@@ -141,8 +141,7 @@ public class FacturaDao {
 //	Fecha envio
 //	Fecha respuesta
 	
-	
-	
+		
 	public FacturaDao() {}
 	
 	public FacturaDao(CabeceraFactura cabeceraFactura) {

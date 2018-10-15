@@ -46,7 +46,7 @@ public class DetalleFacturaDao {
 	private String descripcionItem;
 
 	@Column(name = "CANTIDAD", nullable=false, precision=12, scale=3)	
-	private int cantidad;
+	private BigDecimal cantidad;
 
 	@Column(name = "VALOR_UNITARIO_POR_ITEM", nullable=false, precision=12, scale=2)
 	private BigDecimal valorUnitarioPorItem;//83.05 -- precio del item sin IGV
@@ -73,7 +73,7 @@ public class DetalleFacturaDao {
 	public DetalleFacturaDao() {}
 
 	public DetalleFacturaDao(int idDetalleFactura, int numeroOrden, String unidadMedida,
-			String codigoItem, String descripcionItem, int cantidad, BigDecimal valorUnitarioPorItem,
+			String codigoItem, String descripcionItem, BigDecimal cantidad, BigDecimal valorUnitarioPorItem,
 			BigDecimal precioVentaUnitarioPorItem, BigDecimal impuestoUnitarioPorItem, BigDecimal valorVentaBruto,
 			BigDecimal valorVentaPorItem, BigDecimal impuestoPorItem, BigDecimal porcentajeImpuestoItem) {
 		super();
@@ -157,11 +157,11 @@ public class DetalleFacturaDao {
 		this.descripcionItem = descripcionItem;
 	}
 
-	public int getCantidad() {
+	public BigDecimal getCantidad() {
 		return cantidad;
 	}
 
-	public void setCantidad(int cantidad) {
+	public void setCantidad(BigDecimal cantidad) {
 		this.cantidad = cantidad;
 	}
 

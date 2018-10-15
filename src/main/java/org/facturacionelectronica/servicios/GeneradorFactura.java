@@ -12,7 +12,6 @@ import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.entidades.Factura;
 import org.facturacionelectronica.util.Constantes;
 import org.w3c.dom.Document;
-
 import com.helger.commons.locale.country.ECountry;
 import com.helger.commons.state.ESuccess;
 import com.helger.datetime.util.PDTXMLConverter;
@@ -42,6 +41,7 @@ import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_2.Customer
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_2.DescriptionType;
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_2.IDType;
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_2.PayableAmountType;
+import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_2.PercentType;
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_2.PriceAmountType;
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_2.ValueType;
 import oasis.names.specification.ubl.schema.xsd.commonextensioncomponents_2.ExtensionContentType;
@@ -57,7 +57,7 @@ import org.w3._2000._09.xmldsig_.*;
 
 public class GeneradorFactura {
 
-	public ESuccess generarFactura(Factura factura) throws ParserConfigurationException {
+	public ESuccess generarFactura(Factura factura) throws Exception {
 
 		final CurrencyCodeContentType eCurrency = CurrencyCodeContentType.PEN;
 
@@ -68,17 +68,27 @@ public class GeneradorFactura {
 		// Zona Informacion Basica
 		generarDatosBasicosFactura(aInvoice, factura.getCabeceraFactura(), eCurrency, "2.0");
 
+		
+		//Zona Agregar tag extension
+//		UBLExtensionsType ublExtensionsType = new UBLExtensionsType();
+//		aInvoice.setUBLExtensions(ublExtensionsType);
+		
+		
 		// Zona Informacion Adicional
-		UBLExtensionsType ublExtensionsTypeAdditional = generarInformacionAdicional(factura.getCabeceraFactura(),
-				eCurrency);
-		aInvoice.setUBLExtensions(ublExtensionsTypeAdditional);
+//		UBLExtensionsType ublExtensionsTypeAdditional = generarInformacionAdicional(factura.getCabeceraFactura(),
+//				eCurrency);
+//		aInvoice.setUBLExtensions(ublExtensionsTypeAdditional);
 
+		
 		// Zona firma detalle
-		ublExtensionsTypeAdditional.addUBLExtension(generarDetalleFirma(factura.getCabeceraFactura()));
+//		ublExtensionsTypeAdditional.addUBLExtension(generarDetalleFirma(factura.getCabeceraFactura()));
 
+		
 		// Zona firma cabecera
 		aInvoice.addSignature(generarCabeceraFirma(factura.getCabeceraFactura()));
 
+		
+		
 		// Zona Cliente
 		aInvoice.setAccountingCustomerParty(generarZonaInformacionCliente(factura.getCabeceraFactura()));
 
@@ -107,12 +117,6 @@ public class GeneradorFactura {
 		ESuccess eSuccess = GestorArchivosXML.imprimirFacturaArchivo(aInvoice,
 				Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
 				Constantes.estandarXml);
-
-		// Generar archivo ZIP
-		Compresor.comprimirArchivo(
-				Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionZip,
-				Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
-				nombreArchivo + Constantes.extensionXml);
 
 		return eSuccess;
 	}
@@ -148,14 +152,14 @@ public class GeneradorFactura {
 
 	private SignatureType generarCabeceraFirma(CabeceraFactura cabeceraFactura) {
 		SignatureType signatureType = new SignatureType();
-		signatureType.setID("IDSignSP");
+		signatureType.setID("SignSUNAT");
 
 		PartyType partyTypeSignature = new PartyType();
 		PartyIdentificationType partyIdentificationType = new PartyIdentificationType();
 		partyIdentificationType.setID(cabeceraFactura.getNumeroDocumento().toString());
 
 		PartyNameType partyNameType = new PartyNameType();
-		partyNameType.setName(cabeceraFactura.getRazonSocial());
+		partyNameType.setName(cabeceraFactura.getNombreComercial());
 		partyTypeSignature.addPartyName(partyNameType);
 		partyTypeSignature.addPartyIdentification(partyIdentificationType);
 
@@ -164,7 +168,7 @@ public class GeneradorFactura {
 		AttachmentType attachmentType = new AttachmentType();
 
 		ExternalReferenceType externalReferenceType = new ExternalReferenceType();
-		externalReferenceType.setURI("#SignatureSP");
+		externalReferenceType.setURI(cabeceraFactura.getNumeroDocumento().toString());
 		attachmentType.setExternalReference(externalReferenceType);
 
 		signatureType.setDigitalSignatureAttachment(attachmentType);
@@ -246,7 +250,7 @@ public class GeneradorFactura {
 		InvoiceLineType invoiceLineType = new InvoiceLineType();
 
 		invoiceLineType.setID(Integer.toString(id));
-		invoiceLineType.setInvoicedQuantity(new BigDecimal(lineaDetalleFactura.getCantidad()))
+		invoiceLineType.setInvoicedQuantity(lineaDetalleFactura.getCantidad())
 				.setUnitCode(obtenerUnidadMedida(lineaDetalleFactura.getUnidadMedida()));
 		invoiceLineType.setLineExtensionAmount(lineaDetalleFactura.getValorVentaPorItem()).setCurrencyID(eCurrency);
 
@@ -292,12 +296,16 @@ public class GeneradorFactura {
 		// Zona Impuesto Items
 		TaxTotalType taxTotalType = new TaxTotalType();
 		taxTotalType.setTaxAmount(lineaDetalleFactura.getImpuestoPorItem()).setCurrencyID(eCurrency);
-
+		
+		
 		TaxSubtotalType taxSubtotalType = new TaxSubtotalType();
 
 		taxSubtotalType.setTaxableAmount(lineaDetalleFactura.getValorVentaBruto()).setCurrencyID(eCurrency);
 		taxSubtotalType.setTaxAmount(lineaDetalleFactura.getImpuestoPorItem()).setCurrencyID(eCurrency);
 		taxSubtotalType.setPercent(lineaDetalleFactura.getPorcentajeImpuestoItem());
+		PercentType percentType = new PercentType();
+		percentType.setValue(new BigDecimal("18.0"));
+		taxSubtotalType.setPercent(percentType);
 
 		TaxCategoryType taxCategoryType = new TaxCategoryType();
 		taxCategoryType.setTaxExemptionReasonCode("10");
@@ -314,7 +322,7 @@ public class GeneradorFactura {
 		taxTotalType.addTaxSubtotal(taxSubtotalType);
 
 		invoiceLineType.addTaxTotal(taxTotalType);
-
+		
 		return invoiceLineType;
 	}
 

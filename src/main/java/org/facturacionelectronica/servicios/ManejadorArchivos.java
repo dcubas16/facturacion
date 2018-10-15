@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.List;
 import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.DetalleFactura;
-import org.facturacionelectronica.util.Constantes;
 
 public class ManejadorArchivos {
 
@@ -144,7 +143,7 @@ public class ManejadorArchivos {
 				detalleFactura.setDescripcionItem(arregloFactura[33]);
 
 				if (!arregloFactura[34].isEmpty())
-					detalleFactura.setCantidad(Integer.parseInt(arregloFactura[34]));
+					detalleFactura.setCantidad(new BigDecimal(arregloFactura[34]));
 
 				if (!arregloFactura[35].isEmpty())
 					detalleFactura.setValorUnitarioPorItem(new BigDecimal(arregloFactura[35]));
@@ -153,7 +152,7 @@ public class ManejadorArchivos {
 					detalleFactura.setPrecioVentaUnitarioPorItem(new BigDecimal(arregloFactura[36]));
 
 				if (!arregloFactura[37].isEmpty())
-					detalleFactura.setImpuestoPorItem(new BigDecimal(arregloFactura[37]));
+					detalleFactura.setImpuestoPorItem(new BigDecimal(arregloFactura[37]));//ESTE CAMPO CAMBIA A DESCUENTO
 
 				if (!arregloFactura[38].isEmpty())
 					detalleFactura.setValorVentaBruto(new BigDecimal(arregloFactura[38]));
@@ -192,8 +191,13 @@ public class ManejadorArchivos {
 	public boolean verificarRepiteFactura(List<CabeceraFactura> listaCabeceraFacturas, String idFactura) {
 
 		for (CabeceraFactura cabeceraFactura : listaCabeceraFacturas) {
-			if (cabeceraFactura.getIdFactura().equals(idFactura))
+			if (cabeceraFactura.getIdFactura().equals(idFactura)) {
+				
+				//////////////Agregar loger
+				
 				return true;
+			}
+				
 		}
 		return false;
 	}

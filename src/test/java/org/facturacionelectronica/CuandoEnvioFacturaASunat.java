@@ -15,7 +15,7 @@ public class CuandoEnvioFacturaASunat {
 		GestorWebService gestorWebService = new GestorWebService();
 		boolean respuesta = gestorWebService.enviarFacturaSunat("FF40-46",
 				"D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\",
-				"20553510661-01-FF40-46.zip", "20553510661-01-FF40-46.xml", "20553510661MODDATOS", "MODDATOS");
+				"20381847927-01-FF40-46.zip", "20381847927-01-FF40-46.xml", "20381847927MODDATOS", "MODDATOS");
 
 		assertTrue(respuesta);
 

@@ -21,26 +21,33 @@ public class GeneradorFacturaDao {
 
 	public boolean guardarFactura(CabeceraFactura cabeceraFactura, List<DetalleFactura> listaDetalleFacturas) {
 
+		boolean existeFactura = existeFactura(cabeceraFactura.getIdFactura());
+		
 		session = ConfiguracionBaseDatos.getSessionFactory().openSession();
 
 		// Creating Transaction Object
 		Transaction transObj = session.beginTransaction();
-
+		
 		FacturaDao facturaDao = new FacturaDao(cabeceraFactura);
+		
+		if(!existeFactura) {
+			session.save(facturaDao);
 
-		session.save(facturaDao);
+			for (DetalleFactura detalleFactura : listaDetalleFacturas) {
 
-		for (DetalleFactura detalleFactura : listaDetalleFacturas) {
+				DetalleFacturaDao detalleFacturaDao = new DetalleFacturaDao(detalleFactura, facturaDao);
 
-			DetalleFacturaDao detalleFacturaDao = new DetalleFacturaDao(detalleFactura, facturaDao);
+				detalleFacturaDao.setFacturaDao(facturaDao);
+				// facturaDao.getDetalleFacturaDao().add(detalleFacturaDao);
 
-			detalleFacturaDao.setFacturaDao(facturaDao);
-			// facturaDao.getDetalleFacturaDao().add(detalleFacturaDao);
+				session.save(detalleFacturaDao);
+			}
 
-			session.save(detalleFacturaDao);
+			transObj.commit();	
+		}else
+		{
+			//LOG
 		}
-
-		transObj.commit();
 
 		session.close();
 
@@ -62,6 +69,18 @@ public class GeneradorFacturaDao {
 		session.close();
 
 		return facturaDao;
+	}
+	
+	public boolean existeFactura(String idFactura) {
+
+		FacturaDao facturaDao = new FacturaDao();
+		session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		facturaDao = (FacturaDao) session.get(FacturaDao.class, idFactura);
+
+		session.close();
+
+		return (facturaDao != null);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -28,6 +28,7 @@ public class GestorWebService {
 
 		try {
 
+		
 			BillService_Service billService_Service = new BillService_Service();
 
 			BillService billService = billService_Service.getBillServicePort();
@@ -49,7 +50,7 @@ public class GestorWebService {
 
 			Document doc = GestorArchivosXML.obtenerArchivoXML(Constantes.rutaCompleta + Constantes.rutaRespuesta
 					+ Constantes.siglaRespuesta + Constantes.separadorNombreArchivo + archivoXml);
-
+			
 			NodeList nList = doc.getElementsByTagName("cac:DocumentResponse");
 			Node nNode = nList.item(0);
 			Element eElement = (Element) nNode;
@@ -73,11 +74,13 @@ public class GestorWebService {
 			String correlativo) {
 
 		String nombreArchivo = numDoc + Constantes.separadorNombreArchivo + tipoDocComprobante
-				+ Constantes.separadorNombreArchivo + serie + Constantes.separadorNombreArchivo
-				+ Constantes.separadorNombreArchivo + correlativo;
+				+ Constantes.separadorNombreArchivo + serie + Constantes.separadorNombreArchivo + correlativo;
 
 		return nombreArchivo;
 
 	}
+	
+	
+	
 
 }

@@ -11,14 +11,14 @@ public class DetalleFactura {
 	private String codigoItem;//34
 	private String descripcionItem;//13
 		
-	private int cantidad;//12
+	private BigDecimal cantidad;//12
 	private BigDecimal valorUnitarioPorItem;//14		//83.05 -- precio del item sin IGV
 	private BigDecimal precioVentaUnitarioPorItem;//15	//98.00 -- precio de item con IGV
-	private BigDecimal impuestoUnitarioPorItem;			//98.00 -- precio de item con IGV
+	private BigDecimal impuestoUnitarioPorItem;//Reemplazar con descuento			//98.00 -- precio de item con IGV
 	private BigDecimal valorVentaBruto;					//valorUnitarioPorItem x cantidad
 	private BigDecimal valorVentaPorItem;//21			//149,491.53 -- precio total del item con impuestos y descuentos
 	private BigDecimal impuestoPorItem;//16				//26,908.47 -- 
-	private BigDecimal porcentajeImpuestoItem;			//18% -- porcentaje del impuesto del item
+	private BigDecimal porcentajeImpuestoItem;//BORRAR			//18% -- porcentaje del impuesto del item
 	
 //	private String codigoRazonExencionImpuesto;//16
 //	private String codigoTributo;//16
@@ -44,7 +44,7 @@ public class DetalleFactura {
 		this.porcentajeImpuestoItem = detalleFacturaDao.getPorcentajeImpuestoItem() ;
 	}
 		
-	public DetalleFactura(int numeroOrden, String unidadMedida, String codigoItem, String descripcionItem, int cantidad,
+	public DetalleFactura(int numeroOrden, String unidadMedida, String codigoItem, String descripcionItem, BigDecimal cantidad,
 			BigDecimal valorUnitarioPorItem, BigDecimal precioVentaUnitarioPorItem, BigDecimal impuestoUnitarioPorItem,
 			BigDecimal valorVentaBruto, BigDecimal valorVentaPorItem, BigDecimal impuestoPorItem,
 			BigDecimal porcentajeImpuestoItem) {
@@ -88,10 +88,10 @@ public class DetalleFactura {
 	public void setDescripcionItem(String descripcionItem) {
 		this.descripcionItem = descripcionItem;
 	}
-	public int getCantidad() {
+	public BigDecimal getCantidad() {
 		return cantidad;
 	}
-	public void setCantidad(int cantidad) {
+	public void setCantidad(BigDecimal cantidad) {
 		this.cantidad = cantidad;
 	}
 	public BigDecimal getValorUnitarioPorItem() {

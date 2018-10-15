@@ -29,7 +29,7 @@ public final class FacturaMock {
 
 		List<DetalleFactura> detalleFactura = new ArrayList<DetalleFactura>();
 
-		DetalleFactura detalleFactura1 = new DetalleFactura(1, "NIU", "GLG199", "Grabadora LG Externo Modelo: GE20LU10", 2000, new BigDecimal("83.05"), new BigDecimal("98.00"), new BigDecimal("14.95"), new BigDecimal("166100.00"), new BigDecimal("149491.53"), new BigDecimal("26908.47"), new BigDecimal("18.00"));
+		DetalleFactura detalleFactura1 = new DetalleFactura(1, "NIU", "GLG199", "Grabadora LG Externo Modelo: GE20LU10", new BigDecimal(2000), new BigDecimal("83.05"), new BigDecimal("98.00"), new BigDecimal("14.95"), new BigDecimal("166100.00"), new BigDecimal("149491.53"), new BigDecimal("26908.47"), new BigDecimal("18.00"));
 		
 		detalleFactura.add(detalleFactura1);
 
