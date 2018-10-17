@@ -41,6 +41,8 @@ public class Constantes {
 	
 	public static final String rutaPdf = "Pdf\\";
 	
+	public static final String rutaImagenQr = "ImagenQr\\";
+	
 	
 	public static final String extensionXml = ".xml";
 	
@@ -147,6 +149,8 @@ public class Constantes {
 	public static final String CONSTANTE_URL_PRUEBA = "www.sunat.gob.pe";
 	public static final String CONSTANTE_CODIGO_EXITO_CONSULTA_CDR = "0004";
 	public static final Integer CONSTANTE_CODIGO_ENVIO_PREVIO = 1033;
+
+	
 
 	
 

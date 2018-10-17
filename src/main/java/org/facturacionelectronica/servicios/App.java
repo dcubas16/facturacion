@@ -44,17 +44,15 @@ public class App {
 		System.out.println("------------------>Obteniendo Facturas Importadas de Base de Datos");
 		GestorWebService gestorWebService = new GestorWebService();
 
-		
 		// AQUI SE DEBE GENERAR EL ZIP
 
 		List<FacturaDao> listaFacturaDao = exportadorBaseDatos.obtenerFacturasImportadas();
-		
+
 		for (FacturaDao facturaDao : listaFacturaDao) {
-		
 
 			List<DetalleFacturaDao> listDetalleFacturaDao = exportadorBaseDatos
 					.obtenerDetalleFactura(facturaDao.getIdFactura());
-			
+
 			List<DetalleFactura> listaDetalleFactura = new ArrayList<DetalleFactura>();
 
 			for (DetalleFacturaDao detalleFacturaDao : listDetalleFacturaDao) {
@@ -68,31 +66,48 @@ public class App {
 			GeneradorFactura generadorFactura = new GeneradorFactura();
 
 			ESuccess eSuccess = generadorFactura.generarFactura(factura);
-			
-			//////////////////////////////////////////////////////////////////////////////Esto llevar a una clase utils
+
+			////////////////////////////////////////////////////////////////////////////// Esto
+			////////////////////////////////////////////////////////////////////////////// llevar
+			////////////////////////////////////////////////////////////////////////////// a
+			////////////////////////////////////////////////////////////////////////////// una
+			////////////////////////////////////////////////////////////////////////////// clase
+			////////////////////////////////////////////////////////////////////////////// utils
 			String nombreArchivo = gestorWebService.obtenerNombreArchivoFactura(
 					factura.getCabeceraFactura().getNumeroDocumento(),
 					factura.getCabeceraFactura().getTipoDocumentoFactura(), factura.getCabeceraFactura().getSerie(),
 					factura.getCabeceraFactura().getNumeroCorrelativo());
 
 			if (eSuccess.isSuccess()) {
-				
+
 				GestorFirma gestorFirma = new GestorFirma();
-				InputStream inputStream = new FileInputStream(Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo  + Constantes.extensionXml);
+				InputStream inputStream = new FileInputStream(
+						Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
 				Map<String, Object> xmlFirmado = gestorFirma.firmarDocumento(inputStream);
-				FileOutputStream fout = new FileOutputStream(Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
-		        ByteArrayOutputStream outDocument = (ByteArrayOutputStream)xmlFirmado.get("signatureFile");
-		        String digestValue = (String)xmlFirmado.get("digestValue");
-			     
-			    outDocument.writeTo(fout);
-			    fout.close();
-			    
+				FileOutputStream fout = new FileOutputStream(
+						Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
+				ByteArrayOutputStream outDocument = (ByteArrayOutputStream) xmlFirmado.get("signatureFile");
+				String digestValue = (String) xmlFirmado.get("digestValue");
+
+				outDocument.writeTo(fout);
+				fout.close();
+
 				// Generar archivo ZIP
 				Compresor.comprimirArchivo(
 						Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionZip,
 						Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
 						nombreArchivo + Constantes.extensionXml);
+
+				// Genero PDF
+				try {
+					GestorPdf gestorPdf = new GestorPdf();
+					gestorPdf.generarPDF(nombreArchivo);
+				}catch(Exception e) {
+					System.out.println("Error _ " + e.getMessage());
+				}
 				
+
+				// Enviar a Web Service
 				gestorWebService.enviarFacturaSunat(factura.getCabeceraFactura().getIdFactura(),
 						Constantes.rutaCompleta + Constantes.rutaSolicitud, nombreArchivo + Constantes.extensionZip,
 						nombreArchivo + Constantes.extensionXml,

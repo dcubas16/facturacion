@@ -131,28 +131,30 @@ public class GestorFirma {
 		return retorno;
 	}
 
-//	public String obtenerRutaTrabajo(String rutaTrabajoBusqueda) throws Throwable {
-//
-//		StringBuilder rutaDirectorio = new StringBuilder();
-//		rutaDirectorio.setLength(0);
-//
-//		File farchivo = new File(rutaDirectorio.toString());
-//		if (!farchivo.exists() || !farchivo.isDirectory())
-//			throw new Exception("No se encuentra la ruta para los archivos y directorios  del facturador");
-//
-//		return Constantes.rutaCompleta;
-//
-//	}
+	// public String obtenerRutaTrabajo(String rutaTrabajoBusqueda) throws Throwable
+	// {
+	//
+	// StringBuilder rutaDirectorio = new StringBuilder();
+	// rutaDirectorio.setLength(0);
+	//
+	// File farchivo = new File(rutaDirectorio.toString());
+	// if (!farchivo.exists() || !farchivo.isDirectory())
+	// throw new Exception("No se encuentra la ruta para los archivos y directorios
+	// del facturador");
+	//
+	// return Constantes.rutaCompleta;
+	//
+	// }
 
 	public static void outputDocToOutputStream(Document doc, ByteArrayOutputStream signatureFile)
-			throws TransformerException {
-		TransformerFactory factory = TransformerFactory.newInstance();
-		Transformer transformer = factory.newTransformer();
+			throws javax.xml.transform.TransformerException {
+		TransformerFactory factory = TransformerFactory.newInstance("org.apache.xalan.processor.TransformerFactoryImpl",null);
+		javax.xml.transform.Transformer transformer = factory.newTransformer();
 
 		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 		transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 		// "ISO-8859-9"
-		transformer.transform(new DOMSource(doc), new StreamResult(signatureFile));
+		transformer.transform(new javax.xml.transform.dom.DOMSource(doc), new javax.xml.transform.stream.StreamResult(signatureFile));
 	}
 
 	private String obtenerNodo(Node node) throws Exception {
@@ -173,31 +175,31 @@ public class GestorFirma {
 		return nodo;
 	}
 
-//	public String Desencriptar(String textoEncriptado) {
-//		try {
-//
-//			String secretKey = "73GaDKib5DvxxVLM"; // llave para desenciptar datos
-//			String base64EncryptedString = "";
-//
-//			byte[] message = Base64.decodeBase64(textoEncriptado.getBytes("utf-8"));
-//			MessageDigest md = MessageDigest.getInstance("MD5");
-//			byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
-//			byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
-//			SecretKey key = new SecretKeySpec(keyBytes, "DESede");
-//
-//			Cipher decipher = Cipher.getInstance("DESede");
-//			decipher.init(Cipher.DECRYPT_MODE, key);
-//
-//			byte[] plainText = decipher.doFinal(message);
-//
-//			base64EncryptedString = new String(plainText);
-//
-//			return base64EncryptedString;
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//			return null;
-//		}
-//	}
+	// public String Desencriptar(String textoEncriptado) {
+	// try {
+	//
+	// String secretKey = "73GaDKib5DvxxVLM"; // llave para desenciptar datos
+	// String base64EncryptedString = "";
+	//
+	// byte[] message = Base64.decodeBase64(textoEncriptado.getBytes("utf-8"));
+	// MessageDigest md = MessageDigest.getInstance("MD5");
+	// byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
+	// byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
+	// SecretKey key = new SecretKeySpec(keyBytes, "DESede");
+	//
+	// Cipher decipher = Cipher.getInstance("DESede");
+	// decipher.init(Cipher.DECRYPT_MODE, key);
+	//
+	// byte[] plainText = decipher.doFinal(message);
+	//
+	// base64EncryptedString = new String(plainText);
+	//
+	// return base64EncryptedString;
+	// } catch (Exception e) {
+	// System.out.println(e.getMessage());
+	// return null;
+	// }
+	// }
 
 	private Document buildDocument(InputStream inDocument) throws Exception {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

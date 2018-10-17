@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice>
+	  <UBLExtensions>
+		    <UBLExtension>
+			      <ExtensionContent>
+				        <Signature Id="LlamaPeSign">
+					          <SignedInfo>
+						            <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+						            <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+						            <Reference URI="">
+							              <Transforms>
+								                <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+							              </Transforms>
+							              <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+							              <DigestValue>lMSbiJThBUmRKsVhaWlajIzP0ujaM+yIKS+c2HXq/K4=
+							</DigestValue>
+						            </Reference>
+					          </SignedInfo>
+					          <SignatureValue>H9M/uPlBDbVx6ralpaOouCp9xExFpaHWDya4S1TBWeZSRd8EYcNgE6JWWSa4
+						/ph8ztFGnXeOAooIV73h0fFsLVMMOd8ic3Lnt2kY+T7f8vKh15N8lqWIV1Id
+						dzP2GhJXhkTa+4DKwVGiYOyrtJG4eGF0E+eZ6iDewlEVwhFaoxhUx944kUyU
+						J/ZGL1XAu396EaL04G5ziWo1bShEbJtVnulQGR2lmqrNTf/L2Kw/28wwogT8
+						DVJED+L5NIDIlmRLjrLHF99kBpPpVdYQl5Yw8uL5x5OZYmU7dt6Ox8imvsrT
+						wgKl/EyA9b/pQBqYBNLJfRs+RUiLiUr8IX2QCEkLwQ==
+					</SignatureValue>
+					
+					          <KeyInfo>
+						            <X509Data>
+							              <X509SubjectName>DC=LLAMA.PE SA,C=PE,ST=LIMA,L=LIMA,O=TU
+								EMPRESA S.A.,OU=DNI 9999999 RUC 20381847927 - CERTIFICADO PARA
+								DEMOSTRACI\xC3\x93N,CN=NOMBRE REPRESENTANTE LEGAL - CERTIFICADO
+								PARA DEMOSTRACI\xC3\x93N,emailAddress=demo@llama.pe
+							</X509SubjectName>
+							              <X509Certificate>
+								MIIE8TCCA9mgAwIBAgICIMEwDQYJKoZIhvcNAQEFBQAwggENMRswGQYKCZImiZPy
+								LGQBGRYLTExBTUEuUEUgU0ExCzAJBgNVBAYTAlBFMQ0wCwYDVQQIDARMSU1BMQ0w
+								CwYDVQQHDARMSU1BMRgwFgYDVQQKDA9UVSBFTVBSRVNBIFMuQS4xRTBDBgNVBAsM
+								PEROSSA5OTk5OTk5IFJVQyAyMDU1MzUxMDY2MSAtIENFUlRJRklDQURPIFBBUkEg
+								REVNT1NUUkFDScOTTjFEMEIGA1UEAww7Tk9NQlJFIFJFUFJFU0VOVEFOVEUgTEVH
+								QUwgLSBDRVJUSUZJQ0FETyBQQVJBIERFTU9TVFJBQ0nDk04xHDAaBgkqhkiG9w0B
+								CQEWDWRlbW9AbGxhbWEucGUwHhcNMTgwNjAxMDM1OTQyWhcNMjAwNTMxMDM1OTQy
+								WjCCAQ0xGzAZBgoJkiaJk/IsZAEZFgtMTEFNQS5QRSBTQTELMAkGA1UEBhMCUEUx
+								DTALBgNVBAgMBExJTUExDTALBgNVBAcMBExJTUExGDAWBgNVBAoMD1RVIEVNUFJF
+								U0EgUy5BLjFFMEMGA1UECww8RE5JIDk5OTk5OTkgUlVDIDIwNTUzNTEwNjYxIC0g
+								Q0VSVElGSUNBRE8gUEFSQSBERU1PU1RSQUNJw5NOMUQwQgYDVQQDDDtOT01CUkUg
+								UkVQUkVTRU5UQU5URSBMRUdBTCAtIENFUlRJRklDQURPIFBBUkEgREVNT1NUUkFD
+								ScOTTjEcMBoGCSqGSIb3DQEJARYNZGVtb0BsbGFtYS5wZTCCASIwDQYJKoZIhvcN
+								AQEBBQADggEPADCCAQoCggEBAOcTW/TzaLk8qiVOCekHvo9uLfoEK97dkNrm6jO/
+								qUF8FdTkxxT+ORHGM9ZkvTJ3N0iWO38AA4z/Pi91pWhD4YgapdqOGp1tcwPnI1Ko
+								S+B6IO4k/Pe4Pn8AU9tao6Wy3ayrGrxHQnU597IlCcZo5i5ts2GEPRjxT9LY/ekk
+								jYTlYif2Yjf2icac9g1XlTWeL4mYxH51p4Hx4/3zfACF6WqN17uVQLwQgPDneehX
+								Myy1ja7MSocopedXmTwGFzO1h41+MBqOb30GbjnRBbSk+g6anFHospNYAWifiEen
+								WYN+uBWV/b8u2H0U0TNCpad/yYu7ZzPIZ3WJO4fVf1my6MUCAwEAAaNXMFUwHQYD
+								VR0OBBYEFDTCxehgCuNRd5lZbmDMWu/NJwO5MB8GA1UdIwQYMBaAFDTCxehgCuNR
+								d5lZbmDMWu/NJwO5MBMGA1UdJQQMMAoGCCsGAQUFBwMBMA0GCSqGSIb3DQEBBQUA
+								A4IBAQDiGBnjqaW+zJHeRvuvjFnPOzvluRh5NNQrbsupZOLAg+IuHepxL2PUUoFm
+								kyXHysHMUtyJNPfpXyUlj0FAR2IJ0L2arnH7lIgH9zmSA7/oePd2XW4dd58HeIg0
+								S5Wl05ATsc8rgFo5yRw6i86pdBleHMYrDCq1NvPECOszNOsEnvdHcRA2sQsDTDLM
+								xoOs3IN97qVKNE50H+A8FIxu2Mo/0MAm6dvDEYSKLh3HVIcAlJrU8XNW2d6zMydc
+								XLMDpNRAQ3Al2ETRVeX6F4MPP5XVJBaN/G/2pe1SuNN4uOLuNevteRCZfvUkthl1
+								74yu5W8RhIvhEdKYGIoii5wRb3yc
+
+							</X509Certificate>
+						            </X509Data>
+					          </KeyInfo>
+					
+				        </Signature>
+			      </ExtensionContent>
+		    </UBLExtension>
+		    <UBLExtension>
+			      <ExtensionContent>
+				        <AdditionalInformation>
+					          <AdditionalMonetaryTotal>
+						            <ID>1001</ID>
+						            <PayableAmount currencyID="PEN">500.00
+						</PayableAmount>
+					          </AdditionalMonetaryTotal>
+					          <AdditionalMonetaryTotal>
+						            <ID>2001</ID>
+						            <PayableAmount currencyID="PEN">10.00
+						</PayableAmount>
+						            <TotalAmount currencyID="PEN">510.00
+						</TotalAmount>
+					          </AdditionalMonetaryTotal>
+					          <AdditionalProperty>
+						            <ID>1000</ID>
+						            <Value>QUINIENTOS NOVENTA Y CINCO CON 00/100 NUEVOS SOLES
+						</Value>
+					          </AdditionalProperty>
+					          <AdditionalProperty>
+						            <ID>2000</ID>
+						            <Value>COMPROBANTE DE PERCEPCION</Value>
+					          </AdditionalProperty>
+					          <SUNATTransaction>
+						            <ID>01</ID>
+					          </SUNATTransaction>
+				        </AdditionalInformation>
+			      </ExtensionContent>
+		    </UBLExtension>
+	  </UBLExtensions>
+	  <UBLVersionID>2.0</UBLVersionID>
+	  <CustomizationID>1.0</CustomizationID>
+	  <ID>FF40-46</ID>
+	  <IssueDate>2018-06-01</IssueDate>
+	  <InvoiceTypeCode>01</InvoiceTypeCode>
+	  <DocumentCurrencyCode>PEN</DocumentCurrencyCode>
+	  <DespatchDocumentReference>
+		    <ID>0001-1</ID>
+		    <DocumentTypeCode>09</DocumentTypeCode>
+	  </DespatchDocumentReference>
+	  <DespatchDocumentReference>
+		    <ID>G001-1</ID>
+		    <DocumentTypeCode>09</DocumentTypeCode>
+	  </DespatchDocumentReference>
+	  <Signature>
+		    <ID>20381847927</ID>
+		    <SignatoryParty>
+			      <PartyIdentification>
+				        <ID>20381847927</ID>
+			      </PartyIdentification>
+			      <PartyName>
+				        <Name>LLAMA.PE SA</Name>
+			      </PartyName>
+		    </SignatoryParty>
+		    <DigitalSignatureAttachment>
+			      <ExternalReference>
+				        <URI>20381847927</URI>
+			      </ExternalReference>
+		    </DigitalSignatureAttachment>
+	  </Signature>
+	  <AccountingSupplierParty>
+		    <CustomerAssignedAccountID>20381847927
+		</CustomerAssignedAccountID>
+		    <AdditionalAccountID>6</AdditionalAccountID>
+		    <Party>
+			      <PartyName>
+				        <Name>LLAMA.PE SA</Name>
+			      </PartyName>
+			      <PostalAddress>
+				        <ID>150122</ID>
+				        <StreetName>MIRAFLORES</StreetName>
+				        <CityName>LIMA</CityName>
+				        <CountrySubentity>LIMA</CountrySubentity>
+				        <District>MIRAFLORES</District>
+				        <Country>
+					          <IdentificationCode>PE</IdentificationCode>
+				        </Country>
+			      </PostalAddress>
+			      <PartyLegalEntity>
+				        <RegistrationName>LLAMA.PE SA</RegistrationName>
+			      </PartyLegalEntity>
+		    </Party>
+	  </AccountingSupplierParty>
+	  <AccountingCustomerParty>
+		    <CustomerAssignedAccountID>20000000001
+		</CustomerAssignedAccountID>
+		    <AdditionalAccountID>6</AdditionalAccountID>
+		    <Party>
+			      <PartyLegalEntity>
+				        <RegistrationName>TU CLIENTE SAC</RegistrationName>
+			      </PartyLegalEntity>
+		    </Party>
+	  </AccountingCustomerParty>
+	  <TaxTotal>
+		    <TaxAmount currencyID="PEN">90.00</TaxAmount>
+		    <TaxSubtotal>
+			      <TaxAmount currencyID="PEN">90.00</TaxAmount>
+			      <TaxCategory>
+				        <TaxScheme>
+					          <ID>1000</ID>
+					          <Name>IGV</Name>
+					          <TaxTypeCode>VAT</TaxTypeCode>
+				        </TaxScheme>
+			      </TaxCategory>
+		    </TaxSubtotal>
+	  </TaxTotal>
+	  <LegalMonetaryTotal>
+		    <PayableAmount currencyID="PEN">595.00
+		</PayableAmount>
+	  </LegalMonetaryTotal>
+	  <InvoiceLine>
+		    <ID>1</ID>
+		    <InvoicedQuantity unitCode="ZZ">1
+		</InvoicedQuantity>
+		    <LineExtensionAmount currencyID="PEN">100.00
+		</LineExtensionAmount>
+		    <PricingReference>
+			      <AlternativeConditionPrice>
+				        <PriceAmount currencyID="PEN">118.00</PriceAmount>
+				        <PriceTypeCode>01</PriceTypeCode>
+			      </AlternativeConditionPrice>
+		    </PricingReference>
+		    <TaxTotal>
+			      <TaxAmount currencyID="PEN">18.00</TaxAmount>
+			      <TaxSubtotal>
+				        <TaxAmount currencyID="PEN">18.00</TaxAmount>
+				        <TaxCategory>
+					          <TaxExemptionReasonCode>10</TaxExemptionReasonCode>
+					          <TaxScheme>
+						            <ID>1000</ID>
+						            <Name>IGV</Name>
+						            <TaxTypeCode>VAT</TaxTypeCode>
+					          </TaxScheme>
+				        </TaxCategory>
+			      </TaxSubtotal>
+		    </TaxTotal>
+		    <Item>
+			      <Description>SERVICIO 1 TIJERA CORTA TODO ELEMENTO
+			</Description>
+		    </Item>
+		    <Price>
+			      <PriceAmount currencyID="PEN">100.00</PriceAmount>
+		    </Price>
+	  </InvoiceLine>
+	  <InvoiceLine>
+		    <ID>2</ID>
+		    <InvoicedQuantity unitCode="ZZ">1
+		</InvoicedQuantity>
+		    <LineExtensionAmount currencyID="PEN">100.00
+		</LineExtensionAmount>
+		    <PricingReference>
+			      <AlternativeConditionPrice>
+				        <PriceAmount currencyID="PEN">118.00</PriceAmount>
+				        <PriceTypeCode>01</PriceTypeCode>
+			      </AlternativeConditionPrice>
+		    </PricingReference>
+		    <TaxTotal>
+			      <TaxAmount currencyID="PEN">18.00</TaxAmount>
+			      <TaxSubtotal>
+				        <TaxAmount currencyID="PEN">18.00</TaxAmount>
+				        <TaxCategory>
+					          <TaxExemptionReasonCode>10</TaxExemptionReasonCode>
+					          <TaxScheme>
+						            <ID>1000</ID>
+						            <Name>IGV</Name>
+						            <TaxTypeCode>VAT</TaxTypeCode>
+					          </TaxScheme>
+				        </TaxCategory>
+			      </TaxSubtotal>
+		    </TaxTotal>
+		    <Item>
+			      <Description>SERVICIO 1 TELEFONO INALAMBRICO ESPECIAL
+			</Description>
+		    </Item>
+		    <Price>
+			      <PriceAmount currencyID="PEN">100.00</PriceAmount>
+		    </Price>
+	  </InvoiceLine>
+	  <InvoiceLine>
+		    <ID>3</ID>
+		    <InvoicedQuantity unitCode="ZZ">1
+		</InvoicedQuantity>
+		    <LineExtensionAmount currencyID="PEN">100.00
+		</LineExtensionAmount>
+		    <PricingReference>
+			      <AlternativeConditionPrice>
+				        <PriceAmount currencyID="PEN">118.00</PriceAmount>
+				        <PriceTypeCode>01</PriceTypeCode>
+			      </AlternativeConditionPrice>
+		    </PricingReference>
+		    <TaxTotal>
+			      <TaxAmount currencyID="PEN">18.00</TaxAmount>
+			      <TaxSubtotal>
+				        <TaxAmount currencyID="PEN">18.00</TaxAmount>
+				        <TaxCategory>
+					          <TaxExemptionReasonCode>10</TaxExemptionReasonCode>
+					          <TaxScheme>
+						            <ID>1000</ID>
+						            <Name>IGV</Name>
+						            <TaxTypeCode>VAT</TaxTypeCode>
+					          </TaxScheme>
+				        </TaxCategory>
+			      </TaxSubtotal>
+		    </TaxTotal>
+		    <Item>
+			      <Description>SERVICIO 1 MOUSE MARCA MICROSOFT INALAMBRICO
+			</Description>
+		    </Item>
+		    <Price>
+			      <PriceAmount currencyID="PEN">100.00</PriceAmount>
+		    </Price>
+	  </InvoiceLine>
+	  <InvoiceLine>
+		    <ID>4</ID>
+		    <InvoicedQuantity unitCode="ZZ">1
+		</InvoicedQuantity>
+		    <LineExtensionAmount currencyID="PEN">100.00
+		</LineExtensionAmount>
+		    <PricingReference>
+			      <AlternativeConditionPrice>
+				        <PriceAmount currencyID="PEN">118.00</PriceAmount>
+				        <PriceTypeCode>01</PriceTypeCode>
+			      </AlternativeConditionPrice>
+		    </PricingReference>
+		    <TaxTotal>
+			      <TaxAmount currencyID="PEN">18.00</TaxAmount>
+			      <TaxSubtotal>
+				        <TaxAmount currencyID="PEN">18.00</TaxAmount>
+				        <TaxCategory>
+					          <TaxExemptionReasonCode>10</TaxExemptionReasonCode>
+					          <TaxScheme>
+						            <ID>1000</ID>
+						            <Name>IGV</Name>
+						            <TaxTypeCode>VAT</TaxTypeCode>
+					          </TaxScheme>
+				        </TaxCategory>
+			      </TaxSubtotal>
+		    </TaxTotal>
+		    <Item>
+			      <Description>SERVICIO 1 UN TECLADO INALAMBRICO</Description>
+		    </Item>
+		    <Price>
+			      <PriceAmount currencyID="PEN">100.00</PriceAmount>
+		    </Price>
+	  </InvoiceLine>
+	  <InvoiceLine>
+		    <ID>5</ID>
+		    <InvoicedQuantity unitCode="ZZ">1
+		</InvoicedQuantity>
+		    <LineExtensionAmount currencyID="PEN">100.00
+		</LineExtensionAmount>
+		    <PricingReference>
+			      <AlternativeConditionPrice>
+				        <PriceAmount currencyID="PEN">118.00</PriceAmount>
+				        <PriceTypeCode>01</PriceTypeCode>
+			      </AlternativeConditionPrice>
+		    </PricingReference>
+		    <TaxTotal>
+			      <TaxAmount currencyID="PEN">18.00</TaxAmount>
+			      <TaxSubtotal>
+				        <TaxAmount currencyID="PEN">18.00</TaxAmount>
+				        <TaxCategory>
+					          <TaxExemptionReasonCode>10</TaxExemptionReasonCode>
+					          <TaxScheme>
+						            <ID>1000</ID>
+						            <Name>IGV</Name>
+						            <TaxTypeCode>VAT</TaxTypeCode>
+					          </TaxScheme>
+				        </TaxCategory>
+			      </TaxSubtotal>
+		    </TaxTotal>
+		    <Item>
+			      <Description>SERVICIO 1 LAPTOP APPLE DE 14' TODO INCLUIDO SERIE
+				23432</Description>
+		    </Item>
+		    <Price>
+			      <PriceAmount currencyID="PEN">100.00</PriceAmount>
+		    </Price>
+	  </InvoiceLine>
+	
+</Invoice>
