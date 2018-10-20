@@ -61,7 +61,8 @@ public class GestorPdf {
 			String nombreArchivoAux = this.transform(archivoOrigen, archivoXsl, nombreArchivoXml, nombreArchivo);
 
 			/* Obtener los datos para generar QR */
-			String rutaImagenQr = GeneradorQr.generarCodigoQr(nombreArchivoXml);
+			GeneradorQr generadorQr = new GeneradorQr();
+			String rutaImagenQr = generadorQr.generarCodigoQr(nombreArchivoXml);
 
 			Document document = JRXmlUtils.parse(JRLoader.getLocationInputStream(nombreArchivoXml));
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject(new File(nombreReporteJasper));

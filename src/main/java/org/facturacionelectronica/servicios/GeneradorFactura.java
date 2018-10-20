@@ -117,6 +117,10 @@ public class GeneradorFactura {
 		ESuccess eSuccess = GestorArchivosXML.imprimirFacturaArchivo(aInvoice,
 				Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
 				Constantes.estandarXml);
+		
+		
+		//Firmado
+		
 
 		return eSuccess;
 	}

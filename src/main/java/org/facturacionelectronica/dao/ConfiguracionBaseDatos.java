@@ -2,6 +2,7 @@ package org.facturacionelectronica.dao;
 
 import java.io.File;
 
+import org.facturacionelectronica.util.Constantes;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -9,14 +10,22 @@ import org.hibernate.service.ServiceRegistry;
 
 public class ConfiguracionBaseDatos {
 
+	private static SessionFactory sessionFactory = buildSessionFactory();
+
 	public static SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
 
-		SessionFactory sessionFactory = null;
+	public static void shutdown() {
+		// Optional but can be used to Close caches and connection pools
+		getSessionFactory().close();
+	}
 
+	private static SessionFactory buildSessionFactory() {
 		try {
-
+			// Create the SessionFactory from hibernate.cfg.xml
 			Configuration configObj = new Configuration();
-			File f = new File("D:\\Suit_Fael\\hibernate.cfg.xml");
+			File f = new File(Constantes.rutaCompleta+"hibernate.cfg.xml");
 
 			Configuration configuration = new Configuration();
 			configuration.configure(f);
@@ -27,33 +36,12 @@ public class ConfiguracionBaseDatos {
 			ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
 			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 
-		} catch (Exception ex) {
-			System.out.println("------------------------>" + ex.getMessage());
+			return sessionFactory;
+
+		} catch (Throwable ex) {
+			// Make sure you log the exception to track it
+			System.err.println("SessionFactory creation failed." + ex);
+			throw new ExceptionInInitializerError(ex);
 		}
-
-		// Since Hibernate Version 4.x, Service Registry Is Being Used
-		// ServiceRegistry serviceRegistryObj = new
-		// StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
-
-		// Creating Hibernate Session Factory Instance
-		// SessionFactory factoryObj =
-		// configObj.buildSessionFactory(serviceRegistryObj);
-
-		return sessionFactory;
 	}
-
-	// public static SessionFactory getSessionFactory() {
-	// // Creating Configuration Instance & Passing Hibernate Configuration File
-	// Configuration configObj = new Configuration();
-	// configObj.configure("D:\\Suit_Fael\\hibernate.cfg.xml");
-	//
-	// // Since Hibernate Version 4.x, Service Registry Is Being Used
-	// ServiceRegistry serviceRegistryObj = new
-	// StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
-	//
-	// // Creating Hibernate Session Factory Instance
-	// SessionFactory factoryObj =
-	// configObj.buildSessionFactory(serviceRegistryObj);
-	// return factoryObj;
-	// }
 }

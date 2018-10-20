@@ -175,31 +175,6 @@ public class GestorFirma {
 		return nodo;
 	}
 
-	// public String Desencriptar(String textoEncriptado) {
-	// try {
-	//
-	// String secretKey = "73GaDKib5DvxxVLM"; // llave para desenciptar datos
-	// String base64EncryptedString = "";
-	//
-	// byte[] message = Base64.decodeBase64(textoEncriptado.getBytes("utf-8"));
-	// MessageDigest md = MessageDigest.getInstance("MD5");
-	// byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
-	// byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
-	// SecretKey key = new SecretKeySpec(keyBytes, "DESede");
-	//
-	// Cipher decipher = Cipher.getInstance("DESede");
-	// decipher.init(Cipher.DECRYPT_MODE, key);
-	//
-	// byte[] plainText = decipher.doFinal(message);
-	//
-	// base64EncryptedString = new String(plainText);
-	//
-	// return base64EncryptedString;
-	// } catch (Exception e) {
-	// System.out.println(e.getMessage());
-	// return null;
-	// }
-	// }
 
 	private Document buildDocument(InputStream inDocument) throws Exception {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -214,13 +189,18 @@ public class GestorFirma {
 	private Node addExtensionContent(Document doc) {
 
 		Element element = doc.getDocumentElement();
+		
+		element.setAttribute("xmlns:sac", "urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1");
 		element.setAttribute("xmlns:ext", "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2");
 		element.setAttribute("xmlns:ds", "http://www.w3.org/2000/09/xmldsig#");
+		
+		element.removeAttribute("xmlns:cec");
+		
 
 		Node nodeInvoice = doc.getDocumentElement();
 
 		Node extensions = doc.createElement("ext:UBLExtensions");
-		;
+		
 		extensions.appendChild(doc.createTextNode("\n\t\t"));
 		Node extension = doc.createElement("ext:UBLExtension");
 		extension.appendChild(doc.createTextNode("\n\t\t\t"));

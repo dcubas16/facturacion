@@ -9,11 +9,12 @@ import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.DetalleFactura;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 public class GeneradorFacturaDao {
 
-	Session session;
+	SessionFactory sessionFactory;
 
 	public GeneradorFacturaDao() {
 
@@ -22,32 +23,45 @@ public class GeneradorFacturaDao {
 	public boolean guardarFactura(CabeceraFactura cabeceraFactura, List<DetalleFactura> listaDetalleFacturas) {
 
 		boolean existeFactura = existeFactura(cabeceraFactura.getIdFactura());
-		
-		session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
 
 		// Creating Transaction Object
 		Transaction transObj = session.beginTransaction();
-		
+
 		FacturaDao facturaDao = new FacturaDao(cabeceraFactura);
-		
-		if(!existeFactura) {
-			session.save(facturaDao);
+		facturaDao.setEstado(5);
 
-			for (DetalleFactura detalleFactura : listaDetalleFacturas) {
-
-				DetalleFacturaDao detalleFacturaDao = new DetalleFacturaDao(detalleFactura, facturaDao);
-
-				detalleFacturaDao.setFacturaDao(facturaDao);
-				// facturaDao.getDetalleFacturaDao().add(detalleFacturaDao);
-
-				session.save(detalleFacturaDao);
-			}
-
-			transObj.commit();	
-		}else
-		{
-			//LOG
+		if (existeFactura) {
+			this.eliminarFactura(obtenerFactura(cabeceraFactura.getIdFactura()));
 		}
+		
+		session.save(facturaDao);
+
+		for (DetalleFactura detalleFactura : listaDetalleFacturas) {
+
+			DetalleFacturaDao detalleFacturaDao = new DetalleFacturaDao(detalleFactura, facturaDao);
+
+			detalleFacturaDao.setFacturaDao(facturaDao);
+			session.save(detalleFacturaDao);
+		}
+
+		transObj.commit();
+		session.close();
+
+		return true;
+	}
+
+	private boolean eliminarFactura(FacturaDao facturaDao) {
+
+		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		// Creating Transaction Object
+		Transaction transObj = session.beginTransaction();
+
+		session.delete(facturaDao);
+
+		transObj.commit();
 
 		session.close();
 
@@ -62,7 +76,10 @@ public class GeneradorFacturaDao {
 	public FacturaDao obtenerFactura(String idFactura) {
 
 		FacturaDao facturaDao = new FacturaDao();
-		session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		// session = ConfiguracionBaseDatos.getSessionFactory().openSession();
 
 		facturaDao = (FacturaDao) session.get(FacturaDao.class, idFactura);
 
@@ -70,11 +87,14 @@ public class GeneradorFacturaDao {
 
 		return facturaDao;
 	}
-	
+
 	public boolean existeFactura(String idFactura) {
 
 		FacturaDao facturaDao = new FacturaDao();
-		session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		// session = ConfiguracionBaseDatos.getSessionFactory().openSession();
 
 		facturaDao = (FacturaDao) session.get(FacturaDao.class, idFactura);
 
@@ -88,7 +108,9 @@ public class GeneradorFacturaDao {
 
 		List<DetalleFacturaDao> listaDetalleFacturaDao = new ArrayList<DetalleFacturaDao>();
 
-		session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		// session = ConfiguracionBaseDatos.getSessionFactory().openSession();
 
 		Query query = session.createQuery("FROM DetalleFacturaDao where id_factura = :id_factura");
 		query.setParameter("id_factura", idFactura);
@@ -102,19 +124,81 @@ public class GeneradorFacturaDao {
 
 	@SuppressWarnings("unchecked")
 	public List<FacturaDao> obtenerFacturasImportadas() {
-		
+
 		List<FacturaDao> listaFacturaDao = new ArrayList<FacturaDao>();
 
-		session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		// session = ConfiguracionBaseDatos.getSessionFactory().openSession();
 
 		Query query = session.createQuery("FROM FacturaDao WHERE ESTADO = :estado");
-		query.setParameter("estado", 0);
-				
-		listaFacturaDao = (List<FacturaDao>)query.list();
+		query.setParameter("estado", 5);
+
+		listaFacturaDao = (List<FacturaDao>) query.list();
 
 		session.close();
-		
+
+		return listaFacturaDao;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<FacturaDao> obtenerFacturasPendientesDeEnvio() {
+
+		List<FacturaDao> listaFacturaDao = new ArrayList<FacturaDao>();
+
+		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		// session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		Query query = session.createQuery("FROM FacturaDao WHERE ESTADO = :estado");
+		query.setParameter("estado", 6);
+
+		listaFacturaDao = (List<FacturaDao>) query.list();
+
+		session.close();
+
 		return listaFacturaDao;
 	}
 
+	public boolean actualizarFactura(FacturaDao facturaDao) {
+		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		// Creating Transaction Object
+		Transaction transObj = session.beginTransaction();
+
+		session.update(facturaDao);
+
+		transObj.commit();
+
+		session.close();
+
+		return true;
+
+	}
+	
+	
+	public boolean actualizarEstadoAceptado(FacturaDao facturaDao, int estado, String mensajeRespuesta) {
+		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		// Creating Transaction Object
+		Transaction transObj = session.beginTransaction();
+		
+		facturaDao.setEstado(estado);
+		facturaDao.setMensajeRespuesta(mensajeRespuesta);
+
+		session.update(facturaDao);
+
+		transObj.commit();
+
+		session.close();
+
+		return true;
+
+	}
+	
+	
+	
+	
+	
 }

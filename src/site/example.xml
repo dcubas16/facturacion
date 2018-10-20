@@ -3,13 +3,13 @@
 	xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
 	xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
 	xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
-	xmlns:cec="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
 	xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
-	xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+	xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+	xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1">
 	<cbc:UBLVersionID>2.0</cbc:UBLVersionID>
-	<cbc:CustomizationID />
+	<cbc:CustomizationID>1.0</cbc:CustomizationID>
 	<cbc:ID>F001-4355</cbc:ID>
-	<cbc:IssueDate>2018-10-15</cbc:IssueDate>
+	<cbc:IssueDate>2018-10-19</cbc:IssueDate>
 	<cbc:InvoiceTypeCode>01</cbc:InvoiceTypeCode>
 	<cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
 	<cac:Signature>
@@ -19,7 +19,7 @@
 				<cbc:ID>20381847927</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyName>
-				<cbc:Name>DOW S.A.</cbc:Name>
+				<cbc:Name>DOW SA</cbc:Name>
 			</cac:PartyName>
 		</cac:SignatoryParty>
 		<cac:DigitalSignatureAttachment>
@@ -35,7 +35,7 @@
 		<cac:Party>
 			<cac:PostalAddress>
 				<cbc:ID />
-				<cbc:StreetName>DOW AV. PRIMAVERA NRO. 1416 INT. 1</cbc:StreetName>
+				<cbc:StreetName>Av. Primavera Nro. 1416 - Surco</cbc:StreetName>
 				<cbc:CitySubdivisionName />
 				<cbc:CityName>Lima</cbc:CityName>
 				<cbc:CountrySubentity>Lima</cbc:CountrySubentity>
@@ -45,7 +45,7 @@
 				</cac:Country>
 			</cac:PostalAddress>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName>DOW S.A.</cbc:RegistrationName>
+				<cbc:RegistrationName>DOW SA</cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:AccountingSupplierParty>
@@ -106,130 +106,10 @@
 			</cac:TaxSubtotal>
 		</cac:TaxTotal>
 		<cac:Item>
-			<cbc:Description>Grabadora LG Externo Modelo: GE20LU109
+			<cbc:Description>Grabadora LG Externo Modelo: GE20LU10
 			</cbc:Description>
 			<cac:SellersItemIdentification>
 				<cbc:ID>GLG199</cbc:ID>
-			</cac:SellersItemIdentification>
-		</cac:Item>
-		<cac:Price>
-			<cbc:PriceAmount currencyID="PEN">83.05</cbc:PriceAmount>
-		</cac:Price>
-	</cac:InvoiceLine>
-	<cac:InvoiceLine>
-		<cbc:ID>2</cbc:ID>
-		<cbc:InvoicedQuantity unitCode="ACR">2000
-		</cbc:InvoicedQuantity>
-		<cbc:LineExtensionAmount currencyID="PEN">149491.53
-		</cbc:LineExtensionAmount>
-		<cac:PricingReference>
-			<cac:AlternativeConditionPrice>
-				<cbc:PriceAmount currencyID="PEN">83.05</cbc:PriceAmount>
-				<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
-			</cac:AlternativeConditionPrice>
-		</cac:PricingReference>
-		<cac:TaxTotal>
-			<cbc:TaxAmount currencyID="PEN">26908.47</cbc:TaxAmount>
-			<cac:TaxSubtotal>
-				<cbc:TaxableAmount currencyID="PEN">166100.00
-				</cbc:TaxableAmount>
-				<cbc:TaxAmount currencyID="PEN">26908.47</cbc:TaxAmount>
-				<cbc:Percent>18.0</cbc:Percent>
-				<cac:TaxCategory>
-					<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
-					<cac:TaxScheme>
-						<cbc:ID>1000</cbc:ID>
-						<cbc:Name>IGV</cbc:Name>
-						<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
-					</cac:TaxScheme>
-				</cac:TaxCategory>
-			</cac:TaxSubtotal>
-		</cac:TaxTotal>
-		<cac:Item>
-			<cbc:Description>Grabadora LG Externo Modelo: GE20LU108
-			</cbc:Description>
-			<cac:SellersItemIdentification>
-				<cbc:ID>GLG198</cbc:ID>
-			</cac:SellersItemIdentification>
-		</cac:Item>
-		<cac:Price>
-			<cbc:PriceAmount currencyID="PEN">83.05</cbc:PriceAmount>
-		</cac:Price>
-	</cac:InvoiceLine>
-	<cac:InvoiceLine>
-		<cbc:ID>3</cbc:ID>
-		<cbc:InvoicedQuantity unitCode="ACR">2000
-		</cbc:InvoicedQuantity>
-		<cbc:LineExtensionAmount currencyID="PEN">149491.53
-		</cbc:LineExtensionAmount>
-		<cac:PricingReference>
-			<cac:AlternativeConditionPrice>
-				<cbc:PriceAmount currencyID="PEN">83.05</cbc:PriceAmount>
-				<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
-			</cac:AlternativeConditionPrice>
-		</cac:PricingReference>
-		<cac:TaxTotal>
-			<cbc:TaxAmount currencyID="PEN">26908.47</cbc:TaxAmount>
-			<cac:TaxSubtotal>
-				<cbc:TaxableAmount currencyID="PEN">166100.00
-				</cbc:TaxableAmount>
-				<cbc:TaxAmount currencyID="PEN">26908.47</cbc:TaxAmount>
-				<cbc:Percent>18.0</cbc:Percent>
-				<cac:TaxCategory>
-					<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
-					<cac:TaxScheme>
-						<cbc:ID>1000</cbc:ID>
-						<cbc:Name>IGV</cbc:Name>
-						<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
-					</cac:TaxScheme>
-				</cac:TaxCategory>
-			</cac:TaxSubtotal>
-		</cac:TaxTotal>
-		<cac:Item>
-			<cbc:Description>Grabadora LG Externo Modelo: GE20LU107
-			</cbc:Description>
-			<cac:SellersItemIdentification>
-				<cbc:ID>GLG197</cbc:ID>
-			</cac:SellersItemIdentification>
-		</cac:Item>
-		<cac:Price>
-			<cbc:PriceAmount currencyID="PEN">83.05</cbc:PriceAmount>
-		</cac:Price>
-	</cac:InvoiceLine>
-	<cac:InvoiceLine>
-		<cbc:ID>4</cbc:ID>
-		<cbc:InvoicedQuantity unitCode="ACR">2000
-		</cbc:InvoicedQuantity>
-		<cbc:LineExtensionAmount currencyID="PEN">149491.53
-		</cbc:LineExtensionAmount>
-		<cac:PricingReference>
-			<cac:AlternativeConditionPrice>
-				<cbc:PriceAmount currencyID="PEN">83.05</cbc:PriceAmount>
-				<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
-			</cac:AlternativeConditionPrice>
-		</cac:PricingReference>
-		<cac:TaxTotal>
-			<cbc:TaxAmount currencyID="PEN">26908.47</cbc:TaxAmount>
-			<cac:TaxSubtotal>
-				<cbc:TaxableAmount currencyID="PEN">166100.00
-				</cbc:TaxableAmount>
-				<cbc:TaxAmount currencyID="PEN">26908.47</cbc:TaxAmount>
-				<cbc:Percent>18.0</cbc:Percent>
-				<cac:TaxCategory>
-					<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
-					<cac:TaxScheme>
-						<cbc:ID>1000</cbc:ID>
-						<cbc:Name>IGV</cbc:Name>
-						<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
-					</cac:TaxScheme>
-				</cac:TaxCategory>
-			</cac:TaxSubtotal>
-		</cac:TaxTotal>
-		<cac:Item>
-			<cbc:Description>Grabadora LG Externo Modelo: GE20LU106
-			</cbc:Description>
-			<cac:SellersItemIdentification>
-				<cbc:ID>GLG196</cbc:ID>
 			</cac:SellersItemIdentification>
 		</cac:Item>
 		<cac:Price>
@@ -253,16 +133,14 @@
 							</ds:Transforms>
 							<ds:DigestMethod
 								Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
-							<ds:DigestValue>vS8dMZCb7ETOuhluVAbgz3FACEPD6FOOB/h19Uu8X1g=
-							</ds:DigestValue>
+							<ds:DigestValue>b1YZZIiQXvLMjIGvklcFjU/H/EXk904ZM52xtM2xTfY=</ds:DigestValue>
 						</ds:Reference>
 					</ds:SignedInfo>
-					<ds:SignatureValue>Xb4qJQO75FcmiQjgi98CU/dLloqQDEvTrZ8OZvExfjW31XEJ/G9t1MCGJ/K01Z6dup+h9gJXetCF
-						hNTiSoEx/tl3Y9PxsD8jI//X4Z6TTayDC38AQ86ip7m7qB6itg9d7wYAWeobjqyTw8tMYmA6xbIw
-						LilDNks4mZBCsR/BgZpv4ha6JUTR3u6Qmp55OG5NFEz7p7MV9BbugPzJAAszfcHy5uIF39ecpEP0
-						mBDSmCuJDjIQDRlPhBhT5MstRR6+TorLb3u6a1vBkiZqozQ9axAkO0fOh7HozPDtaO9FM3/TtXuy
-						vhMWrZqqitmVpsIFayDAnl6f3GRw6uyZAzNPGQ==
-					</ds:SignatureValue>
+					<ds:SignatureValue>KrHKYVy0+DHdjxUk7lbrulS98/xE/N9PL3pF+3tNGfMF34w/GbA0tTNalLJG/W6OanFRvg7b32c3
+						0F5GLtW6U3Q5gsGxhbweeTuzaomlxzFj+3WlCFdl3tKf1U0OezFkys+Y8dOexunPGD1uUUoesOvl
+						NlU63ZIbWcyRaKassabqdOdCIl+KTngwE7xl3X5DVsWfxGjeHVwzfCXabNb+JWMgtiAer0GHV58q
+						tGXpL4KFN5oXBbKL3ZSfHttAntqiPgQDH7Mp2r7W8UwGCKLgd9tXL9lPRbHgf5vcxvLxw6TdRUgs
+						SFzY/DTJzOh+YSUz7g5KroHt++azv9moXNTfJw==</ds:SignatureValue>
 					<ds:KeyInfo>
 						<ds:X509Data>
 							<ds:X509Certificate>MIIHZzCCBk+gAwIBAgIJRKctSK0jy3rtMA0GCSqGSIb3DQEBCwUAMIG4MQswCQYDVQQGEwJFUzEl
@@ -298,8 +176,7 @@
 								gW1L+3vvL06Zwp3x/9KTBQa1EkKWFw8CW0hnzMupL9J7O6AwjFpsQmZWXkMT/nE9Yap5T0cken1e
 								INz21tXu2oMmUwDTreG396HR+EpX18xoZm0qdEoroOJoOvxBxjnKXo7YeaIZeUKIACwY9Zh+5BfH
 								DuzyTspZo5lz0Xjn/CRRFodUQ572ji23p4JkNVOq+7MBh84X/DQsLYhx6tZ7je8HIH2nXXybekL3
-								vrf4/mnX7Whi07vgeEg5ao+4
-							</ds:X509Certificate>
+								vrf4/mnX7Whi07vgeEg5ao+4</ds:X509Certificate>
 						</ds:X509Data>
 					</ds:KeyInfo>
 				</ds:Signature>

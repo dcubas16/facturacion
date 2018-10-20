@@ -9,11 +9,14 @@ import java.io.InputStream;
 import java.util.Map;
 
 import org.apache.log4j.BasicConfigurator;
+import org.facturacionelectronica.servicios.Compresor;
 import org.facturacionelectronica.servicios.GestorFirma;
 import org.facturacionelectronica.util.Constantes;
 import org.junit.Test;
 
 public class CuandoFirmoXml {
+	
+	String nombreArchivo = "20381847927-01-F001-4355";
 
 	@Test
 	public void entoncesDebeFirmarXml() throws Throwable {
@@ -21,28 +24,35 @@ public class CuandoFirmoXml {
 
 		GestorFirma gestorFirma = new GestorFirma();
 		
-		InputStream inputStream = new FileInputStream(Constantes.rutaCompleta + Constantes.rutaSolicitud + "20100454523-01-F001-4355" + Constantes.extensionXml);
+		InputStream inputStream = new FileInputStream(Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
 		
 		Map<String, Object> xmlFirmado = gestorFirma.firmarDocumento(inputStream);
 		
-//		FileInputStream inDocument = new FileInputStream(rutaNombreEntrada);
-	    FileOutputStream fout = new FileOutputStream(Constantes.rutaCompleta + Constantes.rutaSolicitud + "FIR-20100454523-01-F001-4355" + Constantes.extensionXml);
+	    FileOutputStream fout = new FileOutputStream(Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
 
-//	    Map<String,Object> firma = this.firmarDocumento(inDocument);
         ByteArrayOutputStream outDocument = (ByteArrayOutputStream)xmlFirmado.get("signatureFile");
         String digestValue = (String)xmlFirmado.get("digestValue");
 	     
 	    outDocument.writeTo(fout);
 	    fout.close();
 
-//		firmarDocumento(inputStream);
-//		gestorFirma.generateXMLDigitalSignature(
-//				"D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\solicitud\\20100454523-01-F001-4355.xml",
-//				"D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\solicitud\\firma\\20100454523-01-F001-4355.xml",
-//				"D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\repositorio_cert\\certpri.key",
-//				"D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\repositorio_cert\\certpub.cer");
 
 		assertTrue(false);
 
 	}
+	
+	
+//	@Test
+//	public void entoncesDebeComprimirXml() throws Throwable {
+//		BasicConfigurator.configure();
+//
+//		Compresor.comprimirArchivo(
+//				Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionZip,
+//				Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
+//				nombreArchivo + Constantes.extensionXml);
+//
+//
+//		assertTrue(false);
+//
+//	}
 }

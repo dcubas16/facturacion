@@ -9,6 +9,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.servicios.ManejadorArchivos;
+import org.facturacionelectronica.util.Constantes;
 import org.junit.Test;
 
 public class CuandoImportoDatosDeArchivo {
@@ -22,8 +23,20 @@ public class CuandoImportoDatosDeArchivo {
 		List<String> lineasArchivo = manejadorArchivos.leerArchivo("D:\\proyectos\\Facturacion_Electronica\\facturacionelectronica\\src\\site\\archivo_lectura.txt");
 
 		assertTrue(lineasArchivo.size()>0);
-
 	}
+
+	
+	@Test
+	public void entoncesObtengoFacturasDeCarpeta()  {
+		BasicConfigurator.configure();
+
+		ManejadorArchivos manejadorArchivos = new ManejadorArchivos();
+		
+		List<String> lineasArchivo = manejadorArchivos.leerCarpeta(Constantes.rutaCompleta + Constantes.rutaImportar);
+
+		assertTrue(lineasArchivo.size()>0);
+	}
+	
 	
 	@Test
 	public void entoncesGeneroCabeceraFactura() throws ParseException  {

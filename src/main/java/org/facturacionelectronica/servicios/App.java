@@ -10,22 +10,22 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.BasicConfigurator;
+import org.facturacionelectronica.dao.GeneradorFacturaDao;
 import org.facturacionelectronica.dao.entidades.DetalleFacturaDao;
 import org.facturacionelectronica.dao.entidades.FacturaDao;
 import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.entidades.Factura;
 import org.facturacionelectronica.util.Constantes;
+import org.facturacionelectronica.util.Utilitario;
 
 import com.helger.commons.state.ESuccess;
 
-/**
- * Hello world!
- *
- */
+
 public class App {
 
-	public static void main(String[] args) throws Exception {
+//	public static void main(String[] args) throws Exception {
+	public void execApp() throws Exception {
 		BasicConfigurator.configure();
 		System.out.println("------------------>Iniciando Importacion Archivos");
 		System.out.println("------------------>Leyendo Facturas");
@@ -35,7 +35,7 @@ public class App {
 
 		try {
 			boolean respuesta = exportadorBaseDatos
-					.exportarFacturas(Constantes.rutaCompleta + Constantes.rutaImportar + Constantes.archivoImportar);
+					.exportarFacturas(Constantes.rutaCompleta + Constantes.rutaImportar );
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,16 +67,7 @@ public class App {
 
 			ESuccess eSuccess = generadorFactura.generarFactura(factura);
 
-			////////////////////////////////////////////////////////////////////////////// Esto
-			////////////////////////////////////////////////////////////////////////////// llevar
-			////////////////////////////////////////////////////////////////////////////// a
-			////////////////////////////////////////////////////////////////////////////// una
-			////////////////////////////////////////////////////////////////////////////// clase
-			////////////////////////////////////////////////////////////////////////////// utils
-			String nombreArchivo = gestorWebService.obtenerNombreArchivoFactura(
-					factura.getCabeceraFactura().getNumeroDocumento(),
-					factura.getCabeceraFactura().getTipoDocumentoFactura(), factura.getCabeceraFactura().getSerie(),
-					factura.getCabeceraFactura().getNumeroCorrelativo());
+			String nombreArchivo = Utilitario.obtenerNombreArchivoFactura(factura);
 
 			if (eSuccess.isSuccess()) {
 
@@ -106,13 +97,12 @@ public class App {
 					System.out.println("Error _ " + e.getMessage());
 				}
 				
-
-				// Enviar a Web Service
-				gestorWebService.enviarFacturaSunat(factura.getCabeceraFactura().getIdFactura(),
-						Constantes.rutaCompleta + Constantes.rutaSolicitud, nombreArchivo + Constantes.extensionZip,
-						nombreArchivo + Constantes.extensionXml,
-						factura.getCabeceraFactura().getNumeroDocumento() + Constantes.usuarioPruebas,
-						Constantes.contraseniaPruebas);
+				
+				GeneradorFacturaDao generadorFacturaDao = new GeneradorFacturaDao();
+				facturaDao.setEstado(6);
+				
+				generadorFacturaDao.actualizarFactura(facturaDao);
+				
 			}
 
 		}

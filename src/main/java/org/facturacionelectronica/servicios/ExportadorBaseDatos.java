@@ -15,11 +15,15 @@ public class ExportadorBaseDatos {
 	ManejadorArchivos manejadorArchivos = new ManejadorArchivos();
 	GeneradorFacturaDao generadorFacturaDao = new GeneradorFacturaDao();
 
-	public ExportadorBaseDatos() {}
+	public ExportadorBaseDatos() {
+	}
 
 	public boolean exportarFacturas(String rutaArchivo) throws ParseException {
+		// Lee un archivo
+		// lineasArchivo = manejadorArchivos.leerArchivo(rutaArchivo);
 
-		lineasArchivo = manejadorArchivos.leerArchivo(rutaArchivo);
+		// Lee toda la carpeta
+		lineasArchivo = manejadorArchivos.leerCarpeta(rutaArchivo);
 
 		List<CabeceraFactura> listaCabeceraFacturas = manejadorArchivos.generarCabeceraFactura(lineasArchivo);
 
@@ -42,16 +46,20 @@ public class ExportadorBaseDatos {
 	public List<DetalleFacturaDao> obtenerDetalleFactura(String idFactura) {
 
 		List<DetalleFacturaDao> listDetalleFacturaDaos = generadorFacturaDao.obtenerDetalleFactura(idFactura);
-		
+
 		return listDetalleFacturaDaos;
 	}
 
 	public List<FacturaDao> obtenerFacturasImportadas() {
 		List<FacturaDao> listaFacturaDaos = generadorFacturaDao.obtenerFacturasImportadas();
-		
+
 		return listaFacturaDaos;
 	}
 
+	public List<FacturaDao> obtenerFacturasPendientesDeEnvio() {
+		List<FacturaDao> listaFacturaDaos = generadorFacturaDao.obtenerFacturasPendientesDeEnvio();
 
+		return listaFacturaDaos;
+	}
 
 }

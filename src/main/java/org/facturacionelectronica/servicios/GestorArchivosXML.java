@@ -10,7 +10,12 @@ import java.io.Writer;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.facturacionelectronica.entidades.RespuestaCdr;
+import org.facturacionelectronica.util.Constantes;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.helger.commons.state.ESuccess;
 import com.helger.ublpe.UBLPEWriter;
@@ -57,5 +62,25 @@ public class GestorArchivosXML {
 		final ESuccess eSuccess = UBLPEWriter.invoice().write(invoiceType, new File(ruta));
 
 		return eSuccess;
+	}
+	
+	
+	public static RespuestaCdr obtenerRespuestaCdr(String archivoXml) {
+		
+		RespuestaCdr respuestaCdr = new RespuestaCdr();
+		Document doc = GestorArchivosXML.obtenerArchivoXML(Constantes.rutaCompleta + Constantes.rutaRespuesta
+				+ Constantes.siglaRespuesta + Constantes.separadorNombreArchivo + archivoXml);
+
+		NodeList nList = doc.getElementsByTagName("cac:DocumentResponse");
+		Node nNode = nList.item(0);
+		Element eElement = (Element) nNode;
+		
+		respuestaCdr.setDescripcion(eElement.getElementsByTagName("cac:Response").item(0).getTextContent());
+		respuestaCdr.setCodigo(eElement.getElementsByTagName("cbc:ResponseCode").item(0).getTextContent());
+		respuestaCdr.setTicket(doc.getDocumentElement().getElementsByTagName("cbc:ID").item(0).getTextContent());
+		
+		System.out.println(respuestaCdr.getTicket()+ "--" + respuestaCdr.getCodigo() + "--" + respuestaCdr.getDescripcion());
+		
+		return respuestaCdr;
 	}
 }

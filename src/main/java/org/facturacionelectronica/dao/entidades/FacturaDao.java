@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +25,7 @@ import org.facturacionelectronica.entidades.CabeceraFactura;
 @Inheritance(strategy=InheritanceType.JOINED)
 public class FacturaDao {
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="facturaDao")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="facturaDao", cascade=CascadeType.REMOVE)
 	private Set<DetalleFacturaDao> detalleFacturaDao;
 	
 	
@@ -129,13 +131,19 @@ public class FacturaDao {
 	
 	
 	@Column(name = "ESTADO", nullable=true)
-	private int estado;// 0=impotado ------ 1=enviado exito ------ 2=pendiente respuesta ------ -1=enviado con error
+	private int estado;// 0=aceptada ------ 5=Importada a base de datos --- 6=Pendiente Envio ------ otro numero: codigo error
 	
 	@Column(name = "MENSAJE_ENVIO", nullable=true, length=1000)
 	private String mensajeEnvio;
 	
 	@Column(name = "MENSAJE_RESPUESTA", nullable=true, length=1000)
 	private String mensajeRespuesta;
+	
+//	@Column(name = "FECHA_ENVIO", nullable=true)
+//	private Date fechaEnvio;
+//	
+//	@Column(name = "FECHA_RESPUESTA", nullable=true)
+//	private Date fechaRespuesta;
 	
 	
 //	Fecha envio
@@ -493,5 +501,21 @@ public class FacturaDao {
 	public void setMensajeRespuesta(String mensajeRespuesta) {
 		this.mensajeRespuesta = mensajeRespuesta;
 	}
+
+//	public Date getFechaEnvio() {
+//		return fechaEnvio;
+//	}
+//
+//	public void setFechaEnvio(Date fechaEnvio) {
+//		this.fechaEnvio = fechaEnvio;
+//	}
+//
+//	public Date getFechaRespuesta() {
+//		return fechaRespuesta;
+//	}
+//
+//	public void setFechaRespuesta(Date fechaRespuesta) {
+//		this.fechaRespuesta = fechaRespuesta;
+//	}
 	
 }

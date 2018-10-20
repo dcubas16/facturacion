@@ -14,10 +14,10 @@ import java.util.Date;
 import java.util.List;
 import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.DetalleFactura;
+import org.facturacionelectronica.util.Constantes;
 
 public class ManejadorArchivos {
 
-	@SuppressWarnings("resource")
 	public List<String> leerArchivo(String ruta) {
 
 		List<String> lineasArchivo = new ArrayList<String>();
@@ -37,6 +37,8 @@ public class ManejadorArchivos {
 				lineasArchivo.add(readLine);
 			}
 
+			b.close();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -44,6 +46,177 @@ public class ManejadorArchivos {
 		return lineasArchivo;
 
 	}
+
+	public List<String> leerCarpeta(String rutaCarpeta) {
+
+		File folder = new File(rutaCarpeta);
+
+		List<String> lineasCarpetaImportacion = new ArrayList<String>();
+
+		for (final File fileEntry : folder.listFiles()) {
+
+			if (esArchivoValido(fileEntry.getName())) {
+				List<String> lineasArchivo = this
+						.leerArchivo(Constantes.rutaCompleta + Constantes.rutaImportar + fileEntry.getName());
+
+				for (String lineaArchivo : lineasArchivo) {
+					lineasCarpetaImportacion.add(lineaArchivo);
+				}
+
+				eliminarArchivo(fileEntry);
+			}
+		}
+		return lineasCarpetaImportacion;
+	}
+
+	public boolean eliminarArchivo(File archivo) {
+		try {
+			boolean respuesta = archivo.delete();
+			System.out.println("Archivo eliminado " + respuesta);
+			return respuesta;
+		} catch (Exception ex) {
+			System.out.println("Ocurrió un problema al intentar borrar archivo");
+			return false;
+		}
+	}
+
+	private boolean esArchivoValido(String name) {
+
+		String pattern = "[0-9]{11}-[0-9]{1}";
+
+		return true;
+	}
+
+	public List<CabeceraFactura> generarCabeceraFacturaModificado(List<String> lineasArchivo) throws ParseException {
+
+		String idFacturaAux = "";
+		List<CabeceraFactura> listaCabeceraFacturas = new ArrayList<CabeceraFactura>();
+		CabeceraFactura cabeceraFactura = new CabeceraFactura();
+
+		String linea = lineasArchivo.get(0);
+
+		String[] arregloFactura = linea.split("\\|");
+
+		idFacturaAux = arregloFactura[0];
+
+		if (!verificarRepiteFactura(listaCabeceraFacturas, idFacturaAux)) {
+			cabeceraFactura = new CabeceraFactura();
+			cabeceraFactura.setIdFactura(arregloFactura[0]);
+			cabeceraFactura.setIdCustomization(arregloFactura[1]);
+
+			String fechaCadena = arregloFactura[2];
+			Date fechaEmision = obtenerFecha(fechaCadena);
+
+			cabeceraFactura.setFechaEmision(fechaEmision);
+			cabeceraFactura.setFirmaDigital(arregloFactura[3]);
+			cabeceraFactura.setRazonSocial(arregloFactura[4]);
+			cabeceraFactura.setNombreComercial(arregloFactura[5]);
+			cabeceraFactura.setCodigoUbigeo(arregloFactura[6]);
+			cabeceraFactura.setDireccionCompleta(arregloFactura[7]);
+			cabeceraFactura.setUrbanizacion(arregloFactura[8]);
+			cabeceraFactura.setProvincia(arregloFactura[9]);
+			cabeceraFactura.setDepartamento(arregloFactura[10]);
+			cabeceraFactura.setDistrito(arregloFactura[11]);
+			cabeceraFactura.setCodigoPais(arregloFactura[12]);
+			cabeceraFactura.setNumeroDocumento(new BigInteger(arregloFactura[13]));
+			cabeceraFactura.setTipoDocumento(new Integer(arregloFactura[14]));
+			cabeceraFactura.setTipoDocumentoFactura(arregloFactura[15]);
+			cabeceraFactura.setSerie(arregloFactura[16]);
+			cabeceraFactura.setNumeroCorrelativo(arregloFactura[17]);
+			cabeceraFactura.setNumeroDocumentoCliente(arregloFactura[18]);
+			cabeceraFactura.setTipoDocumentoCliente(arregloFactura[19]);
+			cabeceraFactura.setRazonSocialCliente(arregloFactura[20]);
+
+			if (!arregloFactura[21].isEmpty())
+				cabeceraFactura.setTotalValorVentaOpGravadas(new BigDecimal(arregloFactura[21]));
+
+			if (!arregloFactura[22].isEmpty())
+				cabeceraFactura.setTotalValorVentaOpInafecta(new BigDecimal(arregloFactura[22]));
+
+			if (!arregloFactura[23].isEmpty())
+				cabeceraFactura.setTotalValorVentaOpExoneradas(new BigDecimal(arregloFactura[23]));
+
+			if (!arregloFactura[24].isEmpty())
+				cabeceraFactura.setTotalValorVentaOpGratuitas(new BigDecimal(arregloFactura[24]));
+
+			if (!arregloFactura[25].isEmpty())
+				cabeceraFactura.setSumatoriaIGV(new BigDecimal(arregloFactura[25]));
+
+			if (!arregloFactura[26].isEmpty())
+				cabeceraFactura.setSumatoriaISC(new BigDecimal(arregloFactura[26]));
+
+			if (!arregloFactura[27].isEmpty())
+				cabeceraFactura.setTotalDescuentos(new BigDecimal(arregloFactura[27]));
+
+			if (!arregloFactura[28].isEmpty())
+				cabeceraFactura.setImporteTotalVenta(new BigDecimal(arregloFactura[28]));
+
+//			cabeceraFactura.setLeyenda(arregloFactura[29]);
+
+			listaCabeceraFacturas.add(cabeceraFactura);
+		}
+
+		return listaCabeceraFacturas;
+	}
+
+	public List<DetalleFactura> generarDetalleFacturaModificado(List<String> lineasArchivo, String idFactura) {
+		// String idFacturaAux = "";
+		List<DetalleFactura> listaDetalleFactura = new ArrayList<DetalleFactura>();
+		DetalleFactura detalleFactura = new DetalleFactura();
+
+		String linea = "";
+
+		for (int i = 1; i < lineasArchivo.size(); i++) {
+
+			linea = lineasArchivo.get(i);
+
+			String[] arregloFactura = linea.split("\\|");
+
+			// idFacturaAux = arregloFactura[0];
+			// if (idFacturaAux.equals(idFactura)) {
+
+			detalleFactura = new DetalleFactura();
+
+			if (!arregloFactura[0].isEmpty())
+				detalleFactura.setNumeroOrden(Integer.parseInt(arregloFactura[0]));
+
+			detalleFactura.setUnidadMedida(arregloFactura[1]);
+			detalleFactura.setCodigoItem(arregloFactura[2]);
+			detalleFactura.setDescripcionItem(arregloFactura[3]);
+
+			if (!arregloFactura[4].isEmpty())
+				detalleFactura.setCantidad(new BigDecimal(arregloFactura[4]));
+
+			if (!arregloFactura[5].isEmpty())
+				detalleFactura.setValorUnitarioPorItem(new BigDecimal(arregloFactura[5]));
+
+			if (!arregloFactura[6].isEmpty())
+				detalleFactura.setPrecioVentaUnitarioPorItem(new BigDecimal(arregloFactura[6]));
+
+			if (!arregloFactura[7].isEmpty())
+				detalleFactura.setImpuestoPorItem(new BigDecimal(arregloFactura[7]));// ESTE CAMPO CAMBIA A
+																						// DESCUENTO
+
+			if (!arregloFactura[8].isEmpty())
+				detalleFactura.setValorVentaBruto(new BigDecimal(arregloFactura[8]));
+
+			if (!arregloFactura[9].isEmpty())
+				detalleFactura.setValorVentaPorItem(new BigDecimal(arregloFactura[9]));
+
+			if (!arregloFactura[10].isEmpty())
+				detalleFactura.setImpuestoPorItem(new BigDecimal(arregloFactura[10]));
+
+			listaDetalleFactura.add(detalleFactura);
+
+			// }
+
+		}
+
+		return listaDetalleFactura;
+	}
+
+	// ----------------------------------------------Estructura de archivos
+	// Inicial------------------------------------------------------------
 
 	public List<CabeceraFactura> generarCabeceraFactura(List<String> lineasArchivo) throws ParseException {
 
@@ -54,10 +227,15 @@ public class ManejadorArchivos {
 		for (String linea : lineasArchivo) {
 
 			String[] arregloFactura = linea.split("\\|");
+			
+			
 
 			idFacturaAux = arregloFactura[0];
 
 			if (!verificarRepiteFactura(listaCabeceraFacturas, idFacturaAux)) {
+				
+//				if(esCabeceraValida())
+				
 				cabeceraFactura = new CabeceraFactura();
 				cabeceraFactura.setIdFactura(arregloFactura[0]);
 				cabeceraFactura.setIdCustomization(arregloFactura[1]);
@@ -132,11 +310,10 @@ public class ManejadorArchivos {
 
 			if (idFacturaAux.equals(idFactura)) {
 
+				detalleFactura = new DetalleFactura();
+
 				if (!arregloFactura[30].isEmpty())
-
-					detalleFactura = new DetalleFactura();
-
-				detalleFactura.setNumeroOrden(Integer.parseInt(arregloFactura[30]));
+					detalleFactura.setNumeroOrden(Integer.parseInt(arregloFactura[30]));
 
 				detalleFactura.setUnidadMedida(arregloFactura[31]);
 				detalleFactura.setCodigoItem(arregloFactura[32]);
@@ -152,7 +329,8 @@ public class ManejadorArchivos {
 					detalleFactura.setPrecioVentaUnitarioPorItem(new BigDecimal(arregloFactura[36]));
 
 				if (!arregloFactura[37].isEmpty())
-					detalleFactura.setImpuestoPorItem(new BigDecimal(arregloFactura[37]));//ESTE CAMPO CAMBIA A DESCUENTO
+					detalleFactura.setImpuestoPorItem(new BigDecimal(arregloFactura[37]));// ESTE CAMPO CAMBIA A
+																							// DESCUENTO
 
 				if (!arregloFactura[38].isEmpty())
 					detalleFactura.setValorVentaBruto(new BigDecimal(arregloFactura[38]));
@@ -192,16 +370,14 @@ public class ManejadorArchivos {
 
 		for (CabeceraFactura cabeceraFactura : listaCabeceraFacturas) {
 			if (cabeceraFactura.getIdFactura().equals(idFactura)) {
-				
-				//////////////Agregar loger
-				
+
+				////////////// Agregar loger
+
 				return true;
 			}
-				
+
 		}
 		return false;
 	}
-	
-
 
 }

@@ -15,7 +15,7 @@ public class Constantes {
 //	public static final String archivoImportar = "factura.txt";
 		
 
-	public static final String rutaCompleta = "D:\\Suit_Fael\\";
+	public static final String rutaCompleta = "E:\\Suit_Fael\\";
 	
 //	public static final String rutaSolicitud = "solicitud\\";
 	public static final String rutaSolicitud = "Solicitud\\";
