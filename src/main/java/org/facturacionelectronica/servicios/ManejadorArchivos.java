@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.facturacionelectronica.entidades.CabeceraFactura;
+import org.facturacionelectronica.entidades.ComunicacionBaja;
+import org.facturacionelectronica.entidades.DetalleComunicacionBaja;
 import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.util.Constantes;
 
@@ -151,7 +153,7 @@ public class ManejadorArchivos {
 			if (!arregloFactura[28].isEmpty())
 				cabeceraFactura.setImporteTotalVenta(new BigDecimal(arregloFactura[28]));
 
-//			cabeceraFactura.setLeyenda(arregloFactura[29]);
+			// cabeceraFactura.setLeyenda(arregloFactura[29]);
 
 			listaCabeceraFacturas.add(cabeceraFactura);
 		}
@@ -227,15 +229,13 @@ public class ManejadorArchivos {
 		for (String linea : lineasArchivo) {
 
 			String[] arregloFactura = linea.split("\\|");
-			
-			
 
 			idFacturaAux = arregloFactura[0];
 
 			if (!verificarRepiteFactura(listaCabeceraFacturas, idFacturaAux)) {
-				
-//				if(esCabeceraValida())
-				
+
+				// if(esCabeceraValida())
+
 				cabeceraFactura = new CabeceraFactura();
 				cabeceraFactura.setIdFactura(arregloFactura[0]);
 				cabeceraFactura.setIdCustomization(arregloFactura[1]);
@@ -378,6 +378,108 @@ public class ManejadorArchivos {
 
 		}
 		return false;
+	}
+
+	public List<ComunicacionBaja> genearComunicacionBaja(List<String> lineasArchivo) {
+		String idComunicacionBaja = "";
+		List<ComunicacionBaja> listaComunicacionBaja = new ArrayList<ComunicacionBaja>();
+		ComunicacionBaja comunicacionBaja = new ComunicacionBaja();
+
+		for (String linea : lineasArchivo) {
+
+			String[] arregloComunicacionBaja = linea.split("\\|");
+
+			idComunicacionBaja = arregloComunicacionBaja[3] + arregloComunicacionBaja[5] + arregloComunicacionBaja[6];
+
+			if (!verificarRepiteComunicacionBaja(listaComunicacionBaja, idComunicacionBaja)) {
+
+				// if(esCabeceraValida())
+
+				comunicacionBaja = new ComunicacionBaja();
+				comunicacionBaja.setIdComunicaionBaja(idComunicacionBaja);
+				comunicacionBaja.setRazonSocial(arregloComunicacionBaja[0]);
+
+				if (!arregloComunicacionBaja[3].isEmpty())
+					comunicacionBaja.setNumeroRuc(new BigInteger(arregloComunicacionBaja[0]));
+
+				if (!arregloComunicacionBaja[4].isEmpty())
+					comunicacionBaja.setTipoDocumento(Integer.parseInt(arregloComunicacionBaja[4]));
+
+				String fechaCadena = arregloComunicacionBaja[2];
+				Date fechaEmision = obtenerFecha(fechaCadena);
+
+				comunicacionBaja.setFechaGeneracionDocumento(fechaEmision);
+
+				comunicacionBaja.setIdentificaComunica(arregloComunicacionBaja[1]);
+
+				comunicacionBaja.setFechaGeneraComunica(new Date());
+
+				comunicacionBaja.setFirmaDigital("");
+
+				comunicacionBaja.setVersionUbl("2.0");
+
+				comunicacionBaja.setVersionEstrucDoc("1.0");
+
+				comunicacionBaja.setEstado(3);
+
+				comunicacionBaja.setRespuesta("");
+
+				listaComunicacionBaja.add(comunicacionBaja);
+			}
+
+		}
+
+		return listaComunicacionBaja;
+	}
+
+	private boolean verificarRepiteComunicacionBaja(List<ComunicacionBaja> listaComunicacionBaja,
+			String idComunicacionBaja) {
+		for (ComunicacionBaja comunicacionBaja : listaComunicacionBaja) {
+			if (comunicacionBaja.getIdComunicaionBaja().equals(idComunicacionBaja)) {
+
+				////////////// Agregar loger
+
+				return true;
+			}
+
+		}
+		return false;
+	}
+
+
+	public List<DetalleComunicacionBaja> generarDetalleDetalleComunicacionBaja(List<String> lineasArchivo,
+			String idComunicaionBaja) {
+		String idComunicaionBajaAux = "";
+		List<DetalleComunicacionBaja> listaDetalleComunicacionBaja = new ArrayList<DetalleComunicacionBaja>();
+		DetalleComunicacionBaja detalleComunicacionBaja = new DetalleComunicacionBaja();
+
+		int contador = 0;
+		
+		for (String linea : lineasArchivo) {
+
+			String[] arregloComunicacionBaja = linea.split("\\|");
+
+			idComunicaionBajaAux = arregloComunicacionBaja[3] + arregloComunicacionBaja[5] + arregloComunicacionBaja[6];
+
+			if (idComunicaionBajaAux.equals(idComunicaionBaja)) {
+
+				detalleComunicacionBaja = new DetalleComunicacionBaja();
+				
+				contador = contador + 1;
+
+				detalleComunicacionBaja.setTipoDocumento(arregloComunicacionBaja[4]);
+				detalleComunicacionBaja.setSerieDocumento(arregloComunicacionBaja[5]);
+				detalleComunicacionBaja.setNumeroCorrelativo(arregloComunicacionBaja[6]);
+				detalleComunicacionBaja.setMotivoBaja(arregloComunicacionBaja[7]);
+				detalleComunicacionBaja.setNumeroItem(contador);
+
+				listaDetalleComunicacionBaja.add(detalleComunicacionBaja);
+
+			}
+
+		}
+
+		return listaDetalleComunicacionBaja;
 	}
 
 }

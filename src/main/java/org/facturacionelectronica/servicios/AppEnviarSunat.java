@@ -3,6 +3,7 @@ package org.facturacionelectronica.servicios;
 import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
+import org.facturacionelectronica.dao.ConfiguracionBaseDatos;
 import org.facturacionelectronica.dao.entidades.FacturaDao;
 import org.facturacionelectronica.util.Constantes;
 
@@ -31,6 +32,9 @@ public class AppEnviarSunat {
 					nombreArchivo + Constantes.extensionXml,
 					facturaDao.getNumeroDocumento() + Constantes.usuarioPruebas, Constantes.contraseniaPruebas);
 		}
+		
+//		ConfiguracionBaseDatos.shutdown();
+//		System.exit(0);
 	}
 
 }

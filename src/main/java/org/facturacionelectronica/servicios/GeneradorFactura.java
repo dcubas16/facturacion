@@ -68,27 +68,22 @@ public class GeneradorFactura {
 		// Zona Informacion Basica
 		generarDatosBasicosFactura(aInvoice, factura.getCabeceraFactura(), eCurrency, "2.0");
 
-		
-		//Zona Agregar tag extension
-//		UBLExtensionsType ublExtensionsType = new UBLExtensionsType();
-//		aInvoice.setUBLExtensions(ublExtensionsType);
-		
-		
+		// Zona Agregar tag extension
+		// UBLExtensionsType ublExtensionsType = new UBLExtensionsType();
+		// aInvoice.setUBLExtensions(ublExtensionsType);
+
 		// Zona Informacion Adicional
-//		UBLExtensionsType ublExtensionsTypeAdditional = generarInformacionAdicional(factura.getCabeceraFactura(),
-//				eCurrency);
-//		aInvoice.setUBLExtensions(ublExtensionsTypeAdditional);
+		// UBLExtensionsType ublExtensionsTypeAdditional =
+		// generarInformacionAdicional(factura.getCabeceraFactura(),
+		// eCurrency);
+		// aInvoice.setUBLExtensions(ublExtensionsTypeAdditional);
 
-		
 		// Zona firma detalle
-//		ublExtensionsTypeAdditional.addUBLExtension(generarDetalleFirma(factura.getCabeceraFactura()));
+		// ublExtensionsTypeAdditional.addUBLExtension(generarDetalleFirma(factura.getCabeceraFactura()));
 
-		
 		// Zona firma cabecera
 		aInvoice.addSignature(generarCabeceraFirma(factura.getCabeceraFactura()));
 
-		
-		
 		// Zona Cliente
 		aInvoice.setAccountingCustomerParty(generarZonaInformacionCliente(factura.getCabeceraFactura()));
 
@@ -117,10 +112,8 @@ public class GeneradorFactura {
 		ESuccess eSuccess = GestorArchivosXML.imprimirFacturaArchivo(aInvoice,
 				Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
 				Constantes.estandarXml);
-		
-		
-		//Firmado
-		
+
+		// Firmado
 
 		return eSuccess;
 	}
@@ -146,7 +139,8 @@ public class GeneradorFactura {
 
 	private void generarDatosBasicosFactura(InvoiceType aInvoice, CabeceraFactura cabeceraFactura,
 			CurrencyCodeContentType eCurrency, String versionUbl) {
-		aInvoice.setID(cabeceraFactura.getIdFactura());
+		aInvoice.setID(cabeceraFactura.getSerie() + Constantes.separadorNombreArchivo
+				+ cabeceraFactura.getNumeroCorrelativo());
 		aInvoice.setInvoiceTypeCode(cabeceraFactura.getTipoDocumentoFactura());
 		aInvoice.setCustomizationID(cabeceraFactura.getIdCustomization());
 		aInvoice.setIssueDate(PDTXMLConverter.getXMLCalendarDateNow());
@@ -300,8 +294,7 @@ public class GeneradorFactura {
 		// Zona Impuesto Items
 		TaxTotalType taxTotalType = new TaxTotalType();
 		taxTotalType.setTaxAmount(lineaDetalleFactura.getImpuestoPorItem()).setCurrencyID(eCurrency);
-		
-		
+
 		TaxSubtotalType taxSubtotalType = new TaxSubtotalType();
 
 		taxSubtotalType.setTaxableAmount(lineaDetalleFactura.getValorVentaBruto()).setCurrencyID(eCurrency);
@@ -326,7 +319,7 @@ public class GeneradorFactura {
 		taxTotalType.addTaxSubtotal(taxSubtotalType);
 
 		invoiceLineType.addTaxTotal(taxTotalType);
-		
+
 		return invoiceLineType;
 	}
 
@@ -445,7 +438,7 @@ public class GeneradorFactura {
 		addressType.setCountry(countryType);
 
 		partyType.setPostalAddress(addressType);
-
+		
 		List<PartyLegalEntityType> partyLegalEntityTypes = new ArrayList<PartyLegalEntityType>();
 		PartyLegalEntityType partyLegalEntityType = new PartyLegalEntityType();
 		partyLegalEntityType.setRegistrationName(cabeceraFactura.getNombreComercial());

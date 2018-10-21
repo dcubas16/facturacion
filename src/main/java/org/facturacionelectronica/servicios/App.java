@@ -10,10 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.BasicConfigurator;
+import org.facturacionelectronica.dao.ConfiguracionBaseDatos;
 import org.facturacionelectronica.dao.GeneradorFacturaDao;
 import org.facturacionelectronica.dao.entidades.DetalleFacturaDao;
 import org.facturacionelectronica.dao.entidades.FacturaDao;
 import org.facturacionelectronica.entidades.CabeceraFactura;
+import org.facturacionelectronica.entidades.ComunicacionBaja;
 import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.entidades.Factura;
 import org.facturacionelectronica.util.Constantes;
@@ -21,11 +23,10 @@ import org.facturacionelectronica.util.Utilitario;
 
 import com.helger.commons.state.ESuccess;
 
-
 public class App {
 
-//	public static void main(String[] args) throws Exception {
-	public void execApp() throws Exception {
+	 public static void main(String[] args) throws Exception {
+//	public void execApp() throws Exception {
 		BasicConfigurator.configure();
 		System.out.println("------------------>Iniciando Importacion Archivos");
 		System.out.println("------------------>Leyendo Facturas");
@@ -34,8 +35,7 @@ public class App {
 		ExportadorBaseDatos exportadorBaseDatos = new ExportadorBaseDatos();
 
 		try {
-			boolean respuesta = exportadorBaseDatos
-					.exportarFacturas(Constantes.rutaCompleta + Constantes.rutaImportar );
+			boolean respuesta = exportadorBaseDatos.exportarFacturas(Constantes.rutaCompleta + Constantes.rutaImportar);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -93,16 +93,15 @@ public class App {
 				try {
 					GestorPdf gestorPdf = new GestorPdf();
 					gestorPdf.generarPDF(nombreArchivo);
-				}catch(Exception e) {
+				} catch (Exception e) {
 					System.out.println("Error _ " + e.getMessage());
 				}
-				
-				
+
 				GeneradorFacturaDao generadorFacturaDao = new GeneradorFacturaDao();
 				facturaDao.setEstado(6);
-				
+
 				generadorFacturaDao.actualizarFactura(facturaDao);
-				
+
 			}
 
 		}

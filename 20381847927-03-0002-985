@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice>
+   <UBLVersionID>2.0</UBLVersionID>
+   <CustomizationID/>
+   <ID>0002985</ID>
+   <IssueDate>2018-10-20</IssueDate>
+   <InvoiceTypeCode>03</InvoiceTypeCode>
+   <DocumentCurrencyCode>PEN</DocumentCurrencyCode>
+   <Signature>
+      <ID>SignSUNAT</ID>
+      <SignatoryParty>
+         <PartyIdentification>
+            <ID>20381847927</ID>
+         </PartyIdentification>
+         <PartyName>
+            <Name>DOW SA</Name>
+         </PartyName>
+      </SignatoryParty>
+      <DigitalSignatureAttachment>
+         <ExternalReference>
+            <URI>20381847927</URI>
+         </ExternalReference>
+      </DigitalSignatureAttachment>
+   </Signature>
+   <AccountingSupplierParty>
+      <CustomerAssignedAccountID>20381847927</CustomerAssignedAccountID>
+      <AdditionalAccountID>6</AdditionalAccountID>
+      <Party>
+         <PostalAddress>
+            <ID>150101</ID>
+            <StreetName>Av. Primavera Nro. 1416 - Surco</StreetName>
+            <CitySubdivisionName/>
+            <CityName/>
+            <CountrySubentity/>
+            <District/>
+            <Country>
+               <IdentificationCode>PE</IdentificationCode>
+            </Country>
+         </PostalAddress>
+         <PartyLegalEntity>
+            <RegistrationName>DOW SA</RegistrationName>
+         </PartyLegalEntity>
+      </Party>
+   </AccountingSupplierParty>
+   <AccountingCustomerParty>
+      <CustomerAssignedAccountID>0000012387</CustomerAssignedAccountID>
+      <AdditionalAccountID>6</AdditionalAccountID>
+      <Party>
+         <PartyLegalEntity>
+            <RegistrationName>TORRES  GUZMAN, GIANMARCO</RegistrationName>
+         </PartyLegalEntity>
+      </Party>
+   </AccountingCustomerParty>
+   <TaxTotal>
+      <TaxAmount currencyID="PEN">17.39</TaxAmount>
+      <TaxSubtotal>
+         <TaxAmount currencyID="PEN">17.39</TaxAmount>
+         <TaxCategory>
+            <TaxScheme>
+               <ID>1000</ID>
+               <Name>IGV</Name>
+               <TaxTypeCode>VAT</TaxTypeCode>
+            </TaxScheme>
+         </TaxCategory>
+      </TaxSubtotal>
+   </TaxTotal>
+   <LegalMonetaryTotal>
+      <PayableAmount currencyID="PEN">114.00</PayableAmount>
+   </LegalMonetaryTotal>
+   <InvoiceLine>
+      <ID>1</ID>
+      <InvoicedQuantity unitCode="ACR">1.000</InvoicedQuantity>
+      <LineExtensionAmount currencyID="PEN">0.00</LineExtensionAmount>
+      <PricingReference>
+         <AlternativeConditionPrice>
+            <PriceAmount currencyID="PEN">64.50</PriceAmount>
+            <PriceTypeCode>01</PriceTypeCode>
+         </AlternativeConditionPrice>
+      </PricingReference>
+      <TaxTotal>
+         <TaxAmount currencyID="PEN">54.66</TaxAmount>
+         <TaxSubtotal>
+            <TaxableAmount currencyID="PEN">64.50</TaxableAmount>
+            <TaxAmount currencyID="PEN">54.66</TaxAmount>
+            <Percent>18.0</Percent>
+            <TaxCategory>
+               <TaxExemptionReasonCode>10</TaxExemptionReasonCode>
+               <TaxScheme>
+                  <ID>1000</ID>
+                  <Name>IGV</Name>
+                  <TaxTypeCode>VAT</TaxTypeCode>
+               </TaxScheme>
+            </TaxCategory>
+         </TaxSubtotal>
+      </TaxTotal>
+      <Item>
+         <Description>TALLA     : 39.5   PM PORON (PAR)-ADULTO</Description>
+         <SellersItemIdentification>
+            <ID>02157</ID>
+         </SellersItemIdentification>
+      </Item>
+      <Price>
+         <PriceAmount currencyID="PEN">64.50</PriceAmount>
+      </Price>
+   </InvoiceLine>
+   <InvoiceLine>
+      <ID>2</ID>
+      <InvoicedQuantity unitCode="ACR">1.000</InvoicedQuantity>
+      <LineExtensionAmount currencyID="PEN">0.00</LineExtensionAmount>
+      <PricingReference>
+         <AlternativeConditionPrice>
+            <PriceAmount currencyID="PEN">49.50</PriceAmount>
+            <PriceTypeCode>01</PriceTypeCode>
+         </AlternativeConditionPrice>
+      </PricingReference>
+      <TaxTotal>
+         <TaxAmount currencyID="PEN">41.95</TaxAmount>
+         <TaxSubtotal>
+            <TaxableAmount currencyID="PEN">49.50</TaxableAmount>
+            <TaxAmount currencyID="PEN">41.95</TaxAmount>
+            <Percent>18.0</Percent>
+            <TaxCategory>
+               <TaxExemptionReasonCode>10</TaxExemptionReasonCode>
+               <TaxScheme>
+                  <ID>1000</ID>
+                  <Name>IGV</Name>
+                  <TaxTypeCode>VAT</TaxTypeCode>
+               </TaxScheme>
+            </TaxCategory>
+         </TaxSubtotal>
+      </TaxTotal>
+      <Item>
+         <Description>TALLA     : 41   PM MICROP (PAR)-ADULTO</Description>
+         <SellersItemIdentification>
+            <ID>02283</ID>
+         </SellersItemIdentification>
+      </Item>
+      <Price>
+         <PriceAmount currencyID="PEN">49.50</PriceAmount>
+      </Price>
+   </InvoiceLine>
+   <UBLExtensions>
+		    <UBLExtension>
+			      <ExtensionContent>
+            <Signature Id="SignSUNAT">
+               <SignedInfo>
+                  <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                  <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                  <Reference URI="">
+                     <Transforms>
+                        <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                     </Transforms>
+                     <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+                     <DigestValue>K7S3u4yXhGmc8vEh50Bjcf4VDfEWApHimzp4vxAHUjI=</DigestValue>
+                  </Reference>
+               </SignedInfo>
+               <SignatureValue>Pe5ZSnfs1N5YOI9xegGcR+xY+YZwF+oo/0hb8hGKRaaQrOOBNsqP91m6oVqPPRwNAuzefmmiflHz
+tC/X+dlNa6LaJHD+uYEW9fjb4n2Hq9SVr7zxNvo+vtvScSp05BHM4Y2J6J03wi2wAtQiyG8cOrNn
+qEzftBcVMT+tdeWYQc/701Uz9FKtuWqrW5qIFTHrrpvdoRLfz+owVdrB5WNvrdWujPlPOMIbdMWs
+6wJhlY54z8naXmE5gjxkUC/3aPgW/WA2Aj7JSnhEgxnWY15cRv48qGxEmQAJmXQWwrYQg4bVq4Sz
+yiiMyMdvQvE7Lbqvmd2ohmPRPkqfZxF/YT3OfQ==</SignatureValue>
+               <KeyInfo>
+                  <X509Data>
+                     <X509Certificate>MIIHZzCCBk+gAwIBAgIJRKctSK0jy3rtMA0GCSqGSIb3DQEBCwUAMIG4MQswCQYDVQQGEwJFUzEl
+MCMGCSqGSIb3DQEJARYWY2FyYWNlckBjYW1lcmZpcm1hLmNvbTFDMEEGA1UEBxM6TWFkcmlkIChz
+ZWUgY3VycmVudCBhZGRyZXNzIGF0IHd3dy5jYW1lcmZpcm1hLmNvbS9hZGRyZXNzKTESMBAGA1UE
+BRMJQTgyNzQzMjg3MRkwFwYDVQQKExBBQyBDYW1lcmZpcm1hIFNBMQ4wDAYDVQQDEwVSQUNFUjAe
+Fw0xODA0MjMyMzQ0MjhaFw0xOTA0MjMyMzQ0MjhaMIIBXzEgMB4GCSqGSIb3DQEJARYReXNlbGFf
+dGpAeWFob28uZXMxGjAYBgNVBAcMEVNBTlRJQUdPIERFIFNVUkNPMRIwEAYDVQQIDAlMSU1BLUxJ
+TUExETAPBgNVBAUTCDA5MzAzMjY4MRMwEQYKKwYBBAGBhy4eAgwDUlVDMRswGQYKKwYBBAGBhy4e
+AwwLMjAzODE4NDc5MjcxEzARBgorBgEEAYGHLh4EDANETkkxETAPBgNVBAoMCERPVyBTLkEuMREw
+DwYDVQQLDAhHRVJFTkNJQTEUMBIGA1UECwwLMjAzODE4NDc5MjcxEjAQBgNVBAwMCUFQT0RFUkFE
+TzEWMBQGA1UEBAwNVE9SUkVTIEpPUkRBTjEWMBQGA1UEKgwNWVNFTEEgWU9MQU5EQTEkMCIGA1UE
+AwwbWVNFTEEgWU9MQU5EQSBUT1JSRVMgSk9SREFOMQswCQYDVQQGEwJQRTCCASIwDQYJKoZIhvcN
+AQEBBQADggEPADCCAQoCggEBALKe9uVJAo3kvG5oufVaLE5EzMZ0Sj6BQvUToS/N8OC/eaFpfyoc
+14wOfh9C60UXYUbn+6bH6J7j6J+DTWowAiFaoeeKc6jB7H9RyqJ4YuxCA/xkb/KO9VUStvTzmRH1
+jUktG0f+3JNpa1SILwMFdjl6KymBknjamY9mE0nZHK9NSIO3pNT0LfYXXJlYdS/kFdW/Va24hWgn
+3qozME+Bt2YcGO1Brev0g83oc02QTL7aELalxj6/XkfcCBU9stjXGb64PsGTqakiMYK3wDQd+JxK
+Vicn96/IdN/77JxSPxlDAYE+2h8kIGFYM4zrPKHYTYL6CFW+ItBDWaUnfyZBteMCAwEAAaOCAsgw
+ggLEMAwGA1UdEwEB/wQCMAAwEQYJYIZIAYb4QgEBBAQDAgWgMA4GA1UdDwEB/wQEAwIGwDAdBgNV
+HSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwHQYDVR0OBBYEFOChQYZUjPD1CxWdHJXMwCPIh1s5
+MG0GCCsGAQUFBwEBBGEwXzA1BggrBgEFBQcwAoYpaHR0cDovL3d3dy5jYW1lcmZpcm1hLmNvbS9j
+ZXJ0cy9yYWNlci5jcnQwJgYIKwYBBQUHMAGGGmh0dHA6Ly9vY3NwLmNhbWVyZmlybWEuY29tMIHz
+BgNVHSMEgeswgeiAFL68CNQuugBMgNwmZ7Sl2N3DShr5oYHMpIHJMIHGMQswCQYDVQQGEwJFUzEr
+MCkGCSqGSIb3DQEJARYcYWNfY2FtZXJmaXJtYUBjYW1lcmZpcm1hLmNvbTESMBAGA1UEBRMJQTgy
+NzQzMjg3MUMwQQYDVQQHEzpNYWRyaWQgKHNlZSBjdXJyZW50IGFkZHJlc3MgYXQgd3d3LmNhbWVy
+ZmlybWEuY29tL2FkZHJlc3MpMRkwFwYDVQQKExBBQyBDYW1lcmZpcm1hIFNBMRYwFAYDVQQDEw1B
+QyBDYW1lcmZpcm1hggEBMGQGA1UdHwRdMFswK6ApoCeGJWh0dHA6Ly9jcmwuY2FtZXJmaXJtYS5j
+b20vcmFjZXJfZi5jcmwwLKAqoCiGJmh0dHA6Ly9jcmwxLmNhbWVyZmlybWEuY29tL3JhY2VyX2Yu
+Y3JsMCEGA1UdEgQaMBiBFmNhcmFjZXJAY2FtZXJmaXJtYS5jb20wHAYDVR0RBBUwE4EReXNlbGFf
+dGpAeWFob28uZXMwRwYDVR0gBEAwPjA8Bg0rBgEEAYGHLgoIAgEBMCswKQYIKwYBBQUHAgEWHWh0
+dHBzOi8vcG9saWN5LmNhbWVyZmlybWEuY29tMA0GCSqGSIb3DQEBCwUAA4IBAQAtWdG7w/RHPqaT
+RobGVaGb7TdnHaZeCGQ+j1L54KYIu4JrCb0pMnnb5ygs2jMUk67WOVjJ0aBdH1wngistDacDinqf
+gW1L+3vvL06Zwp3x/9KTBQa1EkKWFw8CW0hnzMupL9J7O6AwjFpsQmZWXkMT/nE9Yap5T0cken1e
+INz21tXu2oMmUwDTreG396HR+EpX18xoZm0qdEoroOJoOvxBxjnKXo7YeaIZeUKIACwY9Zh+5BfH
+DuzyTspZo5lz0Xjn/CRRFodUQ572ji23p4JkNVOq+7MBh84X/DQsLYhx6tZ7je8HIH2nXXybekL3
+vrf4/mnX7Whi07vgeEg5ao+4</X509Certificate>
+                  </X509Data>
+               </KeyInfo>
+            </Signature>
+         </ExtensionContent>
+		    </UBLExtension>
+	  </UBLExtensions>
+</Invoice>

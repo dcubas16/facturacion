@@ -14,7 +14,7 @@ public class CuandoImprimoComprobante {
 		
 		GestorPdf gestorPdf = new GestorPdf();
 
-		gestorPdf.generarPDF("20381847927-01-FF40-46");
+		gestorPdf.generarPDF("20381847927-01-0002-53");
 	
 		assertTrue(false);
 	}

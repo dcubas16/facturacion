@@ -27,7 +27,7 @@ public class GestorPdf {
 
 	public void generarPDF(String nombreArchivo) {
 
-		String archivoJrxml = Constantes.rutaCompleta + Constantes.rutaPlantillasReportes
+		String archivoJrxml = "D:\\proyectos\\Facturacion_Electronica\\SFS_v1.2\\sunat_archivos\\sfs\\FORM\\"
 				+ "Plantilla_reporte_factura.jasper";
 		String patronXPath = "/Invoice/InvoiceLine";
 
@@ -90,7 +90,8 @@ public class GestorPdf {
 
 	}
 
-	private String transform(String dataXML, String inputXSL, String outputHTML, String nombreArchivo) throws Exception {
+	private String transform(String dataXML, String inputXSL, String outputHTML, String nombreArchivo)
+			throws Exception {
 		String retorno = "", mensaje = "";
 
 		File archivoXSL = new File(inputXSL);
@@ -182,5 +183,4 @@ public class GestorPdf {
 		return numero;
 	}
 
-	
 }

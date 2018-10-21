@@ -3,10 +3,15 @@ package org.facturacionelectronica.servicios;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.facturacionelectronica.dao.GeneradorComuncacionBajaDao;
 import org.facturacionelectronica.dao.GeneradorFacturaDao;
+import org.facturacionelectronica.dao.entidades.ComunicacionBajaDao;
 import org.facturacionelectronica.dao.entidades.DetalleFacturaDao;
 import org.facturacionelectronica.dao.entidades.FacturaDao;
 import org.facturacionelectronica.entidades.CabeceraFactura;
+import org.facturacionelectronica.entidades.ComunicacionBaja;
+import org.facturacionelectronica.entidades.DetalleComunicacionBaja;
 import org.facturacionelectronica.entidades.DetalleFactura;
 
 public class ExportadorBaseDatos {
@@ -14,6 +19,7 @@ public class ExportadorBaseDatos {
 	private List<String> lineasArchivo = new ArrayList<String>();
 	ManejadorArchivos manejadorArchivos = new ManejadorArchivos();
 	GeneradorFacturaDao generadorFacturaDao = new GeneradorFacturaDao();
+	GeneradorComuncacionBajaDao generadorComuncacionBajaDao = new GeneradorComuncacionBajaDao();
 
 	public ExportadorBaseDatos() {
 	}
@@ -60,6 +66,31 @@ public class ExportadorBaseDatos {
 		List<FacturaDao> listaFacturaDaos = generadorFacturaDao.obtenerFacturasPendientesDeEnvio();
 
 		return listaFacturaDaos;
+	}
+
+	public boolean exportarComunicacionBaja(String rutaArchivo) {
+
+		lineasArchivo = manejadorArchivos.leerArchivo(rutaArchivo);
+
+		// Lee toda la carpeta
+		lineasArchivo = manejadorArchivos.leerCarpeta(rutaArchivo);
+
+		List<ComunicacionBaja> listComunicacionBaja = manejadorArchivos.genearComunicacionBaja(lineasArchivo);
+
+		for (ComunicacionBaja comunicacionBaja : listComunicacionBaja) {
+			List<DetalleComunicacionBaja> listaDetalleComunicacionBaja = manejadorArchivos
+					.generarDetalleDetalleComunicacionBaja(lineasArchivo, comunicacionBaja.getIdComunicaionBaja());
+
+			generadorComuncacionBajaDao.guardarComunicacionBaja(comunicacionBaja, listaDetalleComunicacionBaja);
+
+		}
+
+		return true;
+	}
+
+	public List<ComunicacionBajaDao> obtenerComunicacionBajaDao() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

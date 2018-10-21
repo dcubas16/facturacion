@@ -15,7 +15,7 @@ public class Constantes {
 //	public static final String archivoImportar = "factura.txt";
 		
 
-	public static final String rutaCompleta = "E:\\Suit_Fael\\";
+	public static final String rutaCompleta = "D:\\Suit_Fael\\";
 	
 //	public static final String rutaSolicitud = "solicitud\\";
 	public static final String rutaSolicitud = "Solicitud\\";
@@ -42,6 +42,9 @@ public class Constantes {
 	public static final String rutaPdf = "Pdf\\";
 	
 	public static final String rutaImagenQr = "ImagenQr\\";
+	
+	public static final String rutaComunicaBaja = "Importar_txt_comunica_baja\\";
+
 	
 	
 	public static final String extensionXml = ".xml";
@@ -150,6 +153,7 @@ public class Constantes {
 	public static final String CONSTANTE_CODIGO_EXITO_CONSULTA_CDR = "0004";
 	public static final Integer CONSTANTE_CODIGO_ENVIO_PREVIO = 1033;
 
+	
 	
 
 	
