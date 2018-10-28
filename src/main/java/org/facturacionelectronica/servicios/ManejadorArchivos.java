@@ -6,12 +6,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.ComunicacionBaja;
 import org.facturacionelectronica.entidades.DetalleComunicacionBaja;
@@ -19,6 +22,9 @@ import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.util.Constantes;
 
 public class ManejadorArchivos {
+	
+
+	static Logger logger = Logger.getLogger(ManejadorArchivos.class);
 
 	public List<String> leerArchivo(String ruta) {
 
@@ -27,7 +33,7 @@ public class ManejadorArchivos {
 		try {
 
 			File f = new File(ruta);
-
+			
 			BufferedReader b = new BufferedReader(new FileReader(f));
 
 			String readLine = "";
@@ -51,24 +57,32 @@ public class ManejadorArchivos {
 
 	public List<String> leerCarpeta(String rutaCarpeta) {
 
-		File folder = new File(rutaCarpeta);
+		try {
+			File folder = new File(rutaCarpeta);
 
-		List<String> lineasCarpetaImportacion = new ArrayList<String>();
+			List<String> lineasCarpetaImportacion = new ArrayList<String>();
 
-		for (final File fileEntry : folder.listFiles()) {
+			for (final File fileEntry : folder.listFiles()) {
 
-			if (esArchivoValido(fileEntry.getName())) {
-				List<String> lineasArchivo = this
-						.leerArchivo(Constantes.rutaCompleta + Constantes.rutaImportar + fileEntry.getName());
+				if (esArchivoValido(fileEntry.getName())) {
+					List<String> lineasArchivo = this
+							.leerArchivo(rutaCarpeta + fileEntry.getName());
 
-				for (String lineaArchivo : lineasArchivo) {
-					lineasCarpetaImportacion.add(lineaArchivo);
+					for (String lineaArchivo : lineasArchivo) {
+						lineasCarpetaImportacion.add(lineaArchivo);
+					}
+
+					eliminarArchivo(fileEntry);
 				}
-
-				eliminarArchivo(fileEntry);
 			}
+			return lineasCarpetaImportacion;
+		}catch(Exception ex) {
+			logger.error(ex);
+			System.out.println("Suit_fael Error: "+ex.getMessage());
+			System.exit(0);
+			return null;
 		}
-		return lineasCarpetaImportacion;
+		
 	}
 
 	public boolean eliminarArchivo(File archivo) {
@@ -128,6 +142,7 @@ public class ManejadorArchivos {
 			cabeceraFactura.setNumeroDocumentoCliente(arregloFactura[18]);
 			cabeceraFactura.setTipoDocumentoCliente(arregloFactura[19]);
 			cabeceraFactura.setRazonSocialCliente(arregloFactura[20]);
+			cabeceraFactura.setIdCustomization("1.0");;
 
 			if (!arregloFactura[21].isEmpty())
 				cabeceraFactura.setTotalValorVentaOpGravadas(new BigDecimal(arregloFactura[21]));
@@ -153,7 +168,14 @@ public class ManejadorArchivos {
 			if (!arregloFactura[28].isEmpty())
 				cabeceraFactura.setImporteTotalVenta(new BigDecimal(arregloFactura[28]));
 
-			// cabeceraFactura.setLeyenda(arregloFactura[29]);
+			 
+			 cabeceraFactura.setPaciente(arregloFactura[42]);
+			 cabeceraFactura.setDireccionPaciente(arregloFactura[43]);
+			 cabeceraFactura.setTipoCambio(arregloFactura[44]);
+			 cabeceraFactura.setMedioPago(arregloFactura[45]);
+			 cabeceraFactura.setTelefonoEmisor(arregloFactura[46]);
+			 
+			 cabeceraFactura.setLeyenda(arregloFactura[47]);
 
 			listaCabeceraFacturas.add(cabeceraFactura);
 		}
@@ -262,6 +284,7 @@ public class ManejadorArchivos {
 				cabeceraFactura.setNumeroDocumentoCliente(arregloFactura[18]);
 				cabeceraFactura.setTipoDocumentoCliente(arregloFactura[19]);
 				cabeceraFactura.setRazonSocialCliente(arregloFactura[20]);
+				cabeceraFactura.setIdCustomization("1.0");
 
 				if (!arregloFactura[21].isEmpty())
 					cabeceraFactura.setTotalValorVentaOpGravadas(new BigDecimal(arregloFactura[21]));
@@ -287,7 +310,13 @@ public class ManejadorArchivos {
 				if (!arregloFactura[28].isEmpty())
 					cabeceraFactura.setImporteTotalVenta(new BigDecimal(arregloFactura[28]));
 
-				cabeceraFactura.setLeyenda(arregloFactura[29]);
+				 cabeceraFactura.setPaciente(arregloFactura[42]);
+				 cabeceraFactura.setDireccionPaciente(arregloFactura[43]);
+				 cabeceraFactura.setTipoCambio(arregloFactura[44]);
+				 cabeceraFactura.setMedioPago(arregloFactura[45]);
+				 cabeceraFactura.setTelefonoEmisor(arregloFactura[46]);
+				 
+				 cabeceraFactura.setLeyenda(arregloFactura[47]);
 
 				listaCabeceraFacturas.add(cabeceraFactura);
 			}
@@ -320,26 +349,34 @@ public class ManejadorArchivos {
 				detalleFactura.setDescripcionItem(arregloFactura[33]);
 
 				if (!arregloFactura[34].isEmpty())
-					detalleFactura.setCantidad(new BigDecimal(arregloFactura[34]));
+					detalleFactura.setCantidad(new BigDecimal(arregloFactura[34]));//OK
 
 				if (!arregloFactura[35].isEmpty())
-					detalleFactura.setValorUnitarioPorItem(new BigDecimal(arregloFactura[35]));
+				{
+					BigDecimal valorUnitarioPorItemAux = new BigDecimal(arregloFactura[35]);
+					valorUnitarioPorItemAux = valorUnitarioPorItemAux.divide(new BigDecimal("1.18"), 2, RoundingMode.HALF_UP);
+					
+					detalleFactura.setValorUnitarioPorItem(valorUnitarioPorItemAux);//corregir
+				}
 
-				if (!arregloFactura[36].isEmpty())
-					detalleFactura.setPrecioVentaUnitarioPorItem(new BigDecimal(arregloFactura[36]));
+				
+				
+				
+				if (!arregloFactura[35].isEmpty())
+					detalleFactura.setPrecioVentaUnitarioPorItem(new BigDecimal(arregloFactura[35]));
 
 				if (!arregloFactura[37].isEmpty())
-					detalleFactura.setImpuestoPorItem(new BigDecimal(arregloFactura[37]));// ESTE CAMPO CAMBIA A
+//					detalleFactura.setImpuestoPorItem(new BigDecimal(arregloFactura[37]));// ESTE CAMPO CAMBIA A
 																							// DESCUENTO
 
+//				if (!arregloFactura[38].isEmpty())
+//					detalleFactura.setValorVentaBruto(new BigDecimal(arregloFactura[38]));
+
 				if (!arregloFactura[38].isEmpty())
-					detalleFactura.setValorVentaBruto(new BigDecimal(arregloFactura[38]));
+					detalleFactura.setValorVentaPorItem(new BigDecimal(arregloFactura[38]));
 
-				if (!arregloFactura[39].isEmpty())
-					detalleFactura.setValorVentaPorItem(new BigDecimal(arregloFactura[39]));
-
-				if (!arregloFactura[40].isEmpty())
-					detalleFactura.setImpuestoPorItem(new BigDecimal(arregloFactura[40]));
+				if (!arregloFactura[37].isEmpty())
+					detalleFactura.setImpuestoPorItem(new BigDecimal(arregloFactura[37]));
 
 				listaDetalleFactura.add(detalleFactura);
 
@@ -388,8 +425,11 @@ public class ManejadorArchivos {
 		for (String linea : lineasArchivo) {
 
 			String[] arregloComunicacionBaja = linea.split("\\|");
+			
+			DateFormat df = new SimpleDateFormat("yyyyMMdd");
+			String fechaGeneracionArhcivo = df.format(new Date());
 
-			idComunicacionBaja = arregloComunicacionBaja[3] + arregloComunicacionBaja[5] + arregloComunicacionBaja[6];
+			idComunicacionBaja = Constantes.siglaIdentComunicacionBaja + Constantes.separadorNombreArchivo + fechaGeneracionArhcivo + Constantes.separadorNombreArchivo + Constantes.numeroComunicacionBaja;
 
 			if (!verificarRepiteComunicacionBaja(listaComunicacionBaja, idComunicacionBaja)) {
 
@@ -400,7 +440,7 @@ public class ManejadorArchivos {
 				comunicacionBaja.setRazonSocial(arregloComunicacionBaja[0]);
 
 				if (!arregloComunicacionBaja[3].isEmpty())
-					comunicacionBaja.setNumeroRuc(new BigInteger(arregloComunicacionBaja[0]));
+					comunicacionBaja.setNumeroRuc(new BigInteger(arregloComunicacionBaja[3]));
 
 				if (!arregloComunicacionBaja[4].isEmpty())
 					comunicacionBaja.setTipoDocumento(Integer.parseInt(arregloComunicacionBaja[4]));
@@ -409,8 +449,6 @@ public class ManejadorArchivos {
 				Date fechaEmision = obtenerFecha(fechaCadena);
 
 				comunicacionBaja.setFechaGeneracionDocumento(fechaEmision);
-
-				comunicacionBaja.setIdentificaComunica(arregloComunicacionBaja[1]);
 
 				comunicacionBaja.setFechaGeneraComunica(new Date());
 
@@ -449,7 +487,7 @@ public class ManejadorArchivos {
 
 	public List<DetalleComunicacionBaja> generarDetalleDetalleComunicacionBaja(List<String> lineasArchivo,
 			String idComunicaionBaja) {
-		String idComunicaionBajaAux = "";
+		String idComunicacionBajaAux = "";
 		List<DetalleComunicacionBaja> listaDetalleComunicacionBaja = new ArrayList<DetalleComunicacionBaja>();
 		DetalleComunicacionBaja detalleComunicacionBaja = new DetalleComunicacionBaja();
 
@@ -457,11 +495,13 @@ public class ManejadorArchivos {
 		
 		for (String linea : lineasArchivo) {
 
-			String[] arregloComunicacionBaja = linea.split("\\|");
+			String[] arregloComunicacionBaja = linea.split(Constantes.caracterSeparadorArchivo);
+			DateFormat df = new SimpleDateFormat(Constantes.formatoFechaComunicacionBaja);
+			String fechaGeneracionArhcivo = df.format(new Date());
 
-			idComunicaionBajaAux = arregloComunicacionBaja[3] + arregloComunicacionBaja[5] + arregloComunicacionBaja[6];
+			idComunicacionBajaAux = Constantes.siglaIdentComunicacionBaja + Constantes.separadorNombreArchivo + fechaGeneracionArhcivo + Constantes.separadorNombreArchivo + Constantes.numeroComunicacionBaja;
 
-			if (idComunicaionBajaAux.equals(idComunicaionBaja)) {
+			if (idComunicacionBajaAux.equals(idComunicaionBaja)) {
 
 				detalleComunicacionBaja = new DetalleComunicacionBaja();
 				

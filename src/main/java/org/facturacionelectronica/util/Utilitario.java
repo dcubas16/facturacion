@@ -1,5 +1,6 @@
 package org.facturacionelectronica.util;
 
+import java.io.File;
 import org.facturacionelectronica.entidades.Factura;
 
 public class Utilitario {
@@ -12,6 +13,14 @@ public class Utilitario {
 				+ factura.getCabeceraFactura().getNumeroCorrelativo();
 
 		return nombreArchivo;
+	}
+	
+	public static String obtenerRutaEjecutable() {
+		File f1 = new File(System.getProperty("java.class.path"));
+		File dir = f1.getAbsoluteFile().getParentFile();
+		String path = dir.toString() + Constantes.SimboloDobleEslash;
+		
+		return path;
 	}
 
 }

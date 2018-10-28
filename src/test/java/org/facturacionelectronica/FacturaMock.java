@@ -38,9 +38,9 @@ public final class FacturaMock {
 
 	private static CabeceraFactura obtenerCabeceraFactura() {
 
-		CabeceraFactura cabeceraFactura = new CabeceraFactura("F001-4355", "1.0", new Date(20120304), "firmaDigital",
+		CabeceraFactura cabeceraFactura = new CabeceraFactura("F001-4355", "1.0", new Date(), "firmaDigital",
 				"", "DOW SA", "", "Av. Primavera Nro. 1416 - Surco", "Urb. Miguel Grau", "Lima", "Lima", "Lima", "", new BigInteger("20381847927"), 6, "01", "F001", "4355", "20587896411", "6", "Servicabinas S.A.", new BigDecimal("348199.15"), null, new BigDecimal("12350.00"), new BigDecimal("30.00"), new BigDecimal("62675.85"), null, new BigDecimal("59230.51"), new BigDecimal("423225.00"), "CUATROCIENTOS VEINTITRES MIL DOSCIENTOS VEINTICINCO Y 00/100");
-		
+		cabeceraFactura.setMoneda("PEN");
 		
 		return cabeceraFactura;
 	}

@@ -1,18 +1,21 @@
 package org.facturacionelectronica.servicios;
 
-import java.text.ParseException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.facturacionelectronica.dao.GeneradorComuncacionBajaDao;
 import org.facturacionelectronica.dao.GeneradorFacturaDao;
 import org.facturacionelectronica.dao.entidades.ComunicacionBajaDao;
+import org.facturacionelectronica.dao.entidades.DetalleComunicaBajaDao;
 import org.facturacionelectronica.dao.entidades.DetalleFacturaDao;
 import org.facturacionelectronica.dao.entidades.FacturaDao;
 import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.ComunicacionBaja;
 import org.facturacionelectronica.entidades.DetalleComunicacionBaja;
 import org.facturacionelectronica.entidades.DetalleFactura;
+import org.facturacionelectronica.util.GestorExcepciones;
+
 
 public class ExportadorBaseDatos {
 
@@ -24,24 +27,31 @@ public class ExportadorBaseDatos {
 	public ExportadorBaseDatos() {
 	}
 
-	public boolean exportarFacturas(String rutaArchivo) throws ParseException {
-		// Lee un archivo
-		// lineasArchivo = manejadorArchivos.leerArchivo(rutaArchivo);
+	public boolean exportarFacturas(String rutaArchivo){
+		try {
+			// Lee un archivo
+			// lineasArchivo = manejadorArchivos.leerArchivo(rutaArchivo);
+			
+			// Lee toda la carpeta
+			lineasArchivo = manejadorArchivos.leerCarpeta(rutaArchivo);
 
-		// Lee toda la carpeta
-		lineasArchivo = manejadorArchivos.leerCarpeta(rutaArchivo);
+			List<CabeceraFactura> listaCabeceraFacturas = manejadorArchivos.generarCabeceraFactura(lineasArchivo);
 
-		List<CabeceraFactura> listaCabeceraFacturas = manejadorArchivos.generarCabeceraFactura(lineasArchivo);
+			for (CabeceraFactura cabeceraFactura : listaCabeceraFacturas) {
+				List<DetalleFactura> listaDetalleFacturas = manejadorArchivos.generarDetalleFactura(lineasArchivo,
+						cabeceraFactura.getIdFactura());
 
-		for (CabeceraFactura cabeceraFactura : listaCabeceraFacturas) {
-			List<DetalleFactura> listaDetalleFacturas = manejadorArchivos.generarDetalleFactura(lineasArchivo,
-					cabeceraFactura.getIdFactura());
+				generadorFacturaDao.guardarFactura(cabeceraFactura, listaDetalleFacturas);
 
-			generadorFacturaDao.guardarFactura(cabeceraFactura, listaDetalleFacturas);
+			}
 
+			return true;
+		}catch (Exception e) {
+			GestorExcepciones.guardarExcepcion(e, this);
+			
+			return false;
 		}
-
-		return true;
+		
 	}
 
 	public FacturaDao obtenerFactura(String idFactura) {
@@ -70,9 +80,6 @@ public class ExportadorBaseDatos {
 
 	public boolean exportarComunicacionBaja(String rutaArchivo) {
 
-		lineasArchivo = manejadorArchivos.leerArchivo(rutaArchivo);
-
-		// Lee toda la carpeta
 		lineasArchivo = manejadorArchivos.leerCarpeta(rutaArchivo);
 
 		List<ComunicacionBaja> listComunicacionBaja = manejadorArchivos.genearComunicacionBaja(lineasArchivo);
@@ -88,9 +95,17 @@ public class ExportadorBaseDatos {
 		return true;
 	}
 
-	public List<ComunicacionBajaDao> obtenerComunicacionBajaDao() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ComunicacionBajaDao> obtenerComunicacionBajaImportados() {
+		List<ComunicacionBajaDao> listaComunicacionBajaDaos = generadorComuncacionBajaDao.obtenerComunicacionBajaImportados();
+
+		return listaComunicacionBajaDaos;
 	}
+
+	public List<DetalleComunicaBajaDao> obtenerDetalleComunicaBajaDao(String idComunicaionBaja) {
+		List<DetalleComunicaBajaDao> listDetalleComunicaBajaDao = generadorComuncacionBajaDao.obtenerDetalleComunicaBajaDao(idComunicaionBaja);
+
+		return listDetalleComunicaBajaDao;
+	}
+
 
 }

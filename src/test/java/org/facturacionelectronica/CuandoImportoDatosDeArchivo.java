@@ -10,6 +10,7 @@ import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.servicios.ManejadorArchivos;
 import org.facturacionelectronica.util.Constantes;
+import org.facturacionelectronica.util.ParametrosGlobales;
 import org.junit.Test;
 
 public class CuandoImportoDatosDeArchivo {
@@ -32,7 +33,7 @@ public class CuandoImportoDatosDeArchivo {
 
 		ManejadorArchivos manejadorArchivos = new ManejadorArchivos();
 		
-		List<String> lineasArchivo = manejadorArchivos.leerCarpeta(Constantes.rutaCompleta + Constantes.rutaImportar);
+		List<String> lineasArchivo = manejadorArchivos.leerCarpeta(ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImportar);
 
 		assertTrue(lineasArchivo.size()>0);
 	}

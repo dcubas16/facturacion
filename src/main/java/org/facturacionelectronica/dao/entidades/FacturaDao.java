@@ -139,15 +139,26 @@ public class FacturaDao {
 	@Column(name = "MENSAJE_RESPUESTA", nullable=true, length=1000)
 	private String mensajeRespuesta;
 	
-//	@Column(name = "FECHA_ENVIO", nullable=true)
-//	private Date fechaEnvio;
-//	
-//	@Column(name = "FECHA_RESPUESTA", nullable=true)
-//	private Date fechaRespuesta;
+	@Column(name = "FECHA_ENVIO", nullable=true)
+	private Date fechaEnvio;
 	
+	@Column(name = "FECHA_RESPUESTA", nullable=true)
+	private Date fechaRespuesta;
 	
-//	Fecha envio
-//	Fecha respuesta
+	@Column(name = "TELEFONO_EMISOR", nullable=true)
+	private String telefonoEmisor;
+	
+	@Column(name = "PACIENTE", nullable=true)
+	private String paciente;
+	
+	@Column(name = "DIRECCION_PACIENTE", nullable=true)
+	private String direccionPaciente;
+	
+	@Column(name = "MEDIO_PAGO", nullable=true)
+	private String medioPago;
+	
+	@Column(name = "TIPO_CAMBIO", nullable=true)
+	private String tipoCambio;
 	
 		
 	public FacturaDao() {}
@@ -183,6 +194,13 @@ public class FacturaDao {
 		this.importeTotalVenta = cabeceraFactura.getImporteTotalVenta();
 		this.leyenda = cabeceraFactura.getLeyenda();
 		
+		
+		this.paciente = cabeceraFactura.getPaciente();
+		this.direccionPaciente = cabeceraFactura.getDireccionPaciente();
+		this.tipoCambio = cabeceraFactura.getTipoCambio();
+		this.medioPago = cabeceraFactura.getMedioPago();
+		this.telefonoEmisor = cabeceraFactura.getTelefonoEmisor();
+		
 //------------->OJO
 		this.porcentajeImpuesto = 18.0;
 		this.moneda = "";
@@ -196,7 +214,9 @@ public class FacturaDao {
 			BigDecimal totalValorVentaOpGravadas, BigDecimal totalValorVentaOpInafecta,
 			BigDecimal totalValorVentaOpExoneradas, BigDecimal totalValorVentaOpGratuitas, BigDecimal sumatoriaIGV,
 			BigDecimal sumatoriaISC, BigDecimal totalDescuentos, BigDecimal importeTotalVenta, String leyenda,
-			double porcentajeImpuesto, String moneda) {
+			double porcentajeImpuesto, String moneda, int estado, String mensajeEnvio, String mensajeRespuesta,
+			Date fechaEnvio, Date fechaRespuesta, String telefonoEmisor, String paciente, String direccionPaciente,
+			String medioPago, String tipoCambio) {
 		super();
 		this.idFactura = idFactura;
 		this.fechaEmision = fechaEmision;
@@ -228,6 +248,16 @@ public class FacturaDao {
 		this.leyenda = leyenda;
 		this.porcentajeImpuesto = porcentajeImpuesto;
 		this.moneda = moneda;
+		this.estado = estado;
+		this.mensajeEnvio = mensajeEnvio;
+		this.mensajeRespuesta = mensajeRespuesta;
+		this.fechaEnvio = fechaEnvio;
+		this.fechaRespuesta = fechaRespuesta;
+		this.telefonoEmisor = telefonoEmisor;
+		this.paciente = paciente;
+		this.direccionPaciente = direccionPaciente;
+		this.medioPago = medioPago;
+		this.tipoCambio = tipoCambio;
 	}
 
 	public Set<DetalleFacturaDao> getDetalleFacturaDao() {
@@ -500,6 +530,62 @@ public class FacturaDao {
 
 	public void setMensajeRespuesta(String mensajeRespuesta) {
 		this.mensajeRespuesta = mensajeRespuesta;
+	}
+
+	public Date getFechaEnvio() {
+		return fechaEnvio;
+	}
+
+	public void setFechaEnvio(Date fechaEnvio) {
+		this.fechaEnvio = fechaEnvio;
+	}
+
+	public Date getFechaRespuesta() {
+		return fechaRespuesta;
+	}
+
+	public void setFechaRespuesta(Date fechaRespuesta) {
+		this.fechaRespuesta = fechaRespuesta;
+	}
+
+	public String getTelefonoEmisor() {
+		return telefonoEmisor;
+	}
+
+	public void setTelefonoEmisor(String telefonoEmisor) {
+		this.telefonoEmisor = telefonoEmisor;
+	}
+
+	public String getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(String paciente) {
+		this.paciente = paciente;
+	}
+
+	public String getDireccionPaciente() {
+		return direccionPaciente;
+	}
+
+	public void setDireccionPaciente(String direccionPaciente) {
+		this.direccionPaciente = direccionPaciente;
+	}
+
+	public String getMedioPago() {
+		return medioPago;
+	}
+
+	public void setMedioPago(String medioPago) {
+		this.medioPago = medioPago;
+	}
+
+	public String getTipoCambio() {
+		return tipoCambio;
+	}
+
+	public void setTipoCambio(String tipoCambio) {
+		this.tipoCambio = tipoCambio;
 	}
 
 //	public Date getFechaEnvio() {

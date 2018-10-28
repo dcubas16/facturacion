@@ -44,8 +44,18 @@ public class CabeceraFactura {
 	private String moneda;//28
 	private String versionUBL;//36
 	
-	
 	private String leyenda;
+	private int estado;// 0=aceptada ------ 5=Importada a base de datos --- 6=Pendiente Envio ------ otro numero: codigo error
+	private String mensajeEnvio;
+	private String mensajeRespuesta;
+	private Date fechaEnvio;
+	private Date fechaRespuesta;
+	private String telefonoEmisor;
+	private String paciente;
+	private String direccionPaciente;
+	private String medioPago;
+	private String tipoCambio;
+	
 
 	public CabeceraFactura() {}
 	
@@ -81,6 +91,18 @@ public class CabeceraFactura {
 		this.totalDescuentos = facturaDao.getTotalDescuentos();
 		this.importeTotalVenta = facturaDao.getImporteTotalVenta();
 		this.leyenda = facturaDao.getLeyenda();
+		
+		
+		this.estado = facturaDao.getEstado();
+		this.mensajeEnvio = facturaDao.getMensajeEnvio();
+		this.mensajeRespuesta =facturaDao.getMensajeRespuesta();
+		this.fechaEnvio = facturaDao.getFechaEnvio();
+		this.fechaRespuesta = facturaDao.getFechaRespuesta();
+		this.telefonoEmisor = facturaDao.getTelefonoEmisor();
+		this.paciente = facturaDao.getPaciente();
+		this.direccionPaciente = facturaDao.getDireccionPaciente();
+		this.medioPago = facturaDao.getMedioPago();
+		this.tipoCambio = facturaDao.getTipoCambio();
 	}
 		
 	public CabeceraFactura(String idFactura, String idCustomization, Date fechaEmision, String firmaDigital,
@@ -378,6 +400,86 @@ public class CabeceraFactura {
 
 	public void setVersionUBL(String versionUBL) {
 		this.versionUBL = versionUBL;
+	}
+
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+
+	public String getMensajeEnvio() {
+		return mensajeEnvio;
+	}
+
+	public void setMensajeEnvio(String mensajeEnvio) {
+		this.mensajeEnvio = mensajeEnvio;
+	}
+
+	public String getMensajeRespuesta() {
+		return mensajeRespuesta;
+	}
+
+	public void setMensajeRespuesta(String mensajeRespuesta) {
+		this.mensajeRespuesta = mensajeRespuesta;
+	}
+
+	public Date getFechaEnvio() {
+		return fechaEnvio;
+	}
+
+	public void setFechaEnvio(Date fechaEnvio) {
+		this.fechaEnvio = fechaEnvio;
+	}
+
+	public Date getFechaRespuesta() {
+		return fechaRespuesta;
+	}
+
+	public void setFechaRespuesta(Date fechaRespuesta) {
+		this.fechaRespuesta = fechaRespuesta;
+	}
+
+	public String getTelefonoEmisor() {
+		return telefonoEmisor;
+	}
+
+	public void setTelefonoEmisor(String telefonoEmisor) {
+		this.telefonoEmisor = telefonoEmisor;
+	}
+
+	public String getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(String paciente) {
+		this.paciente = paciente;
+	}
+
+	public String getDireccionPaciente() {
+		return direccionPaciente;
+	}
+
+	public void setDireccionPaciente(String direccionPaciente) {
+		this.direccionPaciente = direccionPaciente;
+	}
+
+	public String getMedioPago() {
+		return medioPago;
+	}
+
+	public void setMedioPago(String medioPago) {
+		this.medioPago = medioPago;
+	}
+
+	public String getTipoCambio() {
+		return tipoCambio;
+	}
+
+	public void setTipoCambio(String tipoCambio) {
+		this.tipoCambio = tipoCambio;
 	}
 	
 }

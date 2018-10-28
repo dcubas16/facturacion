@@ -4,21 +4,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.log4j.BasicConfigurator;
-import org.facturacionelectronica.dao.ConfiguracionBaseDatos;
 import org.facturacionelectronica.dao.GeneradorFacturaDao;
 import org.facturacionelectronica.dao.entidades.DetalleFacturaDao;
 import org.facturacionelectronica.dao.entidades.FacturaDao;
 import org.facturacionelectronica.entidades.CabeceraFactura;
-import org.facturacionelectronica.entidades.ComunicacionBaja;
 import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.entidades.Factura;
 import org.facturacionelectronica.util.Constantes;
+import org.facturacionelectronica.util.GestorExcepciones;
+import org.facturacionelectronica.util.ParametrosGlobales;
 import org.facturacionelectronica.util.Utilitario;
 
 import com.helger.commons.state.ESuccess;
@@ -26,7 +24,7 @@ import com.helger.commons.state.ESuccess;
 public class App {
 
 	 public static void main(String[] args) throws Exception {
-//	public void execApp() throws Exception {
+
 		BasicConfigurator.configure();
 		System.out.println("------------------>Iniciando Importacion Archivos");
 		System.out.println("------------------>Leyendo Facturas");
@@ -34,17 +32,8 @@ public class App {
 
 		ExportadorBaseDatos exportadorBaseDatos = new ExportadorBaseDatos();
 
-		try {
-			boolean respuesta = exportadorBaseDatos.exportarFacturas(Constantes.rutaCompleta + Constantes.rutaImportar);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		boolean respuesta = exportadorBaseDatos.exportarFacturas(ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImportar);
 
-		System.out.println("------------------>Obteniendo Facturas Importadas de Base de Datos");
-		GestorWebService gestorWebService = new GestorWebService();
-
-		// AQUI SE DEBE GENERAR EL ZIP
 
 		List<FacturaDao> listaFacturaDao = exportadorBaseDatos.obtenerFacturasImportadas();
 
@@ -73,10 +62,10 @@ public class App {
 
 				GestorFirma gestorFirma = new GestorFirma();
 				InputStream inputStream = new FileInputStream(
-						Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
-				Map<String, Object> xmlFirmado = gestorFirma.firmarDocumento(inputStream);
+						ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
+				Map<String, Object> xmlFirmado = gestorFirma.firmarDocumento(inputStream, facturaDao);
 				FileOutputStream fout = new FileOutputStream(
-						Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
+						ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
 				ByteArrayOutputStream outDocument = (ByteArrayOutputStream) xmlFirmado.get("signatureFile");
 				String digestValue = (String) xmlFirmado.get("digestValue");
 
@@ -84,17 +73,19 @@ public class App {
 				fout.close();
 
 				// Generar archivo ZIP
-				Compresor.comprimirArchivo(
-						Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionZip,
-						Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
-						nombreArchivo + Constantes.extensionXml);
+//				Compresor.comprimirArchivo(
+//						ParametrosGLobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionZip,
+//						ParametrosGLobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
+//						nombreArchivo + Constantes.extensionXml);
 
 				// Genero PDF
 				try {
 					GestorPdf gestorPdf = new GestorPdf();
-					gestorPdf.generarPDF(nombreArchivo);
+					gestorPdf.generarPDF(nombreArchivo, facturaDao);
 				} catch (Exception e) {
-					System.out.println("Error _ " + e.getMessage());
+					
+					GestorExcepciones.guardarExcepcion(e, Object.class);
+					
 				}
 
 				GeneradorFacturaDao generadorFacturaDao = new GeneradorFacturaDao();
@@ -105,6 +96,10 @@ public class App {
 			}
 
 		}
+		
+		System.out.println("Eliminando Proceso Importacion Archivos Factura...");
+		System.exit(0);
+		
 	}
 
 }

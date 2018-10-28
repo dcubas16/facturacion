@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.facturacionelectronica.util.Constantes;
+import org.facturacionelectronica.util.ParametrosGlobales;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -137,9 +138,9 @@ public class GeneradorQr {
 			try {
 
 				if (Constantes.CONSTANTE_TIPO_DOCUMENTO_FACTURA.equals(tipDocuArchivo))
-					rutaRetorno = Constantes.rutaCompleta + Constantes.rutaImagenQr + "imagenqr_Factura.jpg";
+					rutaRetorno = ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImagenQr + "imagenqr_Factura.jpg";
 				if (Constantes.CONSTANTE_TIPO_DOCUMENTO_BOLETA.equals(tipDocuArchivo))
-					rutaRetorno = Constantes.rutaCompleta + Constantes.rutaImagenQr +  "imagenqr_Boleta.jpg";
+					rutaRetorno = ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImagenQr +  "imagenqr_Boleta.jpg";
 				// if (Constantes.CONSTANTE_TIPO_DOCUMENTO_NCREDITO.equals(tipDocuArchivo))
 				// rutaRetorno = comunesService.obtenerRutaTrabajo(CONSTANTE_ORIDAT) +
 				// "imagenqr_NCredito.jpg";

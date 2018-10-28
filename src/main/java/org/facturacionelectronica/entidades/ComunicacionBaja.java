@@ -12,12 +12,11 @@ public class ComunicacionBaja {
 	private BigInteger numeroRuc;
 	private int tipoDocumento;
 	private Date fechaGeneracionDocumento;
-	private String identificaComunica;
 	private Date fechaGeneraComunica;
 	private String firmaDigital;
 	private String versionUbl;
 	private String versionEstrucDoc;
-	private int estado;//0:Aceptrado   3:Importado  Otro:Con error 
+	private int estado;//0:Aceptrado   6:Importado  Otro:Con error 
 	private String respuesta;
 	private List<DetalleComunicacionBaja> listaDetalleComunBaja = new ArrayList<DetalleComunicacionBaja>();
 
@@ -25,7 +24,7 @@ public class ComunicacionBaja {
 	}
 
 	public ComunicacionBaja(String idComunicaionBaja, String razonSocial, BigInteger numeroRuc, int tipoDocumento,
-			Date fechaGeneracionDocumento, String identificaComunica, Date fechaGeneraComunica, String firmaDigital,
+			Date fechaGeneracionDocumento, Date fechaGeneraComunica, String firmaDigital,
 			String versionUbl, String versionEstrucDoc) {
 		super();
 		this.idComunicaionBaja = idComunicaionBaja;
@@ -33,7 +32,6 @@ public class ComunicacionBaja {
 		this.numeroRuc = numeroRuc;
 		this.tipoDocumento = tipoDocumento;
 		this.fechaGeneracionDocumento = fechaGeneracionDocumento;
-		this.identificaComunica = identificaComunica;
 		this.fechaGeneraComunica = fechaGeneraComunica;
 		this.firmaDigital = firmaDigital;
 		this.versionUbl = versionUbl;
@@ -86,14 +84,6 @@ public class ComunicacionBaja {
 
 	public void setFechaGeneracionDocumento(Date fechaGeneracionDocumento) {
 		this.fechaGeneracionDocumento = fechaGeneracionDocumento;
-	}
-
-	public String getIdentificaComunica() {
-		return identificaComunica;
-	}
-
-	public void setIdentificaComunica(String identificaComunica) {
-		this.identificaComunica = identificaComunica;
 	}
 
 	public Date getFechaGeneraComunica() {

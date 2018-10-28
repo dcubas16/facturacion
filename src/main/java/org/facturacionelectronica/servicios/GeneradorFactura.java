@@ -11,6 +11,7 @@ import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.entidades.Factura;
 import org.facturacionelectronica.util.Constantes;
+import org.facturacionelectronica.util.ParametrosGlobales;
 import org.w3c.dom.Document;
 import com.helger.commons.locale.country.ECountry;
 import com.helger.commons.state.ESuccess;
@@ -110,7 +111,7 @@ public class GeneradorFactura {
 
 		// Escribir archivo XML
 		ESuccess eSuccess = GestorArchivosXML.imprimirFacturaArchivo(aInvoice,
-				Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
+				ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
 				Constantes.estandarXml);
 
 		// Firmado
@@ -131,8 +132,14 @@ public class GeneradorFactura {
 	}
 
 	private UnitCodeContentType obtenerUnidadMedida(String unidadMedida) {
-		// TODO Auto-generated method stub
-		return UnitCodeContentType.ACRE;
+
+		if(unidadMedida.equals("01"))
+			return UnitCodeContentType.EACH;
+		
+		if(unidadMedida.equals("02"))
+			return UnitCodeContentType.PAIR;
+		
+		return null;
 	}
 	// ----------------------------------------------------------------------------FIN
 	// Generar Conversiones
@@ -142,7 +149,7 @@ public class GeneradorFactura {
 		aInvoice.setID(cabeceraFactura.getSerie() + Constantes.separadorNombreArchivo
 				+ cabeceraFactura.getNumeroCorrelativo());
 		aInvoice.setInvoiceTypeCode(cabeceraFactura.getTipoDocumentoFactura());
-		aInvoice.setCustomizationID(cabeceraFactura.getIdCustomization());
+		aInvoice.setCustomizationID("1.0");
 		aInvoice.setIssueDate(PDTXMLConverter.getXMLCalendarDateNow());
 		aInvoice.setDocumentCurrencyCode(eCurrency.value());
 		aInvoice.setUBLVersionID(versionUbl);

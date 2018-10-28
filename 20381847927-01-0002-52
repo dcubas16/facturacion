@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice>
+   <UBLExtensions>
+      <UBLExtension>
+         <ExtensionContent>
+            <Signature Id="SignSUNAT">
+               <SignedInfo>
+                  <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                  <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+                  <Reference URI="">
+                     <Transforms>
+                        <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                     </Transforms>
+                     <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+                     <DigestValue>OcTjBIQ2ISiBIvyerxpxX8xJhlgbz9/iOAF1KhJrem8=</DigestValue>
+                  </Reference>
+               </SignedInfo>
+               <SignatureValue>X8PJQ1CZmQ3cwL10Vmov57ya5hblI574QOFfOWk649Ip9KQ/iavx1kL0bx5YZ86i7uQPCtcP+XFD
+cf2WHwDifc+lNatB1GKvBv02PUodoe79/sI2VgcBBR34yWUnl7nWEbYcRP8uZhchKVq0TKh3KlLI
++hCXhM7Wue4bDYtfzFZ8/qIe5lGG9lAz5G77Vvoz+SHPmEyc8q3i+w+OaUT7eXbz3pF5vwvDt36R
+fDIThgk4sEcYs/ijjkMBdWSZXjj+qWMbHAelYm+a43GDCGRn/nusY/+r11XGGfQjY2jWPStLpTsk
+ftjUy46zpB/ueObaQL1gfTwgZZ0HJULMnLVR9Q==</SignatureValue>
+               <KeyInfo>
+                  <X509Data>
+                     <X509Certificate>MIIHZzCCBk+gAwIBAgIJRKctSK0jy3rtMA0GCSqGSIb3DQEBCwUAMIG4MQswCQYDVQQGEwJFUzEl
+MCMGCSqGSIb3DQEJARYWY2FyYWNlckBjYW1lcmZpcm1hLmNvbTFDMEEGA1UEBxM6TWFkcmlkIChz
+ZWUgY3VycmVudCBhZGRyZXNzIGF0IHd3dy5jYW1lcmZpcm1hLmNvbS9hZGRyZXNzKTESMBAGA1UE
+BRMJQTgyNzQzMjg3MRkwFwYDVQQKExBBQyBDYW1lcmZpcm1hIFNBMQ4wDAYDVQQDEwVSQUNFUjAe
+Fw0xODA0MjMyMzQ0MjhaFw0xOTA0MjMyMzQ0MjhaMIIBXzEgMB4GCSqGSIb3DQEJARYReXNlbGFf
+dGpAeWFob28uZXMxGjAYBgNVBAcMEVNBTlRJQUdPIERFIFNVUkNPMRIwEAYDVQQIDAlMSU1BLUxJ
+TUExETAPBgNVBAUTCDA5MzAzMjY4MRMwEQYKKwYBBAGBhy4eAgwDUlVDMRswGQYKKwYBBAGBhy4e
+AwwLMjAzODE4NDc5MjcxEzARBgorBgEEAYGHLh4EDANETkkxETAPBgNVBAoMCERPVyBTLkEuMREw
+DwYDVQQLDAhHRVJFTkNJQTEUMBIGA1UECwwLMjAzODE4NDc5MjcxEjAQBgNVBAwMCUFQT0RFUkFE
+TzEWMBQGA1UEBAwNVE9SUkVTIEpPUkRBTjEWMBQGA1UEKgwNWVNFTEEgWU9MQU5EQTEkMCIGA1UE
+AwwbWVNFTEEgWU9MQU5EQSBUT1JSRVMgSk9SREFOMQswCQYDVQQGEwJQRTCCASIwDQYJKoZIhvcN
+AQEBBQADggEPADCCAQoCggEBALKe9uVJAo3kvG5oufVaLE5EzMZ0Sj6BQvUToS/N8OC/eaFpfyoc
+14wOfh9C60UXYUbn+6bH6J7j6J+DTWowAiFaoeeKc6jB7H9RyqJ4YuxCA/xkb/KO9VUStvTzmRH1
+jUktG0f+3JNpa1SILwMFdjl6KymBknjamY9mE0nZHK9NSIO3pNT0LfYXXJlYdS/kFdW/Va24hWgn
+3qozME+Bt2YcGO1Brev0g83oc02QTL7aELalxj6/XkfcCBU9stjXGb64PsGTqakiMYK3wDQd+JxK
+Vicn96/IdN/77JxSPxlDAYE+2h8kIGFYM4zrPKHYTYL6CFW+ItBDWaUnfyZBteMCAwEAAaOCAsgw
+ggLEMAwGA1UdEwEB/wQCMAAwEQYJYIZIAYb4QgEBBAQDAgWgMA4GA1UdDwEB/wQEAwIGwDAdBgNV
+HSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwHQYDVR0OBBYEFOChQYZUjPD1CxWdHJXMwCPIh1s5
+MG0GCCsGAQUFBwEBBGEwXzA1BggrBgEFBQcwAoYpaHR0cDovL3d3dy5jYW1lcmZpcm1hLmNvbS9j
+ZXJ0cy9yYWNlci5jcnQwJgYIKwYBBQUHMAGGGmh0dHA6Ly9vY3NwLmNhbWVyZmlybWEuY29tMIHz
+BgNVHSMEgeswgeiAFL68CNQuugBMgNwmZ7Sl2N3DShr5oYHMpIHJMIHGMQswCQYDVQQGEwJFUzEr
+MCkGCSqGSIb3DQEJARYcYWNfY2FtZXJmaXJtYUBjYW1lcmZpcm1hLmNvbTESMBAGA1UEBRMJQTgy
+NzQzMjg3MUMwQQYDVQQHEzpNYWRyaWQgKHNlZSBjdXJyZW50IGFkZHJlc3MgYXQgd3d3LmNhbWVy
+ZmlybWEuY29tL2FkZHJlc3MpMRkwFwYDVQQKExBBQyBDYW1lcmZpcm1hIFNBMRYwFAYDVQQDEw1B
+QyBDYW1lcmZpcm1hggEBMGQGA1UdHwRdMFswK6ApoCeGJWh0dHA6Ly9jcmwuY2FtZXJmaXJtYS5j
+b20vcmFjZXJfZi5jcmwwLKAqoCiGJmh0dHA6Ly9jcmwxLmNhbWVyZmlybWEuY29tL3JhY2VyX2Yu
+Y3JsMCEGA1UdEgQaMBiBFmNhcmFjZXJAY2FtZXJmaXJtYS5jb20wHAYDVR0RBBUwE4EReXNlbGFf
+dGpAeWFob28uZXMwRwYDVR0gBEAwPjA8Bg0rBgEEAYGHLgoIAgEBMCswKQYIKwYBBQUHAgEWHWh0
+dHBzOi8vcG9saWN5LmNhbWVyZmlybWEuY29tMA0GCSqGSIb3DQEBCwUAA4IBAQAtWdG7w/RHPqaT
+RobGVaGb7TdnHaZeCGQ+j1L54KYIu4JrCb0pMnnb5ygs2jMUk67WOVjJ0aBdH1wngistDacDinqf
+gW1L+3vvL06Zwp3x/9KTBQa1EkKWFw8CW0hnzMupL9J7O6AwjFpsQmZWXkMT/nE9Yap5T0cken1e
+INz21tXu2oMmUwDTreG396HR+EpX18xoZm0qdEoroOJoOvxBxjnKXo7YeaIZeUKIACwY9Zh+5BfH
+DuzyTspZo5lz0Xjn/CRRFodUQ572ji23p4JkNVOq+7MBh84X/DQsLYhx6tZ7je8HIH2nXXybekL3
+vrf4/mnX7Whi07vgeEg5ao+4</X509Certificate>
+                  </X509Data>
+               </KeyInfo>
+            </Signature>
+         </ExtensionContent>
+      </UBLExtension>
+   </UBLExtensions>
+   <UBLVersionID>2.0</UBLVersionID>
+   <CustomizationID>1.0</CustomizationID>
+   <ID>0002-52</ID>
+   <IssueDate>2018-10-28</IssueDate>
+   <InvoiceTypeCode>01</InvoiceTypeCode>
+   <DocumentCurrencyCode>PEN</DocumentCurrencyCode>
+   <Signature>
+      <ID>SignSUNAT</ID>
+      <SignatoryParty>
+         <PartyIdentification>
+            <ID>20381847927</ID>
+         </PartyIdentification>
+         <PartyName>
+            <Name>DOW SA</Name>
+         </PartyName>
+      </SignatoryParty>
+      <DigitalSignatureAttachment>
+         <ExternalReference>
+            <URI>20381847927</URI>
+         </ExternalReference>
+      </DigitalSignatureAttachment>
+   </Signature>
+   <AccountingSupplierParty>
+      <CustomerAssignedAccountID>20381847927</CustomerAssignedAccountID>
+      <AdditionalAccountID>6</AdditionalAccountID>
+      <Party>
+         <PostalAddress>
+            <ID>150101</ID>
+            <StreetName>Av. Primavera Nro. 1416 - Surco</StreetName>
+            <CitySubdivisionName/>
+            <CityName/>
+            <CountrySubentity/>
+            <District/>
+            <Country>
+               <IdentificationCode>PE</IdentificationCode>
+            </Country>
+         </PostalAddress>
+         <PartyLegalEntity>
+            <RegistrationName>DOW SA</RegistrationName>
+         </PartyLegalEntity>
+      </Party>
+   </AccountingSupplierParty>
+   <AccountingCustomerParty>
+      <CustomerAssignedAccountID>20535837334</CustomerAssignedAccountID>
+      <AdditionalAccountID>6</AdditionalAccountID>
+      <Party>
+         <PartyLegalEntity>
+            <RegistrationName>ATOMA SAC</RegistrationName>
+         </PartyLegalEntity>
+      </Party>
+   </AccountingCustomerParty>
+   <TaxTotal>
+      <TaxAmount currencyID="PEN">9.91</TaxAmount>
+      <TaxSubtotal>
+         <TaxAmount currencyID="PEN">9.91</TaxAmount>
+         <TaxCategory>
+            <TaxScheme>
+               <ID>1000</ID>
+               <Name>IGV</Name>
+               <TaxTypeCode>VAT</TaxTypeCode>
+            </TaxScheme>
+         </TaxCategory>
+      </TaxSubtotal>
+   </TaxTotal>
+   <LegalMonetaryTotal>
+      <PayableAmount currencyID="PEN">65.00</PayableAmount>
+   </LegalMonetaryTotal>
+   <InvoiceLine>
+      <ID>1</ID>
+      <InvoicedQuantity unitCode="PR">1.000</InvoicedQuantity>
+      <LineExtensionAmount currencyID="PEN">65.00</LineExtensionAmount>
+      <PricingReference>
+         <AlternativeConditionPrice>
+            <PriceAmount currencyID="PEN">55.08</PriceAmount>
+            <PriceTypeCode>01</PriceTypeCode>
+         </AlternativeConditionPrice>
+      </PricingReference>
+      <TaxTotal>
+         <TaxAmount currencyID="PEN">9.92</TaxAmount>
+         <TaxSubtotal>
+            <TaxableAmount currencyID="PEN">0.00</TaxableAmount>
+            <TaxAmount currencyID="PEN">9.92</TaxAmount>
+            <Percent>18.0</Percent>
+            <TaxCategory>
+               <TaxExemptionReasonCode>10</TaxExemptionReasonCode>
+               <TaxScheme>
+                  <ID>1000</ID>
+                  <Name>IGV</Name>
+                  <TaxTypeCode>VAT</TaxTypeCode>
+               </TaxScheme>
+            </TaxCategory>
+         </TaxSubtotal>
+      </TaxTotal>
+      <Item>
+         <Description>A CUENTA OT:0049280-000-00 - TALLA     : 42   PM PORON (PAR)-ADULTO</Description>
+         <SellersItemIdentification>
+            <ID>01660</ID>
+         </SellersItemIdentification>
+      </Item>
+      <Price>
+         <PriceAmount currencyID="PEN">55.08</PriceAmount>
+      </Price>
+   </InvoiceLine>
+</Invoice>

@@ -9,14 +9,16 @@ import java.io.InputStream;
 import java.util.Map;
 
 import org.apache.log4j.BasicConfigurator;
+import org.facturacionelectronica.dao.entidades.FacturaDao;
 import org.facturacionelectronica.servicios.Compresor;
 import org.facturacionelectronica.servicios.GestorFirma;
 import org.facturacionelectronica.util.Constantes;
+import org.facturacionelectronica.util.ParametrosGlobales;
 import org.junit.Test;
 
 public class CuandoFirmoXml {
 	
-	String nombreArchivo = "20381847927-01-F001-4355";
+	String nombreArchivo = "20381847927-01-0002-52";
 
 	@Test
 	public void entoncesDebeFirmarXml() throws Throwable {
@@ -24,11 +26,11 @@ public class CuandoFirmoXml {
 
 		GestorFirma gestorFirma = new GestorFirma();
 		
-		InputStream inputStream = new FileInputStream(Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
+		InputStream inputStream = new FileInputStream(ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
 		
-		Map<String, Object> xmlFirmado = gestorFirma.firmarDocumento(inputStream);
+		Map<String, Object> xmlFirmado = gestorFirma.firmarDocumento(inputStream, new FacturaDao(FacturaMock.obtenerFactura().getCabeceraFactura()));
 		
-	    FileOutputStream fout = new FileOutputStream(Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
+	    FileOutputStream fout = new FileOutputStream(ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
 
         ByteArrayOutputStream outDocument = (ByteArrayOutputStream)xmlFirmado.get("signatureFile");
         String digestValue = (String)xmlFirmado.get("digestValue");
@@ -47,8 +49,8 @@ public class CuandoFirmoXml {
 //		BasicConfigurator.configure();
 //
 //		Compresor.comprimirArchivo(
-//				Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionZip,
-//				Constantes.rutaCompleta + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
+//				ParametrosGLobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionZip,
+//				ParametrosGLobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
 //				nombreArchivo + Constantes.extensionXml);
 //
 //

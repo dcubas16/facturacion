@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.facturacionelectronica.entidades.RespuestaCdr;
 import org.facturacionelectronica.util.Constantes;
+import org.facturacionelectronica.util.ParametrosGlobales;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -68,7 +69,7 @@ public class GestorArchivosXML {
 	public static RespuestaCdr obtenerRespuestaCdr(String archivoXml) {
 		
 		RespuestaCdr respuestaCdr = new RespuestaCdr();
-		Document doc = GestorArchivosXML.obtenerArchivoXML(Constantes.rutaCompleta + Constantes.rutaRespuesta
+		Document doc = GestorArchivosXML.obtenerArchivoXML(ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaRespuesta
 				+ Constantes.siglaRespuesta + Constantes.separadorNombreArchivo + archivoXml);
 
 		NodeList nList = doc.getElementsByTagName("cac:DocumentResponse");
