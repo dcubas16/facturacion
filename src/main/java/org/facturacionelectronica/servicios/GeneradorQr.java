@@ -6,20 +6,18 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-
 import org.facturacionelectronica.util.Constantes;
 import org.facturacionelectronica.util.ParametrosGlobales;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
 
 public class GeneradorQr {
 
-	public String generarCodigoQr(String nombreArhivo) throws Exception {
+	public String generarCodigoQr(String nombreArhivo, String archivoSalida) throws Exception {
 		// Declaracion de Variables
 		String nombreNodo = "", tipoImpuesto = "", montoIgv = "", digest = "", rutaRetorno = "";
 		// Se crea un SAXBuilder para poder parsear el archivo
@@ -138,15 +136,9 @@ public class GeneradorQr {
 			try {
 
 				if (Constantes.CONSTANTE_TIPO_DOCUMENTO_FACTURA.equals(tipDocuArchivo))
-					rutaRetorno = ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImagenQr + "imagenqr_Factura.jpg";
+					rutaRetorno = ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImagenQr + archivoSalida + Constantes.extensionJpg;
 				if (Constantes.CONSTANTE_TIPO_DOCUMENTO_BOLETA.equals(tipDocuArchivo))
-					rutaRetorno = ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImagenQr +  "imagenqr_Boleta.jpg";
-				// if (Constantes.CONSTANTE_TIPO_DOCUMENTO_NCREDITO.equals(tipDocuArchivo))
-				// rutaRetorno = comunesService.obtenerRutaTrabajo(CONSTANTE_ORIDAT) +
-				// "imagenqr_NCredito.jpg";
-				// if (Constantes.CONSTANTE_TIPO_DOCUMENTO_NDEBITO.equals(tipDocuArchivo))
-				// rutaRetorno = comunesService.obtenerRutaTrabajo(CONSTANTE_ORIDAT) +
-				// "imagenqr_NDebito.jpg";
+					rutaRetorno = ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImagenQr +  archivoSalida + Constantes.extensionJpg;
 
 				FileOutputStream fout = new FileOutputStream(new File(rutaRetorno));
 
@@ -188,6 +180,15 @@ public class GeneradorQr {
 		}
 
 		return null;
+	}
+	
+	public boolean existeImagenQr(String nombreArchivo) {
+		File f = new File(nombreArchivo);
+		if(f.exists() && !f.isDirectory()) { 
+		    return true;
+		}
+		
+		return false;
 	}
 
 }

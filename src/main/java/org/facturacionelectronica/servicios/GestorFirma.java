@@ -74,24 +74,24 @@ public class GestorFirma {
 		ByteArrayOutputStream signatureFile = new ByteArrayOutputStream();
 
 		
-		 System.out.println("asdsad :"+cert.getVersion());
-		    System.out.println("asdsad :"+cert.getSerialNumber().toString(16));
-		    System.out.println("asdsad :"+cert.getSubjectDN());
-		    System.out.println("asdsad :"+cert.getIssuerDN());
-		    System.out.println("asdsad :"+cert.getNotBefore());
-		    System.out.println("asdsad :"+cert.getNotAfter());
-		    System.out.println("asdsad :"+cert.getSigAlgName());
-		    byte[] sig = cert.getSignature();
-		    System.out.println("asdsad :"+new BigInteger(sig).toString(16));
-		    PublicKey pk = cert.getPublicKey();
-		    byte[] pkenc = pk.getEncoded();
-		    for (int i = 0; i < pkenc.length; i++) {
-		      System.out.print(pkenc[i] + ",");
-		    }
+//		 System.out.println("asdsad :"+cert.getVersion());
+//		    System.out.println("asdsad :"+cert.getSerialNumber().toString(16));
+//		    System.out.println("asdsad :"+cert.getSubjectDN());
+//		    System.out.println("asdsad :"+cert.getIssuerDN());
+//		    System.out.println("asdsad :"+cert.getNotBefore());
+//		    System.out.println("asdsad :"+cert.getNotAfter());
+//		    System.out.println("asdsad :"+cert.getSigAlgName());
+//		    byte[] sig = cert.getSignature();
+//		    System.out.println("asdsad :"+new BigInteger(sig).toString(16));
+//		    PublicKey pk = cert.getPublicKey();
+//		    byte[] pkenc = pk.getEncoded();
+//		    for (int i = 0; i < pkenc.length; i++) {
+//		      System.out.print(pkenc[i] + ",");
+//		    }
 		
 		
 		Document doc = buildDocument(inDocument);
-		Node parentNode = addExtensionContent(doc);
+		Node parentNode = addExtensionContent(doc, facturaDao);
 		doc.normalizeDocument();
 		
 		String idReference = "SignSUNAT";
@@ -196,7 +196,7 @@ public class GestorFirma {
 		return doc;
 	}
 
-	private Node addExtensionContent(Document doc) {
+	private Node addExtensionContent(Document doc, FacturaDao facturaDao) {
 
 		Element element = doc.getDocumentElement();
 
@@ -212,6 +212,28 @@ public class GestorFirma {
 		Node content = doc.createElement("ext:ExtensionContent");
 		extension.appendChild(content);
 		extensions.appendChild(extension);
+		
+		Node extensionAdditionalInformation = doc.createElement("ext:UBLExtension");
+		Node contentAdditionalInformation = doc.createElement("ext:ExtensionContent");
+		Node additionalInformation = doc.createElement("sac:AdditionalInformation");
+		Node additionalMonetaryTotal = doc.createElement("sac:AdditionalMonetaryTotal");
+		
+			
+		Node id = doc.createElement("cbc:ID");
+		id.setTextContent("1001");
+		
+		Node payableAmount = doc.createElement("cbc:PayableAmount");
+		((Element)payableAmount).setAttribute("currencyID", facturaDao.getMoneda());
+		payableAmount.setTextContent(facturaDao.getTotalValorVentaOpGravadas().toString());
+		
+		additionalMonetaryTotal.appendChild(id);
+		additionalMonetaryTotal.appendChild(payableAmount);
+		
+		
+		additionalInformation.appendChild(additionalMonetaryTotal);
+		contentAdditionalInformation.appendChild(additionalInformation);
+		extensionAdditionalInformation.appendChild(contentAdditionalInformation);
+		extensions.appendChild(extensionAdditionalInformation);
 
 		Node primerNodo = nodeInvoice.getFirstChild();
 		nodeInvoice.insertBefore(extensions, primerNodo);

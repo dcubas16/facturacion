@@ -12,14 +12,14 @@
                         <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
                      </Transforms>
                      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
-                     <DigestValue>OcTjBIQ2ISiBIvyerxpxX8xJhlgbz9/iOAF1KhJrem8=</DigestValue>
+                     <DigestValue>6v8slsymLICs47HnKCtGn//MkE8Ckdhb51gQHBaQyP4=</DigestValue>
                   </Reference>
                </SignedInfo>
-               <SignatureValue>X8PJQ1CZmQ3cwL10Vmov57ya5hblI574QOFfOWk649Ip9KQ/iavx1kL0bx5YZ86i7uQPCtcP+XFD
-cf2WHwDifc+lNatB1GKvBv02PUodoe79/sI2VgcBBR34yWUnl7nWEbYcRP8uZhchKVq0TKh3KlLI
-+hCXhM7Wue4bDYtfzFZ8/qIe5lGG9lAz5G77Vvoz+SHPmEyc8q3i+w+OaUT7eXbz3pF5vwvDt36R
-fDIThgk4sEcYs/ijjkMBdWSZXjj+qWMbHAelYm+a43GDCGRn/nusY/+r11XGGfQjY2jWPStLpTsk
-ftjUy46zpB/ueObaQL1gfTwgZZ0HJULMnLVR9Q==</SignatureValue>
+               <SignatureValue>Rla5O8PCtMDYShHQrrIwVuWwBTEgjA9YIEPgDmA58tTj8Zisa94iJWu+kv6Cof2RBisophdS/eyA
+737D5wN2jhzvShyWJJ7B79yOjTn4/58T15qHFSqA6vh/yOZcSJeJDwdFAylkn3KxwASajpyx+fuR
+GoGv+06YFZDgOJ+Evul7Q2KCVAb/oO1vZpntoEoiQ8o1j90fwK2nTDtuexPJxNedUD3Rq1nqGiII
+UR8ZySba0re3IDcnCEA8hgv3aMiaDGpqIIMii099ZpywszvWeQAvjwdZz6AHVuisNaCxmEm8exhO
+D2YLBIjfkx+gxyDei9b362uBXcdskeYQJx5p+Q==</SignatureValue>
                <KeyInfo>
                   <X509Data>
                      <X509Certificate>MIIHZzCCBk+gAwIBAgIJRKctSK0jy3rtMA0GCSqGSIb3DQEBCwUAMIG4MQswCQYDVQQGEwJFUzEl
@@ -59,6 +59,16 @@ vrf4/mnX7Whi07vgeEg5ao+4</X509Certificate>
                   </X509Data>
                </KeyInfo>
             </Signature>
+         </ExtensionContent>
+      </UBLExtension>
+      <UBLExtension>
+         <ExtensionContent>
+            <AdditionalInformation>
+               <AdditionalMonetaryTotal>
+                  <ID>1001</ID>
+                  <PayableAmount currencyID="PEN">55.08</PayableAmount>
+               </AdditionalMonetaryTotal>
+            </AdditionalInformation>
          </ExtensionContent>
       </UBLExtension>
    </UBLExtensions>

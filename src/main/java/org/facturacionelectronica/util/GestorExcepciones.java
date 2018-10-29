@@ -20,4 +20,16 @@ public class GestorExcepciones {
 
 	}
 
+	public static void guardarExcepcionPorValidacion(String mensajeValidacion, Object o) {
+		logger = Logger.getLogger(o.getClass());
+
+		logger.error(mensajeValidacion);
+		System.out.println(Constantes.SuitFael + mensajeValidacion);
+				
+		//Aqui se debe hacer proceso para guardar error en base de datos
+		
+	}
+	
+	
+
 }

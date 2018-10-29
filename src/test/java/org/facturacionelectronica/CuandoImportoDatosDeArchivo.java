@@ -33,7 +33,7 @@ public class CuandoImportoDatosDeArchivo {
 
 		ManejadorArchivos manejadorArchivos = new ManejadorArchivos();
 		
-		List<String> lineasArchivo = manejadorArchivos.leerCarpeta(ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImportar);
+		List<String> lineasArchivo = manejadorArchivos.leerCarpeta(ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImportar, "01");
 
 		assertTrue(lineasArchivo.size()>0);
 	}

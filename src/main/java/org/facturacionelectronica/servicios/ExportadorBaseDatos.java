@@ -29,11 +29,9 @@ public class ExportadorBaseDatos {
 
 	public boolean exportarFacturas(String rutaArchivo){
 		try {
-			// Lee un archivo
-			// lineasArchivo = manejadorArchivos.leerArchivo(rutaArchivo);
 			
 			// Lee toda la carpeta
-			lineasArchivo = manejadorArchivos.leerCarpeta(rutaArchivo);
+			lineasArchivo = manejadorArchivos.leerCarpeta(rutaArchivo, "01");
 
 			List<CabeceraFactura> listaCabeceraFacturas = manejadorArchivos.generarCabeceraFactura(lineasArchivo);
 
@@ -80,7 +78,7 @@ public class ExportadorBaseDatos {
 
 	public boolean exportarComunicacionBaja(String rutaArchivo) {
 
-		lineasArchivo = manejadorArchivos.leerCarpeta(rutaArchivo);
+		lineasArchivo = manejadorArchivos.leerCarpeta(rutaArchivo, "05");
 
 		List<ComunicacionBaja> listComunicacionBaja = manejadorArchivos.genearComunicacionBaja(lineasArchivo);
 

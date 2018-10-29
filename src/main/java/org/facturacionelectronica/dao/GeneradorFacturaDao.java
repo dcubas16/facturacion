@@ -1,6 +1,7 @@
 package org.facturacionelectronica.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.facturacionelectronica.dao.entidades.DetalleFacturaDao;
@@ -186,6 +187,7 @@ public class GeneradorFacturaDao {
 		
 		facturaDao.setEstado(estado);
 		facturaDao.setMensajeRespuesta(mensajeRespuesta);
+		facturaDao.setFechaRespuesta(new Date());
 
 		session.update(facturaDao);
 

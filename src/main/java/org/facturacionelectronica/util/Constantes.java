@@ -41,6 +41,8 @@ public class Constantes {
 	public static final String extensionXml = ".xml";
 
 	public static final String extensionZip = ".zip";
+	
+	public static final String extensionJpg = ".jpg";
 
 	public static final String separadorNombreArchivo = "-";
 
