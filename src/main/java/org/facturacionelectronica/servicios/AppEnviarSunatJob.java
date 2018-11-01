@@ -12,7 +12,7 @@ public class AppEnviarSunatJob implements Job {
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		System.out.println("Ejecutando Segundo Job");
 		try {
-			appEnviarSunat.execAppEnviarSunat();
+//			appEnviarSunat.execAppEnviarSunat();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

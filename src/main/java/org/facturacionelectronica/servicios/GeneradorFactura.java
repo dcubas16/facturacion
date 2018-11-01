@@ -1,9 +1,13 @@
 package org.facturacionelectronica.servicios;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXB;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.dom.DOMResult;
@@ -11,11 +15,11 @@ import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.entidades.Factura;
 import org.facturacionelectronica.util.Constantes;
+import org.facturacionelectronica.util.GestorExcepciones;
 import org.facturacionelectronica.util.ParametrosGlobales;
 import org.w3c.dom.Document;
 import com.helger.commons.locale.country.ECountry;
 import com.helger.commons.state.ESuccess;
-import com.helger.datetime.util.PDTXMLConverter;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_2.AddressType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_2.AttachmentType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_2.CountryType;
@@ -69,19 +73,6 @@ public class GeneradorFactura {
 		// Zona Informacion Basica
 		generarDatosBasicosFactura(aInvoice, factura.getCabeceraFactura(), eCurrency, "2.0");
 
-		// Zona Agregar tag extension
-		// UBLExtensionsType ublExtensionsType = new UBLExtensionsType();
-		// aInvoice.setUBLExtensions(ublExtensionsType);
-
-		// Zona Informacion Adicional
-		// UBLExtensionsType ublExtensionsTypeAdditional =
-		// generarInformacionAdicional(factura.getCabeceraFactura(),
-		// eCurrency);
-		// aInvoice.setUBLExtensions(ublExtensionsTypeAdditional);
-
-		// Zona firma detalle
-		// ublExtensionsTypeAdditional.addUBLExtension(generarDetalleFirma(factura.getCabeceraFactura()));
-
 		// Zona firma cabecera
 		aInvoice.addSignature(generarCabeceraFirma(factura.getCabeceraFactura()));
 
@@ -111,7 +102,8 @@ public class GeneradorFactura {
 
 		// Escribir archivo XML
 		ESuccess eSuccess = GestorArchivosXML.imprimirFacturaArchivo(aInvoice,
-				ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
+				ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo
+						+ Constantes.extensionXml,
 				Constantes.estandarXml);
 
 		// Firmado
@@ -133,12 +125,12 @@ public class GeneradorFactura {
 
 	private UnitCodeContentType obtenerUnidadMedida(String unidadMedida) {
 
-		if(unidadMedida.equals("01"))
+		if (unidadMedida.equals("01"))
 			return UnitCodeContentType.EACH;
-		
-		if(unidadMedida.equals("02"))
+
+		if (unidadMedida.equals("02"))
 			return UnitCodeContentType.PAIR;
-		
+
 		return null;
 	}
 	// ----------------------------------------------------------------------------FIN
@@ -146,13 +138,26 @@ public class GeneradorFactura {
 
 	private void generarDatosBasicosFactura(InvoiceType aInvoice, CabeceraFactura cabeceraFactura,
 			CurrencyCodeContentType eCurrency, String versionUbl) {
-		aInvoice.setID(cabeceraFactura.getSerie() + Constantes.separadorNombreArchivo
-				+ cabeceraFactura.getNumeroCorrelativo());
-		aInvoice.setInvoiceTypeCode(cabeceraFactura.getTipoDocumentoFactura());
-		aInvoice.setCustomizationID("1.0");
-		aInvoice.setIssueDate(PDTXMLConverter.getXMLCalendarDateNow());
-		aInvoice.setDocumentCurrencyCode(eCurrency.value());
-		aInvoice.setUBLVersionID(versionUbl);
+
+		try {
+
+			aInvoice.setID(cabeceraFactura.getSerie() + Constantes.separadorNombreArchivo
+					+ cabeceraFactura.getNumeroCorrelativo());
+			aInvoice.setInvoiceTypeCode(cabeceraFactura.getTipoDocumentoFactura());
+			aInvoice.setCustomizationID("1.0");
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String date = sdf.format(cabeceraFactura.getFechaEmision());
+			XMLGregorianCalendar xmlCal = DatatypeFactory.newInstance().newXMLGregorianCalendar(date);
+
+			aInvoice.setIssueDate(xmlCal);
+			aInvoice.setDocumentCurrencyCode(eCurrency.value());
+			aInvoice.setUBLVersionID(versionUbl);
+
+		} catch (DatatypeConfigurationException e) {
+			// TODO Auto-generated catch block
+			GestorExcepciones.guardarExcepcionPorValidacion(e, this);
+		}
 	}
 
 	private SignatureType generarCabeceraFirma(CabeceraFactura cabeceraFactura) {
@@ -278,7 +283,7 @@ public class GeneradorFactura {
 		List<PriceType> priceTypes = new ArrayList<PriceType>();
 
 		PriceAmountType priceAmountType = new PriceAmountType();
-		priceAmountType.setValue(lineaDetalleFactura.getValorUnitarioPorItem());
+		priceAmountType.setValue(lineaDetalleFactura.getPrecioVentaUnitarioPorItem());
 		priceAmountType.setCurrencyID(eCurrency);
 
 		PriceType priceTypeCode = new PriceType();
@@ -445,7 +450,7 @@ public class GeneradorFactura {
 		addressType.setCountry(countryType);
 
 		partyType.setPostalAddress(addressType);
-		
+
 		List<PartyLegalEntityType> partyLegalEntityTypes = new ArrayList<PartyLegalEntityType>();
 		PartyLegalEntityType partyLegalEntityType = new PartyLegalEntityType();
 		partyLegalEntityType.setRegistrationName(cabeceraFactura.getNombreComercial());

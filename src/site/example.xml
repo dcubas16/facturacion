@@ -23,15 +23,15 @@
 							</ds:Transforms>
 							<ds:DigestMethod
 								Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
-							<ds:DigestValue>6v8slsymLICs47HnKCtGn//MkE8Ckdhb51gQHBaQyP4=
+							<ds:DigestValue>j8abvQx40D87Vwu+a8jX4zvidCjM9UhqFVWmhvi2Ess=
 							</ds:DigestValue>
 						</ds:Reference>
 					</ds:SignedInfo>
-					<ds:SignatureValue>Rla5O8PCtMDYShHQrrIwVuWwBTEgjA9YIEPgDmA58tTj8Zisa94iJWu+kv6Cof2RBisophdS/eyA
-						737D5wN2jhzvShyWJJ7B79yOjTn4/58T15qHFSqA6vh/yOZcSJeJDwdFAylkn3KxwASajpyx+fuR
-						GoGv+06YFZDgOJ+Evul7Q2KCVAb/oO1vZpntoEoiQ8o1j90fwK2nTDtuexPJxNedUD3Rq1nqGiII
-						UR8ZySba0re3IDcnCEA8hgv3aMiaDGpqIIMii099ZpywszvWeQAvjwdZz6AHVuisNaCxmEm8exhO
-						D2YLBIjfkx+gxyDei9b362uBXcdskeYQJx5p+Q==
+					<ds:SignatureValue>YWg8BVV/PuRGs64X0cJGu/BAE52S9MqAbVV5LgqS4qeDzaCSyBE4VyueDCrh4fnip18UkdPD4UqS
+						/YI76CHcDKANVin4iXp6r11ri17i/VJ/uS4Rwx0bQAJzaDjur0/66OF/4UEZvAqGc6m95AkPjgCQ
+						khnjQTBsXWk8DdUMWc0kqqQeUJ9EoYoVRGXWLoTy7vbU61jG/VQslc6lTyncgEwEGpptlayXhfPy
+						YTlkiA5jBz98TxT4Hjgr82Fa/tehKR/JPvKgXNJQyjWMKef+s33GvRUltrKLaLiZJ2TaTgcUyshu
+						UBZVLK3ePen7rQf7SR0bJA6/OkcsN3sXp/5nfA==
 					</ds:SignatureValue>
 					<ds:KeyInfo>
 						<ds:X509Data>
@@ -80,7 +80,7 @@
 				<sac:AdditionalInformation>
 					<sac:AdditionalMonetaryTotal>
 						<cbc:ID>1001</cbc:ID>
-						<cbc:PayableAmount currencyID="PEN">55.08
+						<cbc:PayableAmount currencyID="PEN">574.82
 						</cbc:PayableAmount>
 					</sac:AdditionalMonetaryTotal>
 				</sac:AdditionalInformation>
@@ -89,9 +89,9 @@
 	</ext:UBLExtensions>
 	<cbc:UBLVersionID>2.0</cbc:UBLVersionID>
 	<cbc:CustomizationID>1.0</cbc:CustomizationID>
-	<cbc:ID>0002-52</cbc:ID>
-	<cbc:IssueDate>2018-10-28</cbc:IssueDate>
-	<cbc:InvoiceTypeCode>01</cbc:InvoiceTypeCode>
+	<cbc:ID>B005-315</cbc:ID>
+	<cbc:IssueDate>2018-10-31</cbc:IssueDate>
+	<cbc:InvoiceTypeCode>03</cbc:InvoiceTypeCode>
 	<cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
 	<cac:Signature>
 		<cbc:ID>SignSUNAT</cbc:ID>
@@ -100,7 +100,7 @@
 				<cbc:ID>20381847927</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyName>
-				<cbc:Name>DOW SA</cbc:Name>
+				<cbc:Name>EYJ SOLUCIONES</cbc:Name>
 			</cac:PartyName>
 		</cac:SignatoryParty>
 		<cac:DigitalSignatureAttachment>
@@ -126,24 +126,24 @@
 				</cac:Country>
 			</cac:PostalAddress>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName>DOW SA</cbc:RegistrationName>
+				<cbc:RegistrationName>EYJ SOLUCIONES</cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:AccountingSupplierParty>
 	<cac:AccountingCustomerParty>
-		<cbc:CustomerAssignedAccountID>20535837334
+		<cbc:CustomerAssignedAccountID>47326501
 		</cbc:CustomerAssignedAccountID>
 		<cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
 		<cac:Party>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName>ATOMA SAC</cbc:RegistrationName>
+				<cbc:RegistrationName>LUYA BERNUY, STEPHANIE</cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:AccountingCustomerParty>
 	<cac:TaxTotal>
-		<cbc:TaxAmount currencyID="PEN">9.91</cbc:TaxAmount>
+		<cbc:TaxAmount currencyID="PEN">103.47</cbc:TaxAmount>
 		<cac:TaxSubtotal>
-			<cbc:TaxAmount currencyID="PEN">9.91</cbc:TaxAmount>
+			<cbc:TaxAmount currencyID="PEN">103.47</cbc:TaxAmount>
 			<cac:TaxCategory>
 				<cac:TaxScheme>
 					<cbc:ID>1000</cbc:ID>
@@ -154,27 +154,28 @@
 		</cac:TaxSubtotal>
 	</cac:TaxTotal>
 	<cac:LegalMonetaryTotal>
-		<cbc:PayableAmount currencyID="PEN">65.00
+		<cbc:PayableAmount currencyID="PEN">678.30
 		</cbc:PayableAmount>
 	</cac:LegalMonetaryTotal>
 	<cac:InvoiceLine>
 		<cbc:ID>1</cbc:ID>
-		<cbc:InvoicedQuantity unitCode="PR">1.000
+		<cbc:InvoicedQuantity unitCode="PR">2.000
 		</cbc:InvoicedQuantity>
-		<cbc:LineExtensionAmount currencyID="PEN">65.00
+		<cbc:LineExtensionAmount currencyID="PEN">437.00
 		</cbc:LineExtensionAmount>
 		<cac:PricingReference>
 			<cac:AlternativeConditionPrice>
-				<cbc:PriceAmount currencyID="PEN">55.08</cbc:PriceAmount>
+				<cbc:PriceAmount currencyID="PEN">218.500
+				</cbc:PriceAmount>
 				<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
 			</cac:AlternativeConditionPrice>
 		</cac:PricingReference>
 		<cac:TaxTotal>
-			<cbc:TaxAmount currencyID="PEN">9.92</cbc:TaxAmount>
+			<cbc:TaxAmount currencyID="PEN">66.66</cbc:TaxAmount>
 			<cac:TaxSubtotal>
 				<cbc:TaxableAmount currencyID="PEN">0.00
 				</cbc:TaxableAmount>
-				<cbc:TaxAmount currencyID="PEN">9.92</cbc:TaxAmount>
+				<cbc:TaxAmount currencyID="PEN">66.66</cbc:TaxAmount>
 				<cbc:Percent>18.0</cbc:Percent>
 				<cac:TaxCategory>
 					<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
@@ -187,14 +188,55 @@
 			</cac:TaxSubtotal>
 		</cac:TaxTotal>
 		<cac:Item>
-			<cbc:Description>A CUENTA OT:0049280-000-00 - TALLA : 42 PM PORON
-				(PAR)-ADULTO</cbc:Description>
+			<cbc:Description>A CUENTA OT:0010030-000-00 - TALLA : 16.5 CALZADO
+				ORTOPEDICO NI�O</cbc:Description>
 			<cac:SellersItemIdentification>
-				<cbc:ID>01660</cbc:ID>
+				<cbc:ID>00001</cbc:ID>
 			</cac:SellersItemIdentification>
 		</cac:Item>
 		<cac:Price>
-			<cbc:PriceAmount currencyID="PEN">55.08</cbc:PriceAmount>
+			<cbc:PriceAmount currencyID="PEN">185.17</cbc:PriceAmount>
+		</cac:Price>
+	</cac:InvoiceLine>
+	<cac:InvoiceLine>
+		<cbc:ID>2</cbc:ID>
+		<cbc:InvoicedQuantity unitCode="PR">1.000
+		</cbc:InvoicedQuantity>
+		<cbc:LineExtensionAmount currencyID="PEN">241.30
+		</cbc:LineExtensionAmount>
+		<cac:PricingReference>
+			<cac:AlternativeConditionPrice>
+				<cbc:PriceAmount currencyID="PEN">241.300
+				</cbc:PriceAmount>
+				<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+			</cac:AlternativeConditionPrice>
+		</cac:PricingReference>
+		<cac:TaxTotal>
+			<cbc:TaxAmount currencyID="PEN">36.81</cbc:TaxAmount>
+			<cac:TaxSubtotal>
+				<cbc:TaxableAmount currencyID="PEN">0.00
+				</cbc:TaxableAmount>
+				<cbc:TaxAmount currencyID="PEN">36.81</cbc:TaxAmount>
+				<cbc:Percent>18.0</cbc:Percent>
+				<cac:TaxCategory>
+					<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+					<cac:TaxScheme>
+						<cbc:ID>1000</cbc:ID>
+						<cbc:Name>IGV</cbc:Name>
+						<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+					</cac:TaxScheme>
+				</cac:TaxCategory>
+			</cac:TaxSubtotal>
+		</cac:TaxTotal>
+		<cac:Item>
+			<cbc:Description>A CUENTA OT:0010030-000-00 - TALLA : 23 CALZADO
+				ORTOPEDICO NI�O</cbc:Description>
+			<cac:SellersItemIdentification>
+				<cbc:ID>00016</cbc:ID>
+			</cac:SellersItemIdentification>
+		</cac:Item>
+		<cac:Price>
+			<cbc:PriceAmount currencyID="PEN">204.49</cbc:PriceAmount>
 		</cac:Price>
 	</cac:InvoiceLine>
 </Invoice>

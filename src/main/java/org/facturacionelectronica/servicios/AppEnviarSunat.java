@@ -9,8 +9,8 @@ import org.facturacionelectronica.util.ParametrosGlobales;
 
 public class AppEnviarSunat {
 
-//	public static void main(String[] args) {
-	public void execAppEnviarSunat() {
+	public static void main(String[] args) {
+//	public void execAppEnviarSunat() {
 		// TODO Auto-generated method stub
 		
 		BasicConfigurator.configure();

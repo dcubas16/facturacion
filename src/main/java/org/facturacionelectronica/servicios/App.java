@@ -84,7 +84,7 @@ public class App {
 					gestorPdf.generarPDF(nombreArchivo, facturaDao);
 				} catch (Exception e) {
 					
-					GestorExcepciones.guardarExcepcion(e, Object.class);
+					GestorExcepciones.guardarExcepcionPorValidacion(e, Object.class);
 					
 				}
 

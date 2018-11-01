@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,9 +33,9 @@ public class GestorPdf {
 
 		try {
 
-			// String archivoJrxml =
-			// "D:\\proyectos\\Facturacion_Electronica\\SFS_v1.2\\sunat_archivos\\sfs\\FORM\\"
-			// + "Plantilla_reporte_factura.jasper";//-------------------->>> Para Pruebas
+//			 String archivoJrxml =
+//			 "D:\\proyectos\\Facturacion_Electronica\\SFS_v1.2\\sunat_archivos\\sfs\\FORM\\"
+//			 + "Plantilla_reporte_factura.jasper";//-------------------->>> Para Pruebas
 
 			String archivoJrxml = ParametrosGlobales.obtenerParametros().getRutaRaiz()
 					+ Constantes.rutaPlantillasReportes + Constantes.reporteFactura;
@@ -55,13 +54,13 @@ public class GestorPdf {
 					+ ".pdf, para consultarlo vaya a la ruta: " + reporteSalida);
 
 		} catch (Exception e) {
-			GestorExcepciones.guardarExcepcion(e, this);
+			GestorExcepciones.guardarExcepcionPorValidacion(e, this);
 		}
 
 	}
 
 	public void imprimirComprobante(String nombreReporteJasper, String nombreArchivoSalida, String nombreArchivoXml,
-			String rutaBaseXml, String nombreArchivo, FacturaDao facturaDao) throws Exception {
+			String rutaBaseXml, String nombreArchivo, FacturaDao facturaDao)  {
 
 		try {
 			/* Se depura el archivo xml de los namespaces */
@@ -74,16 +73,17 @@ public class GestorPdf {
 			/* Obtener los datos para generar QR */
 			String rutaImagenQr = "";
 			GeneradorQr generadorQr = new GeneradorQr();
+			rutaImagenQr = generadorQr.generarCodigoQr(nombreArchivoXml, facturaDao.getNumeroDocumento().toString());
 			
-			if (generadorQr.existeImagenQr(ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImagenQr
-					+ facturaDao.getNumeroDocumento().toString() + Constantes.extensionJpg)) {
-				
-				rutaImagenQr = ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImagenQr
-						+ facturaDao.getNumeroDocumento().toString() + Constantes.extensionJpg;
-			} else {
-				
-				rutaImagenQr = generadorQr.generarCodigoQr(nombreArchivoXml, facturaDao.getNumeroDocumento().toString());
-			}
+//			if (generadorQr.existeImagenQr(ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImagenQr
+//					+ facturaDao.getNumeroDocumento().toString() + Constantes.extensionJpg)) {
+//				
+//				rutaImagenQr = ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImagenQr
+//						+ facturaDao.getNumeroDocumento().toString() + Constantes.extensionJpg;
+//			} else {
+//				
+//				rutaImagenQr = generadorQr.generarCodigoQr(nombreArchivoXml, facturaDao.getNumeroDocumento().toString());
+//			}
 
 			Document document = JRXmlUtils.parse(JRLoader.getLocationInputStream(nombreArchivoXml));
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject(new File(nombreReporteJasper));
@@ -106,17 +106,17 @@ public class GestorPdf {
 			parametros.put("LEYENDA", facturaDao.getLeyenda());
 			parametros.put("SUBTOTAL", bigDecimalSubTotal.toString());
 			parametros.put("NOMBRE_TIPO_DOCUMENTO", nombreTipoDocumento);
-			parametros.put("SUBREPORT_DIR",
-					ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaPlantillasReportes);
-			// parametros.put("SUBREPORT_DIR",
-			// "D:\\proyectos\\Facturacion_Electronica\\SFS_v1.2\\sunat_archivos\\sfs\\FORM\\");
+			parametros.put("SUBREPORT_DIR",	ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaPlantillasReportes);
+
+//			 parametros.put("SUBREPORT_DIR",
+//			 "D:\\proyectos\\Facturacion_Electronica\\SFS_v1.2\\sunat_archivos\\sfs\\FORM\\");
 
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, xmlDataSource);
 			JasperExportManager.exportReportToPdfFile(jasperPrint, nombreArchivoSalida);
 
 		} catch (Exception e) {
 
-			GestorExcepciones.guardarExcepcion(e, this);
+			GestorExcepciones.guardarExcepcionPorValidacion(e, this);
 		}
 
 	}

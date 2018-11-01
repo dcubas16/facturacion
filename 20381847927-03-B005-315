@@ -12,14 +12,14 @@
                         <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
                      </Transforms>
                      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
-                     <DigestValue>6v8slsymLICs47HnKCtGn//MkE8Ckdhb51gQHBaQyP4=</DigestValue>
+                     <DigestValue>j8abvQx40D87Vwu+a8jX4zvidCjM9UhqFVWmhvi2Ess=</DigestValue>
                   </Reference>
                </SignedInfo>
-               <SignatureValue>Rla5O8PCtMDYShHQrrIwVuWwBTEgjA9YIEPgDmA58tTj8Zisa94iJWu+kv6Cof2RBisophdS/eyA
-737D5wN2jhzvShyWJJ7B79yOjTn4/58T15qHFSqA6vh/yOZcSJeJDwdFAylkn3KxwASajpyx+fuR
-GoGv+06YFZDgOJ+Evul7Q2KCVAb/oO1vZpntoEoiQ8o1j90fwK2nTDtuexPJxNedUD3Rq1nqGiII
-UR8ZySba0re3IDcnCEA8hgv3aMiaDGpqIIMii099ZpywszvWeQAvjwdZz6AHVuisNaCxmEm8exhO
-D2YLBIjfkx+gxyDei9b362uBXcdskeYQJx5p+Q==</SignatureValue>
+               <SignatureValue>YWg8BVV/PuRGs64X0cJGu/BAE52S9MqAbVV5LgqS4qeDzaCSyBE4VyueDCrh4fnip18UkdPD4UqS
+/YI76CHcDKANVin4iXp6r11ri17i/VJ/uS4Rwx0bQAJzaDjur0/66OF/4UEZvAqGc6m95AkPjgCQ
+khnjQTBsXWk8DdUMWc0kqqQeUJ9EoYoVRGXWLoTy7vbU61jG/VQslc6lTyncgEwEGpptlayXhfPy
+YTlkiA5jBz98TxT4Hjgr82Fa/tehKR/JPvKgXNJQyjWMKef+s33GvRUltrKLaLiZJ2TaTgcUyshu
+UBZVLK3ePen7rQf7SR0bJA6/OkcsN3sXp/5nfA==</SignatureValue>
                <KeyInfo>
                   <X509Data>
                      <X509Certificate>MIIHZzCCBk+gAwIBAgIJRKctSK0jy3rtMA0GCSqGSIb3DQEBCwUAMIG4MQswCQYDVQQGEwJFUzEl
@@ -66,7 +66,7 @@ vrf4/mnX7Whi07vgeEg5ao+4</X509Certificate>
             <AdditionalInformation>
                <AdditionalMonetaryTotal>
                   <ID>1001</ID>
-                  <PayableAmount currencyID="PEN">55.08</PayableAmount>
+                  <PayableAmount currencyID="PEN">574.82</PayableAmount>
                </AdditionalMonetaryTotal>
             </AdditionalInformation>
          </ExtensionContent>
@@ -74,9 +74,9 @@ vrf4/mnX7Whi07vgeEg5ao+4</X509Certificate>
    </UBLExtensions>
    <UBLVersionID>2.0</UBLVersionID>
    <CustomizationID>1.0</CustomizationID>
-   <ID>0002-52</ID>
-   <IssueDate>2018-10-28</IssueDate>
-   <InvoiceTypeCode>01</InvoiceTypeCode>
+   <ID>B005-315</ID>
+   <IssueDate>2018-10-31</IssueDate>
+   <InvoiceTypeCode>03</InvoiceTypeCode>
    <DocumentCurrencyCode>PEN</DocumentCurrencyCode>
    <Signature>
       <ID>SignSUNAT</ID>
@@ -85,7 +85,7 @@ vrf4/mnX7Whi07vgeEg5ao+4</X509Certificate>
             <ID>20381847927</ID>
          </PartyIdentification>
          <PartyName>
-            <Name>DOW SA</Name>
+            <Name>EYJ SOLUCIONES</Name>
          </PartyName>
       </SignatoryParty>
       <DigitalSignatureAttachment>
@@ -110,23 +110,23 @@ vrf4/mnX7Whi07vgeEg5ao+4</X509Certificate>
             </Country>
          </PostalAddress>
          <PartyLegalEntity>
-            <RegistrationName>DOW SA</RegistrationName>
+            <RegistrationName>EYJ SOLUCIONES</RegistrationName>
          </PartyLegalEntity>
       </Party>
    </AccountingSupplierParty>
    <AccountingCustomerParty>
-      <CustomerAssignedAccountID>20535837334</CustomerAssignedAccountID>
+      <CustomerAssignedAccountID>47326501</CustomerAssignedAccountID>
       <AdditionalAccountID>6</AdditionalAccountID>
       <Party>
          <PartyLegalEntity>
-            <RegistrationName>ATOMA SAC</RegistrationName>
+            <RegistrationName>LUYA BERNUY, STEPHANIE</RegistrationName>
          </PartyLegalEntity>
       </Party>
    </AccountingCustomerParty>
    <TaxTotal>
-      <TaxAmount currencyID="PEN">9.91</TaxAmount>
+      <TaxAmount currencyID="PEN">103.47</TaxAmount>
       <TaxSubtotal>
-         <TaxAmount currencyID="PEN">9.91</TaxAmount>
+         <TaxAmount currencyID="PEN">103.47</TaxAmount>
          <TaxCategory>
             <TaxScheme>
                <ID>1000</ID>
@@ -137,23 +137,23 @@ vrf4/mnX7Whi07vgeEg5ao+4</X509Certificate>
       </TaxSubtotal>
    </TaxTotal>
    <LegalMonetaryTotal>
-      <PayableAmount currencyID="PEN">65.00</PayableAmount>
+      <PayableAmount currencyID="PEN">678.30</PayableAmount>
    </LegalMonetaryTotal>
    <InvoiceLine>
       <ID>1</ID>
-      <InvoicedQuantity unitCode="PR">1.000</InvoicedQuantity>
-      <LineExtensionAmount currencyID="PEN">65.00</LineExtensionAmount>
+      <InvoicedQuantity unitCode="PR">2.000</InvoicedQuantity>
+      <LineExtensionAmount currencyID="PEN">437.00</LineExtensionAmount>
       <PricingReference>
          <AlternativeConditionPrice>
-            <PriceAmount currencyID="PEN">55.08</PriceAmount>
+            <PriceAmount currencyID="PEN">218.500</PriceAmount>
             <PriceTypeCode>01</PriceTypeCode>
          </AlternativeConditionPrice>
       </PricingReference>
       <TaxTotal>
-         <TaxAmount currencyID="PEN">9.92</TaxAmount>
+         <TaxAmount currencyID="PEN">66.66</TaxAmount>
          <TaxSubtotal>
             <TaxableAmount currencyID="PEN">0.00</TaxableAmount>
-            <TaxAmount currencyID="PEN">9.92</TaxAmount>
+            <TaxAmount currencyID="PEN">66.66</TaxAmount>
             <Percent>18.0</Percent>
             <TaxCategory>
                <TaxExemptionReasonCode>10</TaxExemptionReasonCode>
@@ -166,13 +166,49 @@ vrf4/mnX7Whi07vgeEg5ao+4</X509Certificate>
          </TaxSubtotal>
       </TaxTotal>
       <Item>
-         <Description>A CUENTA OT:0049280-000-00 - TALLA     : 42   PM PORON (PAR)-ADULTO</Description>
+         <Description>A CUENTA OT:0010030-000-00 - TALLA     : 16.5  CALZADO ORTOPEDICO NIï¿½O</Description>
          <SellersItemIdentification>
-            <ID>01660</ID>
+            <ID>00001</ID>
          </SellersItemIdentification>
       </Item>
       <Price>
-         <PriceAmount currencyID="PEN">55.08</PriceAmount>
+         <PriceAmount currencyID="PEN">185.17</PriceAmount>
+      </Price>
+   </InvoiceLine>
+   <InvoiceLine>
+      <ID>2</ID>
+      <InvoicedQuantity unitCode="PR">1.000</InvoicedQuantity>
+      <LineExtensionAmount currencyID="PEN">241.30</LineExtensionAmount>
+      <PricingReference>
+         <AlternativeConditionPrice>
+            <PriceAmount currencyID="PEN">241.300</PriceAmount>
+            <PriceTypeCode>01</PriceTypeCode>
+         </AlternativeConditionPrice>
+      </PricingReference>
+      <TaxTotal>
+         <TaxAmount currencyID="PEN">36.81</TaxAmount>
+         <TaxSubtotal>
+            <TaxableAmount currencyID="PEN">0.00</TaxableAmount>
+            <TaxAmount currencyID="PEN">36.81</TaxAmount>
+            <Percent>18.0</Percent>
+            <TaxCategory>
+               <TaxExemptionReasonCode>10</TaxExemptionReasonCode>
+               <TaxScheme>
+                  <ID>1000</ID>
+                  <Name>IGV</Name>
+                  <TaxTypeCode>VAT</TaxTypeCode>
+               </TaxScheme>
+            </TaxCategory>
+         </TaxSubtotal>
+      </TaxTotal>
+      <Item>
+         <Description>A CUENTA OT:0010030-000-00 - TALLA     : 23  CALZADO ORTOPEDICO NIï¿½O</Description>
+         <SellersItemIdentification>
+            <ID>00016</ID>
+         </SellersItemIdentification>
+      </Item>
+      <Price>
+         <PriceAmount currencyID="PEN">204.49</PriceAmount>
       </Price>
    </InvoiceLine>
 </Invoice>

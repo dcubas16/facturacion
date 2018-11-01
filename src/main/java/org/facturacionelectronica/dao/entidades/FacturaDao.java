@@ -31,7 +31,7 @@ public class FacturaDao {
 	@Column(name = "ID_FACTURA", unique = true, nullable = false)
 	private String idFactura;
 		
-	@Column(name = "FECHA_EMISION", nullable=false)
+	@Column(name = "FECHA_EMISION", nullable=true)
 	private Date fechaEmision;
 	
 //	@Column(name = "ID_CUSTOMIZACION", nullable=true)
@@ -40,10 +40,10 @@ public class FacturaDao {
 //	@Column(name = "FIRMA_DIGITAL", nullable=true)
 //	private String firmaDigital;
 	
-	@Column(name = "RAZON_SOCIAL", nullable=false, length=100)
+	@Column(name = "RAZON_SOCIAL", nullable=true, length=100)
 	private String razonSocial;
 	
-	@Column(name = "NOMBRE_COMERCIAL", nullable=false, length=100)
+	@Column(name = "NOMBRE_COMERCIAL", nullable=true, length=100)
 	private String nombreComercial;
 	
 	@Column(name = "CODIGO_UBIGEO", nullable=true, length=6)
@@ -67,33 +67,33 @@ public class FacturaDao {
 	@Column(name = "CODIGO_PAIS", nullable=true, length=2)
 	private String codigoPais;
 
-	@Column(name = "NUMERO_DOC", nullable=false, precision=11, scale=0)
+	@Column(name = "NUMERO_DOC", nullable=true, precision=11, scale=0)
 	private BigInteger numeroDocumento;
 
-	@Column(name = "TIPO_DOCUMENTO", nullable=false, length=1)
+	@Column(name = "TIPO_DOCUMENTO", nullable=true, length=1)
 	private int tipoDocumento;
 
-	@Column(name = "TIPO_DOC_FACTURA", nullable=false, length=2)
+	@Column(name = "TIPO_DOC_FACTURA", nullable=true, length=2)
 	private String tipoDocumentoFactura;
 
-	@Column(name = "SERIE", nullable=false, length=4)
+	@Column(name = "SERIE", nullable=true, length=4)
 	private String serie;
 
-	@Column(name = "NUMERO_CORRELATIVO", nullable=false, length=8)
+	@Column(name = "NUMERO_CORRELATIVO", nullable=true, length=8)
 	private String numeroCorrelativo;
 
 
-	@Column(name = "NUMERO_DOC_CLIENTE", nullable=false, length=15)
+	@Column(name = "NUMERO_DOC_CLIENTE", nullable=true, length=15)
 	private String numeroDocumentoCliente;
 
-	@Column(name = "TIPO_DOC_CLIENTE", nullable=false, length=1)
+	@Column(name = "TIPO_DOC_CLIENTE", nullable=true, length=1)
 	private String tipoDocumentoCliente;
 
-	@Column(name = "RAZON_SOCIAL_CLIENTE", nullable=false, length=100)
+	@Column(name = "RAZON_SOCIAL_CLIENTE", nullable=true, length=100)
 	private String razonSocialCliente;
 
 
-	@Column(name = "TOTAL_VALOR_VENTA_OP_GRAVADA", nullable=false, precision=14, scale=2)
+	@Column(name = "TOTAL_VALOR_VENTA_OP_GRAVADA", nullable=true, precision=14, scale=2)
 	private BigDecimal totalValorVentaOpGravadas;
 
 	@Column(name = "TOTAL_VALOR_VENTA_OP_INAFEC", nullable=true, precision=14, scale=2)
@@ -114,7 +114,7 @@ public class FacturaDao {
 	@Column(name = "TOTAL_DESCUENTOS", nullable=true, precision=14, scale=2)
 	private BigDecimal totalDescuentos;
 
-	@Column(name = "IMPORTE_TOTAL_VENTA", nullable=false, precision=14, scale=2)
+	@Column(name = "IMPORTE_TOTAL_VENTA", nullable=true, precision=14, scale=2)
 	private BigDecimal importeTotalVenta;
 
 	@Column(name = "LEYENDA", nullable=true, length=100)
@@ -123,13 +123,13 @@ public class FacturaDao {
 	@Column(name = "PORCENTAJE_IMPUESTO", nullable=true, precision=4, scale=2)
 	private double porcentajeImpuesto;
 
-	@Column(name = "MONEDA", nullable=false, length=3)
+	@Column(name = "MONEDA", nullable=true, length=3)
 	private String moneda;
 	
 	
 	
 	@Column(name = "ESTADO", nullable=true)
-	private int estado;// 0=aceptada ------ 5=Importada a base de datos --- 6=Pendiente Envio ------ otro numero: codigo error
+	private int estado;// 0=aceptada ------ 5=Importada a base de datos --- 6=Pendiente Envio ------ -1 o Otro codigo =Error
 	
 	@Column(name = "MENSAJE_ENVIO", nullable=true, length=1000)
 	private String mensajeEnvio;
@@ -586,20 +586,5 @@ public class FacturaDao {
 		this.tipoCambio = tipoCambio;
 	}
 
-//	public Date getFechaEnvio() {
-//		return fechaEnvio;
-//	}
-//
-//	public void setFechaEnvio(Date fechaEnvio) {
-//		this.fechaEnvio = fechaEnvio;
-//	}
-//
-//	public Date getFechaRespuesta() {
-//		return fechaRespuesta;
-//	}
-//
-//	public void setFechaRespuesta(Date fechaRespuesta) {
-//		this.fechaRespuesta = fechaRespuesta;
-//	}
 	
 }

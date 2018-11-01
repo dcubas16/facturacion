@@ -1,7 +1,6 @@
 package org.facturacionelectronica.dao.entidades;
 
 import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
 import org.facturacionelectronica.entidades.DetalleFactura;
 
 @Entity
@@ -24,7 +22,7 @@ import org.facturacionelectronica.entidades.DetalleFactura;
 public class DetalleFacturaDao {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="ID_FACTURA", nullable=false)
+    @JoinColumn(name="ID_FACTURA", nullable =true)
     private FacturaDao facturaDao;
 
 	
@@ -33,25 +31,25 @@ public class DetalleFacturaDao {
 	@Column(name = "ID_DETALLE_FACTURA", nullable = false)
 	private int idDetalleFactura;
 	
-	@Column(name = "NUMERO_ORDEN", nullable=false, length=3)
+	@Column(name = "NUMERO_ORDEN", nullable =true, length=3)
 	private int numeroOrden;
 
-	@Column(name = "UNIDAD_MEDIDA", nullable=false, length=3)
+	@Column(name = "UNIDAD_MEDIDA", nullable =true, length=3)
 	private String unidadMedida;
 
 	@Column(name = "CODIGO_ITEM", nullable=true, length=30 )
 	private String codigoItem;
 
-	@Column(name = "DESCRIPCION_ITEM", nullable=false, length=250)
+	@Column(name = "DESCRIPCION_ITEM", nullable =true, length=250)
 	private String descripcionItem;
 
-	@Column(name = "CANTIDAD", nullable=false, precision=12, scale=3)	
+	@Column(name = "CANTIDAD", nullable =true, precision=12, scale=3)	
 	private BigDecimal cantidad;
 
-	@Column(name = "VALOR_UNITARIO_POR_ITEM", nullable=false, precision=12, scale=2)
+	@Column(name = "VALOR_UNITARIO_POR_ITEM", nullable =true, precision=12, scale=2)
 	private BigDecimal valorUnitarioPorItem;//83.05 -- precio del item sin IGV
 
-	@Column(name = "PRECIO_VENTA_UNITARIO_POR_ITEM", nullable=false, precision=12, scale=3)
+	@Column(name = "PRECIO_VENTA_UNITARIO_POR_ITEM", nullable =true, precision=12, scale=3)
 	private BigDecimal precioVentaUnitarioPorItem;//98.00 -- precio de item con IGV
 
 	@Column(name = "IMPUESTO_UNITARIO_POR_ITEM", nullable=true, precision=12, scale=3)
@@ -60,7 +58,7 @@ public class DetalleFacturaDao {
 	@Column(name = "VALOR_VENTA_BRUTO", nullable=true)
 	private BigDecimal valorVentaBruto;//valorUnitarioPorItem x cantidad
 
-	@Column(name = "VALOR_VENTA_POR_ITEM", nullable=false, precision=14, scale=2)
+	@Column(name = "VALOR_VENTA_POR_ITEM", nullable =true, precision=14, scale=2)
 	private BigDecimal valorVentaPorItem;//149,491.53 -- precio total del item con impuestos y descuentos
 
 	@Column(name = "IMPUESTO_POR_ITEM", nullable=true)

@@ -64,29 +64,12 @@ public class ManejadorArchivos {
 				if (esArchivoValido(fileEntry.getName())) {
 					List<String> lineasArchivo = this.leerArchivo(rutaCarpeta + fileEntry.getName());
 
-					
-					
-					switch (codigoTipoDocumento) {
-					case "01":
-						esArchivoValido = esCabeceraFacturaValida(lineasArchivo);
-						break;
-
-					case "03":
-						esArchivoValido = esCabeceraFacturaValida(lineasArchivo);
-						break;
-					default:
-						esArchivoValido = true;
-						break;
+					for (String lineaArchivo : lineasArchivo) {
+						lineasCarpetaImportacion.add(lineaArchivo);
 					}
 
-					if(esArchivoValido) {
-						for (String lineaArchivo : lineasArchivo) {
-							lineasCarpetaImportacion.add(lineaArchivo);
-						}
+					eliminarArchivo(fileEntry);
 
-						eliminarArchivo(fileEntry);
-					}
-					
 				}
 			}
 			return lineasCarpetaImportacion;
@@ -98,7 +81,6 @@ public class ManejadorArchivos {
 		}
 
 	}
-
 
 	public boolean eliminarArchivo(File archivo) {
 		try {
@@ -132,11 +114,10 @@ public class ManejadorArchivos {
 
 			if (!verificarRepiteFactura(listaCabeceraFacturas, idFacturaAux)) {
 
-				if (!esCabeceraFacturaValida(lineasArchivo))
-					break;
-
+				
 				cabeceraFactura = new CabeceraFactura();
-				cabeceraFactura.setIdFactura(arregloFactura[13].trim() + arregloFactura[16].trim() + arregloFactura[17].trim());
+				cabeceraFactura.setIdFactura(
+						arregloFactura[13].trim() + arregloFactura[16].trim() + arregloFactura[17].trim());
 				cabeceraFactura.setIdCustomization(arregloFactura[1]);
 
 				String fechaCadena = arregloFactura[2];
@@ -194,7 +175,7 @@ public class ManejadorArchivos {
 				cabeceraFactura.setMedioPago(arregloFactura[45]);
 				cabeceraFactura.setTelefonoEmisor(arregloFactura[46]);
 
-				cabeceraFactura.setLeyenda(arregloFactura[47]);
+				cabeceraFactura.setLeyenda(arregloFactura[29]);
 
 				listaCabeceraFacturas.add(cabeceraFactura);
 			}
@@ -205,6 +186,7 @@ public class ManejadorArchivos {
 	}
 
 	public List<DetalleFactura> generarDetalleFactura(List<String> lineasArchivo, String idFactura) {
+		
 		String idFacturaAux = "";
 		List<DetalleFactura> listaDetalleFactura = new ArrayList<DetalleFactura>();
 		DetalleFactura detalleFactura = new DetalleFactura();
@@ -213,7 +195,7 @@ public class ManejadorArchivos {
 
 			String[] arregloFactura = linea.split("\\|");
 
-			idFacturaAux = arregloFactura[0];
+			idFacturaAux = arregloFactura[13].trim() + arregloFactura[16].trim() + arregloFactura[17].trim();;
 
 			if (idFacturaAux.equals(idFactura)) {
 
@@ -248,7 +230,7 @@ public class ManejadorArchivos {
 					// if (!arregloFactura[38].isEmpty())
 					// detalleFactura.setValorVentaBruto(new BigDecimal(arregloFactura[38]));
 
-					if (!arregloFactura[38].isEmpty())
+				if (!arregloFactura[38].isEmpty())
 						detalleFactura.setValorVentaPorItem(new BigDecimal(arregloFactura[38]));
 
 				if (!arregloFactura[37].isEmpty())

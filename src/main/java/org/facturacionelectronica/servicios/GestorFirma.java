@@ -5,10 +5,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.math.BigInteger;
 import java.security.KeyStore;
 import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,8 +31,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.TransformerFactory;
+
+import org.facturacionelectronica.dao.GestorLlavesDao;
 import org.facturacionelectronica.dao.entidades.FacturaDao;
+import org.facturacionelectronica.dao.entidades.LlaveDao;
 import org.facturacionelectronica.util.Constantes;
+import org.facturacionelectronica.util.GestorExcepciones;
 import org.facturacionelectronica.util.ParametrosGlobales;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -44,112 +46,97 @@ import org.xml.sax.InputSource;
 
 public class GestorFirma {
 
-	public Map<String, Object> firmarDocumento(InputStream inDocument, FacturaDao facturaDao) throws Exception {
+	public Map<String, Object> firmarDocumento(InputStream inDocument, FacturaDao facturaDao) {
 
 		Map<String, Object> retorno = new HashMap<String, Object>();
-
-		// String sTipoAlmacen = "jks";
-		// String sAlmacen = "ruta_a_nuestro_almacen_generado_en_el_punto1";
-		// String sClaveAlmacen = "clave_que_dimos_en_deststorepass";
-		// String sClavePrivada = "valor_de_srcstorepass";
-		// String sAlias = "valor_de_destalias";
-		// String archivoAlmacen = "dowsastore.jks";
-		String alias = "(racer_pfvp_365_pe_sw_kpsc)_20381847927_09303268";
-
-		String clavePrivateKey = "73GaDKib5DvxxVLM";//original
-
-		// Cargamos el almacen de claves
-		KeyStore ks = KeyStore.getInstance(Constantes.KEYSTORE_TYPE);
 		
-		// Obtenemos la clave privada, pues la necesitaremos para firmar.
-		ks.load(new FileInputStream(
-				ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaCertificado + "DOWSA\\" + "dowsastore.jks"),
-				clavePrivateKey.toCharArray());
+		try {
+			
+			GestorLlavesDao gestorLlavesDao = new GestorLlavesDao();
+			LlaveDao llaveDao = gestorLlavesDao.obtenerLlave(facturaDao.getNumeroDocumento().toString());
+			
+			String alias = llaveDao.getAlias();
+			String clavePrivateKey = llaveDao.getPin();
 
-		// get my private key
-		PrivateKey privateKey = (PrivateKey) ks.getKey(alias, clavePrivateKey.toCharArray());
+			// Cargamos el almacen de claves
+			KeyStore ks = KeyStore.getInstance(Constantes.KEYSTORE_TYPE);
 
-		// Añadimos el KeyInfo del certificado cuya clave privada usamos
-		X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
-		ByteArrayOutputStream signatureFile = new ByteArrayOutputStream();
+			// Obtenemos la clave privada, pues la necesitaremos para firmar.
+			ks.load(new FileInputStream(ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaCertificado
+					+ facturaDao.getNumeroDocumento().toString().trim() + Constantes.extensionJks), clavePrivateKey.toCharArray());
 
-		
-//		 System.out.println("asdsad :"+cert.getVersion());
-//		    System.out.println("asdsad :"+cert.getSerialNumber().toString(16));
-//		    System.out.println("asdsad :"+cert.getSubjectDN());
-//		    System.out.println("asdsad :"+cert.getIssuerDN());
-//		    System.out.println("asdsad :"+cert.getNotBefore());
-//		    System.out.println("asdsad :"+cert.getNotAfter());
-//		    System.out.println("asdsad :"+cert.getSigAlgName());
-//		    byte[] sig = cert.getSignature();
-//		    System.out.println("asdsad :"+new BigInteger(sig).toString(16));
-//		    PublicKey pk = cert.getPublicKey();
-//		    byte[] pkenc = pk.getEncoded();
-//		    for (int i = 0; i < pkenc.length; i++) {
-//		      System.out.print(pkenc[i] + ",");
-//		    }
-		
-		
-		Document doc = buildDocument(inDocument);
-		Node parentNode = addExtensionContent(doc, facturaDao);
-		doc.normalizeDocument();
-		
-		String idReference = "SignSUNAT";
+			// get my private key
+			PrivateKey privateKey = (PrivateKey) ks.getKey(alias, clavePrivateKey.toCharArray());
 
-		XMLSignatureFactory fac = XMLSignatureFactory.getInstance();
+			// Añadimos el KeyInfo del certificado cuya clave privada usamos
+			X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
+			ByteArrayOutputStream signatureFile = new ByteArrayOutputStream();
 
-		Reference ref = fac.newReference("", fac.newDigestMethod(DigestMethod.SHA256, null),
-				Collections.singletonList(fac.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null)), null,
-				null);
+			Document doc = buildDocument(inDocument);
+			Node parentNode = addExtensionContent(doc, facturaDao);
+			doc.normalizeDocument();
 
-//		SignedInfo si = fac.newSignedInfo(
-//				fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE, (C14NMethodParameterSpec) null),
-//				fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null), Collections.singletonList(ref));
+			String idReference = "SignSUNAT";
 
+			XMLSignatureFactory fac = XMLSignatureFactory.getInstance();
 
-		//		Inicio Prueba ----- VALIDA
-		SignatureMethod signatureMethod = fac.newSignatureMethod("http://www.w3.org/2001/04/xmldsig-more#rsa-sha256", null);
-        CanonicalizationMethod canonicalizationMethod = fac.newCanonicalizationMethod(CanonicalizationMethod.EXCLUSIVE, (C14NMethodParameterSpec) null);
-        SignedInfo si = fac.newSignedInfo(canonicalizationMethod, signatureMethod, Collections.singletonList(ref));
-        //        Fin Prueba
+			Reference ref = fac.newReference("", fac.newDigestMethod(DigestMethod.SHA256, null),
+					Collections.singletonList(fac.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null)), null,
+					null);
 
-        
-		KeyInfoFactory kif = fac.getKeyInfoFactory();
-		List<X509Certificate> x509Content = new ArrayList<X509Certificate>();
-		x509Content.add(cert);
-		X509Data xd = kif.newX509Data(x509Content);
-		KeyInfo ki = kif.newKeyInfo(Collections.singletonList(xd));
+			// SignedInfo si = fac.newSignedInfo(
+			// fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE,
+			// (C14NMethodParameterSpec) null),
+			// fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
+			// Collections.singletonList(ref));
 
-		DOMSignContext dsc = new DOMSignContext(privateKey, doc.getDocumentElement());
-		XMLSignature signature = fac.newXMLSignature(si, ki);
+			// Inicio Prueba ----- VALIDA
+			SignatureMethod signatureMethod = fac.newSignatureMethod("http://www.w3.org/2001/04/xmldsig-more#rsa-sha256",
+					null);
+			CanonicalizationMethod canonicalizationMethod = fac.newCanonicalizationMethod(CanonicalizationMethod.EXCLUSIVE,
+					(C14NMethodParameterSpec) null);
+			SignedInfo si = fac.newSignedInfo(canonicalizationMethod, signatureMethod, Collections.singletonList(ref));
+			// Fin Prueba
 
-		if (parentNode != null)
-			dsc.setParent(parentNode);
-		dsc.setDefaultNamespacePrefix("ds");
-		signature.sign(dsc);
+			KeyInfoFactory kif = fac.getKeyInfoFactory();
+			List<X509Certificate> x509Content = new ArrayList<X509Certificate>();
+			x509Content.add(cert);
+			X509Data xd = kif.newX509Data(x509Content);
+			KeyInfo ki = kif.newKeyInfo(Collections.singletonList(xd));
 
-		String digestValue = Constantes.separadorNombreArchivo;
-		Element elementParent = (Element) dsc.getParent();
-		if (idReference != null && elementParent.getElementsByTagName("ds:Signature") != null) {
-			Element elementSignature = (Element) elementParent.getElementsByTagName("ds:Signature").item(0);
-			elementSignature.setAttribute("Id", idReference);
+			DOMSignContext dsc = new DOMSignContext(privateKey, doc.getDocumentElement());
+			XMLSignature signature = fac.newXMLSignature(si, ki);
 
-			NodeList nodeList = elementParent.getElementsByTagName("ds:DigestValue");
-			for (int i = 0; i < nodeList.getLength(); i++) {
-				digestValue = this.obtenerNodo(nodeList.item(i));
+			if (parentNode != null)
+				dsc.setParent(parentNode);
+			dsc.setDefaultNamespacePrefix("ds");
+			signature.sign(dsc);
+
+			String digestValue = Constantes.separadorNombreArchivo;
+			Element elementParent = (Element) dsc.getParent();
+			if (idReference != null && elementParent.getElementsByTagName("ds:Signature") != null) {
+				Element elementSignature = (Element) elementParent.getElementsByTagName("ds:Signature").item(0);
+				elementSignature.setAttribute("Id", idReference);
+
+				NodeList nodeList = elementParent.getElementsByTagName("ds:DigestValue");
+				for (int i = 0; i < nodeList.getLength(); i++) {
+					digestValue = this.obtenerNodo(nodeList.item(i));
+				}
 			}
+
+			outputDocToOutputStream(doc, signatureFile);
+			signatureFile.close();
+
+			retorno.put("signatureFile", signatureFile);
+			retorno.put("digestValue", digestValue);
+
+			return retorno;
+		}catch (Exception e) {
+			GestorExcepciones.guardarExcepcionPorValidacion(e, this);
+			return retorno;
 		}
-
-		outputDocToOutputStream(doc, signatureFile);
-		signatureFile.close();
-
-		retorno.put("signatureFile", signatureFile);
-		retorno.put("digestValue", digestValue);
 		
-		return retorno;
 	}
-	
-	
 
 	public static void outputDocToOutputStream(Document doc, ByteArrayOutputStream signatureFile)
 			throws javax.xml.transform.TransformerException {
@@ -160,9 +147,9 @@ public class GestorFirma {
 		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 		transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 		// "ISO-8859-9"
-		
-//		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF8");
-		
+
+		// transformer.setOutputProperty(OutputKeys.ENCODING, "UTF8");
+
 		transformer.transform(new javax.xml.transform.dom.DOMSource(doc),
 				new javax.xml.transform.stream.StreamResult(signatureFile));
 	}
@@ -191,7 +178,7 @@ public class GestorFirma {
 		dbf.setAttribute("http://xml.org/sax/features/namespaces", Boolean.TRUE);
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Reader reader = new InputStreamReader(inDocument, "ISO8859_1");
-//		Reader reader = new InputStreamReader(inDocument, "UTF8");
+		// Reader reader = new InputStreamReader(inDocument, "UTF8");
 		Document doc = db.parse(new InputSource(reader));
 		return doc;
 	}
@@ -200,7 +187,8 @@ public class GestorFirma {
 
 		Element element = doc.getDocumentElement();
 
-		element.setAttribute("xmlns:sac", "urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1");
+		element.setAttribute("xmlns:sac",
+				"urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1");
 		element.setAttribute("xmlns:ext", "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2");
 		element.setAttribute("xmlns:ds", "http://www.w3.org/2000/09/xmldsig#");
 		element.removeAttribute("xmlns:cec");
@@ -212,24 +200,22 @@ public class GestorFirma {
 		Node content = doc.createElement("ext:ExtensionContent");
 		extension.appendChild(content);
 		extensions.appendChild(extension);
-		
+
 		Node extensionAdditionalInformation = doc.createElement("ext:UBLExtension");
 		Node contentAdditionalInformation = doc.createElement("ext:ExtensionContent");
 		Node additionalInformation = doc.createElement("sac:AdditionalInformation");
 		Node additionalMonetaryTotal = doc.createElement("sac:AdditionalMonetaryTotal");
-		
-			
+
 		Node id = doc.createElement("cbc:ID");
 		id.setTextContent("1001");
-		
+
 		Node payableAmount = doc.createElement("cbc:PayableAmount");
-		((Element)payableAmount).setAttribute("currencyID", facturaDao.getMoneda());
+		((Element) payableAmount).setAttribute("currencyID", facturaDao.getMoneda());
 		payableAmount.setTextContent(facturaDao.getTotalValorVentaOpGravadas().toString());
-		
+
 		additionalMonetaryTotal.appendChild(id);
 		additionalMonetaryTotal.appendChild(payableAmount);
-		
-		
+
 		additionalInformation.appendChild(additionalMonetaryTotal);
 		contentAdditionalInformation.appendChild(additionalInformation);
 		extensionAdditionalInformation.appendChild(contentAdditionalInformation);

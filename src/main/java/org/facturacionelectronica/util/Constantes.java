@@ -43,6 +43,8 @@ public class Constantes {
 	public static final String extensionZip = ".zip";
 	
 	public static final String extensionJpg = ".jpg";
+	
+	public static final String extensionJks = ".jks";
 
 	public static final String separadorNombreArchivo = "-";
 
@@ -151,6 +153,8 @@ public class Constantes {
 	public static final String CONSTANTE_URL_PRUEBA = "www.sunat.gob.pe";
 	public static final String CONSTANTE_CODIGO_EXITO_CONSULTA_CDR = "0004";
 	public static final Integer CONSTANTE_CODIGO_ENVIO_PREVIO = 1033;
+
+	
 
 	
 
