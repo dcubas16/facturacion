@@ -1,242 +1,103 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<Invoice
-	xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
-	xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
-	xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
-	xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+<?xml version="1.0" encoding="UTF-8"?>
+<ar:ApplicationResponse
+	xmlns:ar="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"
 	xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
-	xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1">
+	xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+	xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+	xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+	xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
 	<ext:UBLExtensions>
 		<ext:UBLExtension>
 			<ext:ExtensionContent>
-				<ds:Signature Id="SignSUNAT"
-					xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
-					<ds:SignedInfo>
-						<ds:CanonicalizationMethod
-							Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
-						<ds:SignatureMethod
-							Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
-						<ds:Reference URI="">
-							<ds:Transforms>
-								<ds:Transform
+				<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+					<SignedInfo>
+						<CanonicalizationMethod
+							Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#WithComments" />
+						<SignatureMethod
+							Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512" />
+						<Reference URI="">
+							<Transforms>
+								<Transform
 									Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
-							</ds:Transforms>
-							<ds:DigestMethod
-								Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
-							<ds:DigestValue>j8abvQx40D87Vwu+a8jX4zvidCjM9UhqFVWmhvi2Ess=
-							</ds:DigestValue>
-						</ds:Reference>
-					</ds:SignedInfo>
-					<ds:SignatureValue>YWg8BVV/PuRGs64X0cJGu/BAE52S9MqAbVV5LgqS4qeDzaCSyBE4VyueDCrh4fnip18UkdPD4UqS
-						/YI76CHcDKANVin4iXp6r11ri17i/VJ/uS4Rwx0bQAJzaDjur0/66OF/4UEZvAqGc6m95AkPjgCQ
-						khnjQTBsXWk8DdUMWc0kqqQeUJ9EoYoVRGXWLoTy7vbU61jG/VQslc6lTyncgEwEGpptlayXhfPy
-						YTlkiA5jBz98TxT4Hjgr82Fa/tehKR/JPvKgXNJQyjWMKef+s33GvRUltrKLaLiZJ2TaTgcUyshu
-						UBZVLK3ePen7rQf7SR0bJA6/OkcsN3sXp/5nfA==
-					</ds:SignatureValue>
-					<ds:KeyInfo>
-						<ds:X509Data>
-							<ds:X509Certificate>MIIHZzCCBk+gAwIBAgIJRKctSK0jy3rtMA0GCSqGSIb3DQEBCwUAMIG4MQswCQYDVQQGEwJFUzEl
-								MCMGCSqGSIb3DQEJARYWY2FyYWNlckBjYW1lcmZpcm1hLmNvbTFDMEEGA1UEBxM6TWFkcmlkIChz
-								ZWUgY3VycmVudCBhZGRyZXNzIGF0IHd3dy5jYW1lcmZpcm1hLmNvbS9hZGRyZXNzKTESMBAGA1UE
-								BRMJQTgyNzQzMjg3MRkwFwYDVQQKExBBQyBDYW1lcmZpcm1hIFNBMQ4wDAYDVQQDEwVSQUNFUjAe
-								Fw0xODA0MjMyMzQ0MjhaFw0xOTA0MjMyMzQ0MjhaMIIBXzEgMB4GCSqGSIb3DQEJARYReXNlbGFf
-								dGpAeWFob28uZXMxGjAYBgNVBAcMEVNBTlRJQUdPIERFIFNVUkNPMRIwEAYDVQQIDAlMSU1BLUxJ
-								TUExETAPBgNVBAUTCDA5MzAzMjY4MRMwEQYKKwYBBAGBhy4eAgwDUlVDMRswGQYKKwYBBAGBhy4e
-								AwwLMjAzODE4NDc5MjcxEzARBgorBgEEAYGHLh4EDANETkkxETAPBgNVBAoMCERPVyBTLkEuMREw
-								DwYDVQQLDAhHRVJFTkNJQTEUMBIGA1UECwwLMjAzODE4NDc5MjcxEjAQBgNVBAwMCUFQT0RFUkFE
-								TzEWMBQGA1UEBAwNVE9SUkVTIEpPUkRBTjEWMBQGA1UEKgwNWVNFTEEgWU9MQU5EQTEkMCIGA1UE
-								AwwbWVNFTEEgWU9MQU5EQSBUT1JSRVMgSk9SREFOMQswCQYDVQQGEwJQRTCCASIwDQYJKoZIhvcN
-								AQEBBQADggEPADCCAQoCggEBALKe9uVJAo3kvG5oufVaLE5EzMZ0Sj6BQvUToS/N8OC/eaFpfyoc
-								14wOfh9C60UXYUbn+6bH6J7j6J+DTWowAiFaoeeKc6jB7H9RyqJ4YuxCA/xkb/KO9VUStvTzmRH1
-								jUktG0f+3JNpa1SILwMFdjl6KymBknjamY9mE0nZHK9NSIO3pNT0LfYXXJlYdS/kFdW/Va24hWgn
-								3qozME+Bt2YcGO1Brev0g83oc02QTL7aELalxj6/XkfcCBU9stjXGb64PsGTqakiMYK3wDQd+JxK
-								Vicn96/IdN/77JxSPxlDAYE+2h8kIGFYM4zrPKHYTYL6CFW+ItBDWaUnfyZBteMCAwEAAaOCAsgw
-								ggLEMAwGA1UdEwEB/wQCMAAwEQYJYIZIAYb4QgEBBAQDAgWgMA4GA1UdDwEB/wQEAwIGwDAdBgNV
-								HSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwHQYDVR0OBBYEFOChQYZUjPD1CxWdHJXMwCPIh1s5
-								MG0GCCsGAQUFBwEBBGEwXzA1BggrBgEFBQcwAoYpaHR0cDovL3d3dy5jYW1lcmZpcm1hLmNvbS9j
-								ZXJ0cy9yYWNlci5jcnQwJgYIKwYBBQUHMAGGGmh0dHA6Ly9vY3NwLmNhbWVyZmlybWEuY29tMIHz
-								BgNVHSMEgeswgeiAFL68CNQuugBMgNwmZ7Sl2N3DShr5oYHMpIHJMIHGMQswCQYDVQQGEwJFUzEr
-								MCkGCSqGSIb3DQEJARYcYWNfY2FtZXJmaXJtYUBjYW1lcmZpcm1hLmNvbTESMBAGA1UEBRMJQTgy
-								NzQzMjg3MUMwQQYDVQQHEzpNYWRyaWQgKHNlZSBjdXJyZW50IGFkZHJlc3MgYXQgd3d3LmNhbWVy
-								ZmlybWEuY29tL2FkZHJlc3MpMRkwFwYDVQQKExBBQyBDYW1lcmZpcm1hIFNBMRYwFAYDVQQDEw1B
-								QyBDYW1lcmZpcm1hggEBMGQGA1UdHwRdMFswK6ApoCeGJWh0dHA6Ly9jcmwuY2FtZXJmaXJtYS5j
-								b20vcmFjZXJfZi5jcmwwLKAqoCiGJmh0dHA6Ly9jcmwxLmNhbWVyZmlybWEuY29tL3JhY2VyX2Yu
-								Y3JsMCEGA1UdEgQaMBiBFmNhcmFjZXJAY2FtZXJmaXJtYS5jb20wHAYDVR0RBBUwE4EReXNlbGFf
-								dGpAeWFob28uZXMwRwYDVR0gBEAwPjA8Bg0rBgEEAYGHLgoIAgEBMCswKQYIKwYBBQUHAgEWHWh0
-								dHBzOi8vcG9saWN5LmNhbWVyZmlybWEuY29tMA0GCSqGSIb3DQEBCwUAA4IBAQAtWdG7w/RHPqaT
-								RobGVaGb7TdnHaZeCGQ+j1L54KYIu4JrCb0pMnnb5ygs2jMUk67WOVjJ0aBdH1wngistDacDinqf
-								gW1L+3vvL06Zwp3x/9KTBQa1EkKWFw8CW0hnzMupL9J7O6AwjFpsQmZWXkMT/nE9Yap5T0cken1e
-								INz21tXu2oMmUwDTreG396HR+EpX18xoZm0qdEoroOJoOvxBxjnKXo7YeaIZeUKIACwY9Zh+5BfH
-								DuzyTspZo5lz0Xjn/CRRFodUQ572ji23p4JkNVOq+7MBh84X/DQsLYhx6tZ7je8HIH2nXXybekL3
-								vrf4/mnX7Whi07vgeEg5ao+4
-							</ds:X509Certificate>
-						</ds:X509Data>
-					</ds:KeyInfo>
-				</ds:Signature>
-			</ext:ExtensionContent>
-		</ext:UBLExtension>
-		<ext:UBLExtension>
-			<ext:ExtensionContent>
-				<sac:AdditionalInformation>
-					<sac:AdditionalMonetaryTotal>
-						<cbc:ID>1001</cbc:ID>
-						<cbc:PayableAmount currencyID="PEN">574.82
-						</cbc:PayableAmount>
-					</sac:AdditionalMonetaryTotal>
-				</sac:AdditionalInformation>
+								<Transform
+									Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#WithComments" />
+							</Transforms>
+							<DigestMethod
+								Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+							<DigestValue>34oIGCt4Z0IlkmCz2hxtJXRFlbQ=</DigestValue>
+						</Reference>
+					</SignedInfo>
+					<SignatureValue>RcKx9OT74aenCD8vjjRSGBBSJbNEB/8wnlIKhzimZnwnbaV9duy+v2CNwSCfLt8+l5TJVUx7kM4CBn0l+IYoSvrEn6jsUE614aE81Xzp19Q5CrrYsIeFiHAzwzvAFguE3tog7mN4yUZQ0u5eNQdv+ULwV5bz/rLL6ReMN2qOuJSzdllWTGbB2EXjnGsj1EvRqbtqFYUWJ8QJYOoXgo1Sw+hpoLa7WT4Q2F0LcOgGI9vdBNZQejvQFlOXTpsVUrB08U/kCCkVYzWDiQVn2td1gpT9d+n1qpYlse1uT0orakKpaIlZ9Ro5fH+lR0+SWIN7cm2WQzkAIJ7/sYOYC8nKcg==
+					</SignatureValue>
+					<KeyInfo>
+						<X509Data>
+							<X509Certificate>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
+							</X509Certificate>
+							<X509IssuerSerial>
+								<X509IssuerName>CN=GeoTrust RSA CA 2018, OU=www.digicert.com,
+									O=DigiCert Inc, C=US</X509IssuerName>
+								<X509SerialNumber>13956682602747601529145667586552812000
+								</X509SerialNumber>
+							</X509IssuerSerial>
+						</X509Data>
+					</KeyInfo>
+					<Proposito>Cumple proposito</Proposito>
+					<Revocacion>Cumple revocacion</Revocacion>
+					<TSL>Cumple tsl</TSL>
+					<Expiracion>No ha expirado</Expiracion>
+				</Signature>
 			</ext:ExtensionContent>
 		</ext:UBLExtension>
 	</ext:UBLExtensions>
 	<cbc:UBLVersionID>2.0</cbc:UBLVersionID>
 	<cbc:CustomizationID>1.0</cbc:CustomizationID>
-	<cbc:ID>B005-315</cbc:ID>
-	<cbc:IssueDate>2018-10-31</cbc:IssueDate>
-	<cbc:InvoiceTypeCode>03</cbc:InvoiceTypeCode>
-	<cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
+	<cbc:ID>201802968511025</cbc:ID>
+	<cbc:IssueDate>2018-11-17</cbc:IssueDate>
+	<cbc:IssueTime>00:00:00</cbc:IssueTime>
+	<cbc:ResponseDate>2018-11-17</cbc:ResponseDate>
+	<cbc:ResponseTime>15:37:51</cbc:ResponseTime>
 	<cac:Signature>
 		<cbc:ID>SignSUNAT</cbc:ID>
 		<cac:SignatoryParty>
 			<cac:PartyIdentification>
-				<cbc:ID>20381847927</cbc:ID>
+				<cbc:ID>20131312955</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyName>
-				<cbc:Name>EYJ SOLUCIONES</cbc:Name>
+				<cbc:Name>SUNAT</cbc:Name>
 			</cac:PartyName>
 		</cac:SignatoryParty>
 		<cac:DigitalSignatureAttachment>
 			<cac:ExternalReference>
-				<cbc:URI>20381847927</cbc:URI>
+				<cbc:URI>#SignSUNAT</cbc:URI>
 			</cac:ExternalReference>
 		</cac:DigitalSignatureAttachment>
 	</cac:Signature>
-	<cac:AccountingSupplierParty>
-		<cbc:CustomerAssignedAccountID>20381847927
-		</cbc:CustomerAssignedAccountID>
-		<cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
-		<cac:Party>
-			<cac:PostalAddress>
-				<cbc:ID>150101</cbc:ID>
-				<cbc:StreetName>Av. Primavera Nro. 1416 - Surco</cbc:StreetName>
-				<cbc:CitySubdivisionName />
-				<cbc:CityName />
-				<cbc:CountrySubentity />
-				<cbc:District />
-				<cac:Country>
-					<cbc:IdentificationCode>PE</cbc:IdentificationCode>
-				</cac:Country>
-			</cac:PostalAddress>
-			<cac:PartyLegalEntity>
-				<cbc:RegistrationName>EYJ SOLUCIONES</cbc:RegistrationName>
-			</cac:PartyLegalEntity>
-		</cac:Party>
-	</cac:AccountingSupplierParty>
-	<cac:AccountingCustomerParty>
-		<cbc:CustomerAssignedAccountID>47326501
-		</cbc:CustomerAssignedAccountID>
-		<cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
-		<cac:Party>
-			<cac:PartyLegalEntity>
-				<cbc:RegistrationName>LUYA BERNUY, STEPHANIE</cbc:RegistrationName>
-			</cac:PartyLegalEntity>
-		</cac:Party>
-	</cac:AccountingCustomerParty>
-	<cac:TaxTotal>
-		<cbc:TaxAmount currencyID="PEN">103.47</cbc:TaxAmount>
-		<cac:TaxSubtotal>
-			<cbc:TaxAmount currencyID="PEN">103.47</cbc:TaxAmount>
-			<cac:TaxCategory>
-				<cac:TaxScheme>
-					<cbc:ID>1000</cbc:ID>
-					<cbc:Name>IGV</cbc:Name>
-					<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
-				</cac:TaxScheme>
-			</cac:TaxCategory>
-		</cac:TaxSubtotal>
-	</cac:TaxTotal>
-	<cac:LegalMonetaryTotal>
-		<cbc:PayableAmount currencyID="PEN">678.30
-		</cbc:PayableAmount>
-	</cac:LegalMonetaryTotal>
-	<cac:InvoiceLine>
-		<cbc:ID>1</cbc:ID>
-		<cbc:InvoicedQuantity unitCode="PR">2.000
-		</cbc:InvoicedQuantity>
-		<cbc:LineExtensionAmount currencyID="PEN">437.00
-		</cbc:LineExtensionAmount>
-		<cac:PricingReference>
-			<cac:AlternativeConditionPrice>
-				<cbc:PriceAmount currencyID="PEN">218.500
-				</cbc:PriceAmount>
-				<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
-			</cac:AlternativeConditionPrice>
-		</cac:PricingReference>
-		<cac:TaxTotal>
-			<cbc:TaxAmount currencyID="PEN">66.66</cbc:TaxAmount>
-			<cac:TaxSubtotal>
-				<cbc:TaxableAmount currencyID="PEN">0.00
-				</cbc:TaxableAmount>
-				<cbc:TaxAmount currencyID="PEN">66.66</cbc:TaxAmount>
-				<cbc:Percent>18.0</cbc:Percent>
-				<cac:TaxCategory>
-					<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
-					<cac:TaxScheme>
-						<cbc:ID>1000</cbc:ID>
-						<cbc:Name>IGV</cbc:Name>
-						<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
-					</cac:TaxScheme>
-				</cac:TaxCategory>
-			</cac:TaxSubtotal>
-		</cac:TaxTotal>
-		<cac:Item>
-			<cbc:Description>A CUENTA OT:0010030-000-00 - TALLA : 16.5 CALZADO
-				ORTOPEDICO NI�O</cbc:Description>
-			<cac:SellersItemIdentification>
-				<cbc:ID>00001</cbc:ID>
-			</cac:SellersItemIdentification>
-		</cac:Item>
-		<cac:Price>
-			<cbc:PriceAmount currencyID="PEN">185.17</cbc:PriceAmount>
-		</cac:Price>
-	</cac:InvoiceLine>
-	<cac:InvoiceLine>
-		<cbc:ID>2</cbc:ID>
-		<cbc:InvoicedQuantity unitCode="PR">1.000
-		</cbc:InvoicedQuantity>
-		<cbc:LineExtensionAmount currencyID="PEN">241.30
-		</cbc:LineExtensionAmount>
-		<cac:PricingReference>
-			<cac:AlternativeConditionPrice>
-				<cbc:PriceAmount currencyID="PEN">241.300
-				</cbc:PriceAmount>
-				<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
-			</cac:AlternativeConditionPrice>
-		</cac:PricingReference>
-		<cac:TaxTotal>
-			<cbc:TaxAmount currencyID="PEN">36.81</cbc:TaxAmount>
-			<cac:TaxSubtotal>
-				<cbc:TaxableAmount currencyID="PEN">0.00
-				</cbc:TaxableAmount>
-				<cbc:TaxAmount currencyID="PEN">36.81</cbc:TaxAmount>
-				<cbc:Percent>18.0</cbc:Percent>
-				<cac:TaxCategory>
-					<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
-					<cac:TaxScheme>
-						<cbc:ID>1000</cbc:ID>
-						<cbc:Name>IGV</cbc:Name>
-						<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
-					</cac:TaxScheme>
-				</cac:TaxCategory>
-			</cac:TaxSubtotal>
-		</cac:TaxTotal>
-		<cac:Item>
-			<cbc:Description>A CUENTA OT:0010030-000-00 - TALLA : 23 CALZADO
-				ORTOPEDICO NI�O</cbc:Description>
-			<cac:SellersItemIdentification>
-				<cbc:ID>00016</cbc:ID>
-			</cac:SellersItemIdentification>
-		</cac:Item>
-		<cac:Price>
-			<cbc:PriceAmount currencyID="PEN">204.49</cbc:PriceAmount>
-		</cac:Price>
-	</cac:InvoiceLine>
-</Invoice>
+	<cbc:Note>4292 - La Versi&#243;n del UBL 2.0 se aceptar&#225; solo
+		hasta el 28 de febrero de 2019. - UBL 2.0 esta deprecado</cbc:Note>
+	<cac:SenderParty>
+		<cac:PartyIdentification>
+			<cbc:ID>20131312955</cbc:ID>
+		</cac:PartyIdentification>
+	</cac:SenderParty>
+	<cac:ReceiverParty>
+		<cac:PartyIdentification>
+			<cbc:ID>20381847927</cbc:ID>
+		</cac:PartyIdentification>
+	</cac:ReceiverParty>
+	<cac:DocumentResponse>
+		<cac:Response>
+			<cbc:ReferenceID>B002-1203</cbc:ReferenceID>
+			<cbc:ResponseCode>0</cbc:ResponseCode>
+			<cbc:Description>La Boleta numero B002-1203, ha sido aceptada
+			</cbc:Description>
+		</cac:Response>
+		<cac:DocumentReference>
+			<cbc:ID>B002-1203</cbc:ID>
+		</cac:DocumentReference>
+		<cac:RecipientParty>
+			<cac:PartyIdentification>
+				<cbc:ID>1-40420044</cbc:ID>
+			</cac:PartyIdentification>
+		</cac:RecipientParty>
+	</cac:DocumentResponse>
+</ar:ApplicationResponse>

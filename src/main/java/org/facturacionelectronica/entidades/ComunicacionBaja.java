@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.facturacionelectronica.dao.entidades.ComunicacionBajaDao;
+
 public class ComunicacionBaja {
 
 	private String idComunicaionBaja;
@@ -16,7 +18,7 @@ public class ComunicacionBaja {
 	private String firmaDigital;
 	private String versionUbl;
 	private String versionEstrucDoc;
-	private int estado;//0:Aceptrado   6:Importado  Otro:Con error 
+	private int estado;//0:Aceptrado  5:Importado   6:Pendiente envio  Otro:Con error 
 	private String respuesta;
 	private List<DetalleComunicacionBaja> listaDetalleComunBaja = new ArrayList<DetalleComunicacionBaja>();
 
@@ -36,6 +38,19 @@ public class ComunicacionBaja {
 		this.firmaDigital = firmaDigital;
 		this.versionUbl = versionUbl;
 		this.versionEstrucDoc = versionEstrucDoc;
+	}
+
+	public ComunicacionBaja(ComunicacionBajaDao comunicacionBajaDao) {
+		super();
+		this.idComunicaionBaja = comunicacionBajaDao.getIdComunicaionBaja();
+		this.razonSocial = comunicacionBajaDao.getRazonSocial();
+		this.numeroRuc = comunicacionBajaDao.getNumeroRuc();
+		this.tipoDocumento = comunicacionBajaDao.getTipoDocumento();
+		this.fechaGeneracionDocumento = comunicacionBajaDao.getFechaGeneracionDocumento();
+		this.fechaGeneraComunica = comunicacionBajaDao.getFechaGeneraComunica();
+		this.firmaDigital = comunicacionBajaDao.getFirmaDigital();
+		this.versionUbl = comunicacionBajaDao.getVersionUbl();
+		this.versionEstrucDoc = comunicacionBajaDao.getVersionEstrucDoc();
 	}
 
 	public List<DetalleComunicacionBaja> getListaDetalleComunBaja() {

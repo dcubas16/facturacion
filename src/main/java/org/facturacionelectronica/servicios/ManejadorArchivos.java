@@ -437,7 +437,7 @@ public class ManejadorArchivos {
 
 				comunicacionBaja.setVersionEstrucDoc("1.0");
 
-				comunicacionBaja.setEstado(3);
+				comunicacionBaja.setEstado(5);
 
 				comunicacionBaja.setRespuesta("");
 

@@ -22,6 +22,7 @@ import com.helger.commons.state.ESuccess;
 import com.helger.ublpe.UBLPEWriter;
 
 import oasis.names.specification.ubl.schema.xsd.invoice_2.InvoiceType;
+import sunat.names.specification.ubl.peru.schema.xsd.voideddocuments_1.VoidedDocumentsType;
 
 public class GestorArchivosXML {
 
@@ -61,6 +62,26 @@ public class GestorArchivosXML {
 		}
 
 		final ESuccess eSuccess = UBLPEWriter.invoice().write(invoiceType, new File(ruta));
+
+		return eSuccess;
+	}
+	
+	public static ESuccess imprimirComunicacionBaja(VoidedDocumentsType voidedDocumentsType, String ruta, String formato) {
+
+		Writer writer = null;
+
+		try {
+			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ruta), formato));
+		} catch (IOException ex) {
+			// Report
+		} finally {
+			try {
+				writer.close();
+			} catch (Exception ex) {
+				/* ignore */}
+		}
+
+		final ESuccess eSuccess = UBLPEWriter.voidedDocuments().write(voidedDocumentsType, new File(ruta));
 
 		return eSuccess;
 	}

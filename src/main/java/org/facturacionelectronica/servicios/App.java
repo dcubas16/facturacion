@@ -23,7 +23,13 @@ import com.helger.commons.state.ESuccess;
 
 public class App {
 
-	 public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
+
+		try {
+
+		} catch (Exception ex) {
+
+		}
 
 		BasicConfigurator.configure();
 		System.out.println("------------------>Iniciando Importacion Archivos");
@@ -32,8 +38,8 @@ public class App {
 
 		ExportadorBaseDatos exportadorBaseDatos = new ExportadorBaseDatos();
 
-		boolean respuesta = exportadorBaseDatos.exportarFacturas(ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImportar);
-
+		boolean respuesta = exportadorBaseDatos
+				.exportarFacturas(ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaImportar);
 
 		List<FacturaDao> listaFacturaDao = exportadorBaseDatos.obtenerFacturasImportadas();
 
@@ -59,33 +65,41 @@ public class App {
 			String nombreArchivo = Utilitario.obtenerNombreArchivoFactura(factura);
 
 			if (eSuccess.isSuccess()) {
+				
+				try {
+					GestorFirma gestorFirma = new GestorFirma();
+					InputStream inputStream = new FileInputStream(ParametrosGlobales.obtenerParametros().getRutaRaiz()
+							+ Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
+					Map<String, Object> xmlFirmado = gestorFirma.firmarDocumento(inputStream, facturaDao);
+					FileOutputStream fout = new FileOutputStream(ParametrosGlobales.obtenerParametros().getRutaRaiz()
+							+ Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
+					ByteArrayOutputStream outDocument = (ByteArrayOutputStream) xmlFirmado.get("signatureFile");
+					String digestValue = (String) xmlFirmado.get("digestValue");
 
-				GestorFirma gestorFirma = new GestorFirma();
-				InputStream inputStream = new FileInputStream(
-						ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
-				Map<String, Object> xmlFirmado = gestorFirma.firmarDocumento(inputStream, facturaDao);
-				FileOutputStream fout = new FileOutputStream(
-						ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml);
-				ByteArrayOutputStream outDocument = (ByteArrayOutputStream) xmlFirmado.get("signatureFile");
-				String digestValue = (String) xmlFirmado.get("digestValue");
+					outDocument.writeTo(fout);
+					fout.close();
+				}catch(Exception ex) {
+					GestorExcepciones.guardarExcepcionPorValidacion(ex, Object.class);
+				}
 
-				outDocument.writeTo(fout);
-				fout.close();
+				
 
 				// Generar archivo ZIP
-//				Compresor.comprimirArchivo(
-//						ParametrosGLobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionZip,
-//						ParametrosGLobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
-//						nombreArchivo + Constantes.extensionXml);
+				// Compresor.comprimirArchivo(
+				// ParametrosGLobales.obtenerParametros().getRutaRaiz() +
+				// Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionZip,
+				// ParametrosGLobales.obtenerParametros().getRutaRaiz() +
+				// Constantes.rutaSolicitud + nombreArchivo + Constantes.extensionXml,
+				// nombreArchivo + Constantes.extensionXml);
 
 				// Genero PDF
 				try {
 					GestorPdf gestorPdf = new GestorPdf();
 					gestorPdf.generarPDF(nombreArchivo, facturaDao);
 				} catch (Exception e) {
-					
+
 					GestorExcepciones.guardarExcepcionPorValidacion(e, Object.class);
-					
+
 				}
 
 				GeneradorFacturaDao generadorFacturaDao = new GeneradorFacturaDao();
@@ -96,10 +110,10 @@ public class App {
 			}
 
 		}
-		
+
 		System.out.println("Eliminando Proceso Importacion Archivos Factura...");
 		System.exit(0);
-		
+
 	}
 
 }

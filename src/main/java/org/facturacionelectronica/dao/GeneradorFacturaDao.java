@@ -1,5 +1,6 @@
 package org.facturacionelectronica.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -152,9 +153,15 @@ public class GeneradorFacturaDao {
 
 		// session = ConfiguracionBaseDatos.getSessionFactory().openSession();
 
-		Query query = session.createQuery("FROM FacturaDao WHERE ESTADO = :estado");
+//		Query query = session.createQuery("FROM FacturaDao WHERE ESTADO = :estado");
+//		Query query = session.createQuery("FROM FacturaDao WHERE ESTADO = :estado AND idFactura = :idFactura");
+		Query query = session.createQuery("FROM FacturaDao WHERE ESTADO = :estado AND numeroDocumento = :numeroDocumento");
 		query.setParameter("estado", 6);
-
+//		query.setParameter("idFactura", "20101440355B00210");
+		query.setParameter("numeroDocumento", new BigInteger("20600091370"));
+		
+		
+		
 		listaFacturaDao = (List<FacturaDao>) query.list();
 
 		session.close();

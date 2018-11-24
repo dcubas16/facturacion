@@ -5,7 +5,9 @@ public class Constantes {
 	public static final String rutaCompleta = "D:\\Suit_fael\\";
 
 	public static final String rutaSolicitud = "Solicitud\\";
-
+	
+	public static final String rutaSolicitudComunicaBaja = "Solicitud_Comunica_Baja\\";
+	
 	public static final String rutaRespuesta = "Respuesta_sunat\\";
 
 	public static final String rutaImportar = "Importar_txt\\";
@@ -30,9 +32,11 @@ public class Constantes {
 
 	public static final String rutaComunicaBaja = "Importar_txt_comunica_baja\\";
 
-	public static final String siglaIdentComunicacionBaja = "R";
+	public static final String siglaIdentComunicacionBaja = "RA";
 
 	public static final String numeroComunicacionBaja = "001";
+	
+	public static final String numeroUnoComunicacionBaja = "1";
 
 	public static final String formatoFechaComunicacionBaja = "yyyyMMdd";
 

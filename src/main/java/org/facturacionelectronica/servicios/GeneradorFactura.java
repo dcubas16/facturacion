@@ -1,12 +1,9 @@
 package org.facturacionelectronica.servicios;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXB;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,8 +12,8 @@ import org.facturacionelectronica.entidades.CabeceraFactura;
 import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.entidades.Factura;
 import org.facturacionelectronica.util.Constantes;
-import org.facturacionelectronica.util.GestorExcepciones;
 import org.facturacionelectronica.util.ParametrosGlobales;
+import org.facturacionelectronica.util.Utilitario;
 import org.w3c.dom.Document;
 import com.helger.commons.locale.country.ECountry;
 import com.helger.commons.state.ESuccess;
@@ -139,25 +136,17 @@ public class GeneradorFactura {
 	private void generarDatosBasicosFactura(InvoiceType aInvoice, CabeceraFactura cabeceraFactura,
 			CurrencyCodeContentType eCurrency, String versionUbl) {
 
-		try {
+		aInvoice.setID(cabeceraFactura.getSerie() + Constantes.separadorNombreArchivo
+				+ cabeceraFactura.getNumeroCorrelativo());
+		aInvoice.setInvoiceTypeCode(cabeceraFactura.getTipoDocumentoFactura());
+		aInvoice.setCustomizationID("1.0");
 
-			aInvoice.setID(cabeceraFactura.getSerie() + Constantes.separadorNombreArchivo
-					+ cabeceraFactura.getNumeroCorrelativo());
-			aInvoice.setInvoiceTypeCode(cabeceraFactura.getTipoDocumentoFactura());
-			aInvoice.setCustomizationID("1.0");
+		XMLGregorianCalendar xmlCal = Utilitario.obtenerFechaXMLGregorianCalendar(cabeceraFactura.getFechaEmision());
 
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String date = sdf.format(cabeceraFactura.getFechaEmision());
-			XMLGregorianCalendar xmlCal = DatatypeFactory.newInstance().newXMLGregorianCalendar(date);
+		aInvoice.setIssueDate(xmlCal);
+		aInvoice.setDocumentCurrencyCode(eCurrency.value());
+		aInvoice.setUBLVersionID(versionUbl);
 
-			aInvoice.setIssueDate(xmlCal);
-			aInvoice.setDocumentCurrencyCode(eCurrency.value());
-			aInvoice.setUBLVersionID(versionUbl);
-
-		} catch (DatatypeConfigurationException e) {
-			// TODO Auto-generated catch block
-			GestorExcepciones.guardarExcepcionPorValidacion(e, this);
-		}
 	}
 
 	private SignatureType generarCabeceraFirma(CabeceraFactura cabeceraFactura) {

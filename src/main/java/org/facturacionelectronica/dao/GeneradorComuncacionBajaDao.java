@@ -7,6 +7,7 @@ import org.facturacionelectronica.dao.entidades.ComunicacionBajaDao;
 import org.facturacionelectronica.dao.entidades.DetalleComunicaBajaDao;
 import org.facturacionelectronica.entidades.ComunicacionBaja;
 import org.facturacionelectronica.entidades.DetalleComunicacionBaja;
+import org.facturacionelectronica.util.GestorExcepciones;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -129,6 +130,44 @@ public class GeneradorComuncacionBajaDao {
 		session.close();
 
 		return listaDetalleComunicaBajaDao;
+	}
+
+	public boolean actualizarComunicacionBaja(ComunicacionBajaDao comunicacionBajaDao) {
+		try {
+			Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+			// Creating Transaction Object
+			Transaction transObj = session.beginTransaction();
+
+			session.update(comunicacionBajaDao);
+			
+			transObj.commit();
+
+			session.close();
+
+			return true;
+		}catch (Exception e) {
+			GestorExcepciones.guardarExcepcionPorValidacion(e, this);
+			return false;
+		}
+		
+	}
+
+	public List<ComunicacionBajaDao> obtenerComunicacionBajaPendientes() {
+		List<ComunicacionBajaDao> listaComunicacionBajaDao = new ArrayList<ComunicacionBajaDao>();
+
+		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		// session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		Query query = session.createQuery("FROM ComunicacionBajaDao WHERE ESTADO = :estado");
+		query.setParameter("estado", 6);
+
+		listaComunicacionBajaDao = (List<ComunicacionBajaDao>) query.list();
+
+		session.close();
+
+		return listaComunicacionBajaDao;
 	}
 
 }

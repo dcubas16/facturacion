@@ -33,10 +33,23 @@ public class AppEnviarSunat {
 			nombreArchivo + Constantes.extensionXml);
 			
 			// Enviar a Web Service
+//			gestorWebService.enviarFacturaSunat(facturaDao.getIdFactura(),
+//					ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud, nombreArchivo + Constantes.extensionZip,
+//					nombreArchivo + Constantes.extensionXml,
+//					facturaDao.getNumeroDocumento() + Constantes.usuarioPruebas, Constantes.contraseniaPruebas);
+			
+			
+			
+			String usuarioSol = "";
+			String passwordSol = "";
+			
 			gestorWebService.enviarFacturaSunat(facturaDao.getIdFactura(),
 					ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitud, nombreArchivo + Constantes.extensionZip,
 					nombreArchivo + Constantes.extensionXml,
-					facturaDao.getNumeroDocumento() + Constantes.usuarioPruebas, Constantes.contraseniaPruebas);
+					facturaDao.getNumeroDocumento().toString() + "GGIRON33", "MGGIRON3");
+			
+//			System.out.println("Usuario :" + facturaDao.getNumeroDocumento().toString() + "DOWSA206" + "---" + "Wong2018");
+//			System.out.println("Usuario :" + facturaDao.getNumeroDocumento() + "WONG0001" + "---" + "w0ng0001");
 		}
 		
 //		ConfiguracionBaseDatos.shutdown();

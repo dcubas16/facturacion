@@ -1,5 +1,7 @@
 package org.facturacionelectronica.entidades;
 
+import org.facturacionelectronica.dao.entidades.DetalleComunicaBajaDao;
+
 public class DetalleComunicacionBaja {
 
 	private String tipoDocumento;
@@ -19,6 +21,16 @@ public class DetalleComunicacionBaja {
 		this.motivoBaja = motivoBaja;
 		this.numeroItem = numeroItem;
 	}
+	
+	public DetalleComunicacionBaja(DetalleComunicaBajaDao detalleComunicaBajaDao) {
+		super();
+		this.tipoDocumento = detalleComunicaBajaDao.getTipoDocumento();
+		this.serieDocumento = detalleComunicaBajaDao.getSerieDocumento();
+		this.numeroCorrelativo = detalleComunicaBajaDao.getNumeroCorrelativo();
+		this.motivoBaja = detalleComunicaBajaDao.getMotivoBaja();
+		this.numeroItem = detalleComunicaBajaDao.getNumeroItem();
+	}
+
 	public String getTipoDocumento() {
 		return tipoDocumento;
 	}

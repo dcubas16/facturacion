@@ -105,5 +105,11 @@ public class ExportadorBaseDatos {
 		return listDetalleComunicaBajaDao;
 	}
 
+	public List<ComunicacionBajaDao> obtenerComunicacionBajaPendiente() {
+		List<ComunicacionBajaDao> listaComunicacionBajaDaos = generadorComuncacionBajaDao.obtenerComunicacionBajaPendientes();
+
+		return listaComunicacionBajaDaos;
+	}
+
 
 }
