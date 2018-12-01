@@ -13,21 +13,25 @@ import org.facturacionelectronica.entidades.RespuestaCdr;
 import org.facturacionelectronica.util.Constantes;
 import org.facturacionelectronica.util.GestorExcepciones;
 import org.facturacionelectronica.util.ParametrosGlobales;
+
+import pe.gob.sunat.service.StatusResponse;
 import pe.gob.sunat.servicio.registro.comppago.factura.gem.service.BillService;
 import pe.gob.sunat.servicio.registro.comppago.factura.gem.service.BillService_Service;
 
 public class GestorWebService {
 	
+	public GestorWebService() {
+		System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
+		System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
+		System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
+		System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true");
+		System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dumpTreshold", "999999");
+	}
 	
 	
 	public boolean enviarFacturaSunat(String idDocumento, String rutaComplta, String archivoZip, String archivoXml,
 			String usuario, String contrasenia) {
 
-//		System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
-//		System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
-//		System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
-//		System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true");
-//		System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dumpTreshold", "999999");
 
 		GeneradorFacturaDao generadorFacturaDao = new GeneradorFacturaDao();
 
@@ -87,8 +91,6 @@ public class GestorWebService {
 	public boolean enviarComunicacionBajaSunat(String idDocumento, String rutaComplta, String archivoZip,
 			String archivoXml, String usuario, String contrasenia) {
 
-		GeneradorFacturaDao generadorFacturaDao = new GeneradorFacturaDao();
-
 		try {
 
 			BillService_Service billService_Service = new BillService_Service();
@@ -102,12 +104,28 @@ public class GestorWebService {
 			BindingProvider bindingProvider = (BindingProvider) billService;
 			bindingProvider.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, usuario);
 			bindingProvider.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, contrasenia);
+			
+//			List<Handler> handlerList = bindingProvider.getBinding().getHandlerChain();
+//			if (handlerList == null)
+//			    handlerList = new ArrayList<Handler>();
+//
+//			handlerList.add(new SecurityHandler(usuario, contrasenia));
 
 			String ticket = billService.sendSummary(archivoZip, dataHandler, "");
 
 			System.out.println("Ticket -->>>" + ticket);
+			
 
-			// billService.getStatus(ticket);
+			StatusResponse statusResponse = billService.getStatus(ticket);
+			
+			byte[] respuesta = statusResponse.getContent();
+			statusResponse.getStatusCode();
+			
+			System.out.println("Ticket Status Code -->>>" + statusResponse.getStatusCode());
+			
+			Compresor.crearArchivoZip(ParametrosGlobales.obtenerParametros().getRutaRaiz()
+					 + Constantes.rutaRespuestaComunicacionBaja,
+					 respuesta);
 
 			// byte[] respuesta = billService.sendBill(archivoZip, dataHandler, "");
 			//

@@ -7,16 +7,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.facturacionelectronica.dao.GeneradorComuncacionBajaDao;
-import org.facturacionelectronica.dao.GeneradorFacturaDao;
 import org.facturacionelectronica.dao.entidades.ComunicacionBajaDao;
 import org.facturacionelectronica.dao.entidades.DetalleComunicaBajaDao;
-import org.facturacionelectronica.dao.entidades.DetalleFacturaDao;
 import org.facturacionelectronica.entidades.ComunicacionBaja;
 import org.facturacionelectronica.entidades.DetalleComunicacionBaja;
-import org.facturacionelectronica.entidades.DetalleFactura;
 import org.facturacionelectronica.util.Constantes;
 import org.facturacionelectronica.util.ParametrosGlobales;
 import org.facturacionelectronica.util.Utilitario;
@@ -97,10 +93,16 @@ public class AppComunicacionBaja {
 			nombreArchivo + Constantes.extensionXml);
 			
 			// Enviar a Web Service
+//			gestorWebService.enviarComunicacionBajaSunat(comunicacionBajaDao.getIdComunicaionBaja(),
+//					ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitudComunicaBaja, nombreArchivo + Constantes.extensionZip,
+//					nombreArchivo + Constantes.extensionXml,
+//					comunicacionBajaDao.getNumeroRuc().toString() + Constantes.usuarioPruebas, Constantes.contraseniaPruebas);
+			
+			// Enviar a Web Service
 			gestorWebService.enviarComunicacionBajaSunat(comunicacionBajaDao.getIdComunicaionBaja(),
 					ParametrosGlobales.obtenerParametros().getRutaRaiz() + Constantes.rutaSolicitudComunicaBaja, nombreArchivo + Constantes.extensionZip,
 					nombreArchivo + Constantes.extensionXml,
-					comunicacionBajaDao.getNumeroRuc().toString() + Constantes.usuarioPruebas, Constantes.contraseniaPruebas);
+					comunicacionBajaDao.getNumeroRuc().toString() + "MODDATOS", "moddatos");
 
 		}
 

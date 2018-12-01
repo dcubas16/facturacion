@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="org/facturacionelectronica/dao/GeneradorComunicacionBajaDao.java" kind="src" output="target/classes" path="src/main/java">
+	<classpathentry excluding="org/facturacionelectronica/dao/GeneradorComunicacionBajaDao.java|pe_prod/gob/sunat/service/|pe_prod/gob/sunat/servicio/registro/comppago/factura/gem/service/|pe_desa/gob/sunat/service/|pe_desa/gob/sunat/servicio/registro/comppago/factura/gem/service/" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>

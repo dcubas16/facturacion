@@ -10,8 +10,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 
-import pe.gob.sunat.service.ObjectFactory;
-import pe.gob.sunat.service.StatusResponse;
+import pe_prod.gob.sunat.service.ObjectFactory;
+import pe_prod.gob.sunat.service.StatusResponse;
 
 
 /**

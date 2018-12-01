@@ -3,6 +3,8 @@ package pe.gob.sunat.servicio.registro.comppago.factura.gem.service;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import javax.jws.HandlerChain;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebEndpoint;
@@ -17,7 +19,8 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "billService", targetNamespace = "http://service.gem.factura.comppago.registro.servicio.sunat.gob.pe/", wsdlLocation = "https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService?wsdl")
+@WebServiceClient(name = "billService", targetNamespace = "http://service.gem.factura.comppago.registro.servicio.sunat.gob.pe/", wsdlLocation = "https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService?wsdl")
+@HandlerChain(file = "/org/facturacionelectronica/servicios/security-handler.xml")
 public class BillService_Service
     extends Service
 {
@@ -30,7 +33,7 @@ public class BillService_Service
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService?wsdl");
+            url = new URL("https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
@@ -82,6 +85,28 @@ public class BillService_Service
     @WebEndpoint(name = "BillServicePort")
     public BillService getBillServicePort(WebServiceFeature... features) {
         return super.getPort(new QName("http://service.gem.factura.comppago.registro.servicio.sunat.gob.pe/", "BillServicePort"), BillService.class, features);
+    }
+
+    /**
+     * 
+     * @return
+     *     returns BillService
+     */
+    @WebEndpoint(name = "BillServicePort.3")
+    public BillService getBillServicePort3() {
+        return super.getPort(new QName("http://service.gem.factura.comppago.registro.servicio.sunat.gob.pe/", "BillServicePort.3"), BillService.class);
+    }
+
+    /**
+     * 
+     * @param features
+     *     A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
+     * @return
+     *     returns BillService
+     */
+    @WebEndpoint(name = "BillServicePort.3")
+    public BillService getBillServicePort3(WebServiceFeature... features) {
+        return super.getPort(new QName("http://service.gem.factura.comppago.registro.servicio.sunat.gob.pe/", "BillServicePort.3"), BillService.class, features);
     }
 
     private static URL __getWsdlLocation() {

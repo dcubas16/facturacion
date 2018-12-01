@@ -14,9 +14,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.facturacionelectronica.entidades.CabeceraFactura;
+import org.facturacionelectronica.entidades.CabeceraNotaCredito;
 import org.facturacionelectronica.entidades.ComunicacionBaja;
 import org.facturacionelectronica.entidades.DetalleComunicacionBaja;
 import org.facturacionelectronica.entidades.DetalleFactura;
+import org.facturacionelectronica.entidades.DetalleNotaCredito;
 import org.facturacionelectronica.util.Constantes;
 import org.facturacionelectronica.util.GestorExcepciones;
 import org.facturacionelectronica.util.ValidadorGenerico;
@@ -55,7 +57,7 @@ public class ManejadorArchivos {
 	public List<String> leerCarpeta(String rutaCarpeta, String codigoTipoDocumento) {
 
 		try {
-			boolean esArchivoValido = true;
+
 			File folder = new File(rutaCarpeta);
 			List<String> lineasCarpetaImportacion = new ArrayList<String>();
 
@@ -114,7 +116,6 @@ public class ManejadorArchivos {
 
 			if (!verificarRepiteFactura(listaCabeceraFacturas, idFacturaAux)) {
 
-				
 				cabeceraFactura = new CabeceraFactura();
 				cabeceraFactura.setIdFactura(
 						arregloFactura[13].trim() + arregloFactura[16].trim() + arregloFactura[17].trim());
@@ -186,7 +187,7 @@ public class ManejadorArchivos {
 	}
 
 	public List<DetalleFactura> generarDetalleFactura(List<String> lineasArchivo, String idFactura) {
-		
+
 		String idFacturaAux = "";
 		List<DetalleFactura> listaDetalleFactura = new ArrayList<DetalleFactura>();
 		DetalleFactura detalleFactura = new DetalleFactura();
@@ -195,7 +196,8 @@ public class ManejadorArchivos {
 
 			String[] arregloFactura = linea.split("\\|");
 
-			idFacturaAux = arregloFactura[13].trim() + arregloFactura[16].trim() + arregloFactura[17].trim();;
+			idFacturaAux = arregloFactura[13].trim() + arregloFactura[16].trim() + arregloFactura[17].trim();
+			;
 
 			if (idFacturaAux.equals(idFactura)) {
 
@@ -230,7 +232,7 @@ public class ManejadorArchivos {
 					// if (!arregloFactura[38].isEmpty())
 					// detalleFactura.setValorVentaBruto(new BigDecimal(arregloFactura[38]));
 
-				if (!arregloFactura[38].isEmpty())
+					if (!arregloFactura[38].isEmpty())
 						detalleFactura.setValorVentaPorItem(new BigDecimal(arregloFactura[38]));
 
 				if (!arregloFactura[37].isEmpty())
@@ -397,6 +399,7 @@ public class ManejadorArchivos {
 
 	public List<ComunicacionBaja> genearComunicacionBaja(List<String> lineasArchivo) {
 		String idComunicacionBaja = "";
+		BigInteger rucEmisorComunicacionBaja = null;
 		List<ComunicacionBaja> listaComunicacionBaja = new ArrayList<ComunicacionBaja>();
 		ComunicacionBaja comunicacionBaja = new ComunicacionBaja();
 
@@ -407,8 +410,12 @@ public class ManejadorArchivos {
 			DateFormat df = new SimpleDateFormat("yyyyMMdd");
 			String fechaGeneracionArhcivo = df.format(new Date());
 
-			idComunicacionBaja = Constantes.siglaIdentComunicacionBaja + Constantes.separadorNombreArchivo
-					+ fechaGeneracionArhcivo + Constantes.separadorNombreArchivo + Constantes.numeroComunicacionBaja;
+			if (!arregloComunicacionBaja[3].isEmpty())
+				rucEmisorComunicacionBaja = new BigInteger(arregloComunicacionBaja[3]);
+
+			idComunicacionBaja = rucEmisorComunicacionBaja + Constantes.separadorNombreArchivo
+					+ Constantes.siglaIdentComunicacionBaja + Constantes.separadorNombreArchivo + fechaGeneracionArhcivo
+					+ Constantes.separadorNombreArchivo + Constantes.numeroComunicacionBaja;
 
 			if (!verificarRepiteComunicacionBaja(listaComunicacionBaja, idComunicacionBaja)) {
 
@@ -466,6 +473,7 @@ public class ManejadorArchivos {
 	public List<DetalleComunicacionBaja> generarDetalleDetalleComunicacionBaja(List<String> lineasArchivo,
 			String idComunicaionBaja) {
 		String idComunicacionBajaAux = "";
+		BigInteger rucEmisorComunicacionBaja = null;
 		List<DetalleComunicacionBaja> listaDetalleComunicacionBaja = new ArrayList<DetalleComunicacionBaja>();
 		DetalleComunicacionBaja detalleComunicacionBaja = new DetalleComunicacionBaja();
 
@@ -477,8 +485,12 @@ public class ManejadorArchivos {
 			DateFormat df = new SimpleDateFormat(Constantes.formatoFechaComunicacionBaja);
 			String fechaGeneracionArhcivo = df.format(new Date());
 
-			idComunicacionBajaAux = Constantes.siglaIdentComunicacionBaja + Constantes.separadorNombreArchivo
-					+ fechaGeneracionArhcivo + Constantes.separadorNombreArchivo + Constantes.numeroComunicacionBaja;
+			if (!arregloComunicacionBaja[3].isEmpty())
+				rucEmisorComunicacionBaja = new BigInteger(arregloComunicacionBaja[3]);
+
+			idComunicacionBajaAux = rucEmisorComunicacionBaja + Constantes.separadorNombreArchivo
+					+ Constantes.siglaIdentComunicacionBaja + Constantes.separadorNombreArchivo + fechaGeneracionArhcivo
+					+ Constantes.separadorNombreArchivo + Constantes.numeroComunicacionBaja;
 
 			if (idComunicacionBajaAux.equals(idComunicaionBaja)) {
 
@@ -499,6 +511,165 @@ public class ManejadorArchivos {
 		}
 
 		return listaDetalleComunicacionBaja;
+	}
+
+	public List<CabeceraNotaCredito> generarCabeceraNotaCredito(List<String> lineasArchivo) {
+		String idNotaCreditoAux = "";
+		List<CabeceraNotaCredito> listacabeceraNotaCreditos = new ArrayList<CabeceraNotaCredito>();
+		CabeceraNotaCredito cabeceraNotaCredito = new CabeceraNotaCredito();
+
+		for (String linea : lineasArchivo) {
+
+			String[] arregloNotaCredito = linea.split("\\|");
+
+			idNotaCreditoAux = arregloNotaCredito[13].trim() + arregloNotaCredito[16].trim() + arregloNotaCredito[17].trim();
+
+			if (!verificarRepiteNotaCredito(listacabeceraNotaCreditos, idNotaCreditoAux)) {
+
+				cabeceraNotaCredito = new CabeceraNotaCredito();
+				cabeceraNotaCredito.setIdNotaCredito(
+						arregloNotaCredito[13].trim() + arregloNotaCredito[16].trim() + arregloNotaCredito[17].trim());
+				cabeceraNotaCredito.setIdCustomization(arregloNotaCredito[1]);
+
+				String fechaCadena = arregloNotaCredito[2];
+				Date fechaEmision = obtenerFecha(fechaCadena);
+
+				cabeceraNotaCredito.setFechaEmision(fechaEmision);
+				cabeceraNotaCredito.setFirmaDigital(arregloNotaCredito[3]);
+				cabeceraNotaCredito.setRazonSocial(arregloNotaCredito[4]);
+				cabeceraNotaCredito.setNombreComercial(arregloNotaCredito[5]);
+				cabeceraNotaCredito.setCodigoUbigeo(arregloNotaCredito[6]);
+				cabeceraNotaCredito.setDireccionCompleta(arregloNotaCredito[7]);
+				cabeceraNotaCredito.setUrbanizacion(arregloNotaCredito[8]);
+				cabeceraNotaCredito.setProvincia(arregloNotaCredito[9]);
+				cabeceraNotaCredito.setDepartamento(arregloNotaCredito[10]);
+				cabeceraNotaCredito.setDistrito(arregloNotaCredito[11]);
+				cabeceraNotaCredito.setCodigoPais(arregloNotaCredito[12]);
+				cabeceraNotaCredito.setNumeroDocumento(new BigInteger(arregloNotaCredito[13]));
+				cabeceraNotaCredito.setTipoDocumento(new Integer(arregloNotaCredito[14]));
+				cabeceraNotaCredito.setSerieNotaCredito(arregloNotaCredito[16]);
+				cabeceraNotaCredito.setNumeroCorrelativoNotaCredito(arregloNotaCredito[17]);
+				cabeceraNotaCredito.setNumeroDocumentoCliente(arregloNotaCredito[18]);
+				cabeceraNotaCredito.setTipoDocumentoCliente(arregloNotaCredito[19]);
+				cabeceraNotaCredito.setRazonSocialCliente(arregloNotaCredito[20]);
+				cabeceraNotaCredito.setIdCustomization("1.0");
+				cabeceraNotaCredito.setVersionUBL("2.0");
+				cabeceraNotaCredito.setMoneda("PEN");
+
+				if (!arregloNotaCredito[21].isEmpty())
+					cabeceraNotaCredito.setTotalValorVentaOpGravadas(new BigDecimal(arregloNotaCredito[21]));
+
+				if (!arregloNotaCredito[22].isEmpty())
+					cabeceraNotaCredito.setTotalValorVentaOpInafecta(new BigDecimal(arregloNotaCredito[22]));
+
+				if (!arregloNotaCredito[23].isEmpty())
+					cabeceraNotaCredito.setTotalValorVentaOpExoneradas(new BigDecimal(arregloNotaCredito[23]));
+
+				if (!arregloNotaCredito[24].isEmpty())
+					cabeceraNotaCredito.setTotalValorVentaOpGratuitas(new BigDecimal(arregloNotaCredito[24]));
+
+				if (!arregloNotaCredito[25].isEmpty())
+					cabeceraNotaCredito.setSumatoriaIGV(new BigDecimal(arregloNotaCredito[25]));
+
+				if (!arregloNotaCredito[26].isEmpty())
+					cabeceraNotaCredito.setSumatoriaISC(new BigDecimal(arregloNotaCredito[26]));
+
+				if (!arregloNotaCredito[27].isEmpty())
+					cabeceraNotaCredito.setTotalDescuentos(new BigDecimal(arregloNotaCredito[27]));
+
+				if (!arregloNotaCredito[28].isEmpty())
+					cabeceraNotaCredito.setImporteTotalVenta(new BigDecimal(arregloNotaCredito[28]));
+
+				cabeceraNotaCredito.setPaciente(arregloNotaCredito[42]);
+				cabeceraNotaCredito.setDireccionPaciente(arregloNotaCredito[43]);
+				cabeceraNotaCredito.setTipoCambio(arregloNotaCredito[44]);
+				cabeceraNotaCredito.setMedioPago(arregloNotaCredito[45]);
+				cabeceraNotaCredito.setTelefonoEmisor(arregloNotaCredito[46]);
+
+				cabeceraNotaCredito.setSerieDocumentoAfectado(arregloNotaCredito[49]);
+				cabeceraNotaCredito.setNumeroCorrelativoDocumentoAfectado(arregloNotaCredito[50]);
+				cabeceraNotaCredito.setTipoNotaCredito(arregloNotaCredito[51]);
+
+				listacabeceraNotaCreditos.add(cabeceraNotaCredito);
+			}
+
+		}
+
+		return listacabeceraNotaCreditos;
+	}
+
+	private boolean verificarRepiteNotaCredito(List<CabeceraNotaCredito> listacabeceraNotaCreditos,
+			String idNotaCredito) {
+		for (CabeceraNotaCredito cabeceraNotaCredito : listacabeceraNotaCreditos) {
+			if (cabeceraNotaCredito.getIdNotaCredito().equals(idNotaCredito)) {
+
+				////////////// Agregar loger
+
+				return true;
+			}
+
+		}
+		return false;
+	}
+
+	public List<DetalleNotaCredito> generarDetalleNotaCredito(List<String> lineasArchivo, String idNotaCredito) {
+		String idNotaCreditoAux = "";
+		List<DetalleNotaCredito> listaDetalleNotaCredito = new ArrayList<DetalleNotaCredito>();
+		DetalleNotaCredito detalleNotaCredito = new DetalleNotaCredito();
+
+		for (String linea : lineasArchivo) {
+
+			String[] arregloNotaCredito = linea.split("\\|");
+
+			idNotaCreditoAux = arregloNotaCredito[13].trim() + arregloNotaCredito[16].trim() + arregloNotaCredito[17].trim();
+			
+
+			if (idNotaCreditoAux.equals(idNotaCredito)) {
+
+				detalleNotaCredito = new DetalleNotaCredito();
+
+				if (!arregloNotaCredito[30].isEmpty())
+					detalleNotaCredito.setNumeroOrden(Integer.parseInt(arregloNotaCredito[30]));
+
+				detalleNotaCredito.setUnidadMedida(arregloNotaCredito[31]);
+				detalleNotaCredito.setCodigoItem(arregloNotaCredito[32]);
+				detalleNotaCredito.setDescripcionItem(arregloNotaCredito[33]);
+
+				if (!arregloNotaCredito[34].isEmpty())
+					detalleNotaCredito.setCantidad(new BigDecimal(arregloNotaCredito[34]));// OK
+
+				if (!arregloNotaCredito[35].isEmpty()) {
+					BigDecimal valorUnitarioPorItemAux = new BigDecimal(arregloNotaCredito[35]);
+					valorUnitarioPorItemAux = valorUnitarioPorItemAux.divide(new BigDecimal("1.18"), 2,
+							RoundingMode.HALF_UP);
+
+					detalleNotaCredito.setValorUnitarioPorItem(valorUnitarioPorItemAux);// corregir
+				}
+
+				if (!arregloNotaCredito[35].isEmpty())
+					detalleNotaCredito.setPrecioVentaUnitarioPorItem(new BigDecimal(arregloNotaCredito[35]));
+
+				if (!arregloNotaCredito[37].isEmpty())
+					// detalleNotaCredito.setImpuestoPorItem(new BigDecimal(arregloNotaCredito[37]));// ESTE
+					// CAMPO CAMBIA A
+					// DESCUENTO
+
+					// if (!arregloNotaCredito[38].isEmpty())
+					// detalleNotaCredito.setValorVentaBruto(new BigDecimal(arregloNotaCredito[38]));
+
+					if (!arregloNotaCredito[38].isEmpty())
+						detalleNotaCredito.setValorVentaPorItem(new BigDecimal(arregloNotaCredito[38]));
+
+				if (!arregloNotaCredito[37].isEmpty())
+					detalleNotaCredito.setImpuestoPorItem(new BigDecimal(arregloNotaCredito[37]));
+
+				listaDetalleNotaCredito.add(detalleNotaCredito);
+
+			}
+
+		}
+
+		return listaDetalleNotaCredito;
 	}
 
 }

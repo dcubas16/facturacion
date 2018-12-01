@@ -9,14 +9,16 @@ public class Constantes {
 	public static final String rutaSolicitudComunicaBaja = "Solicitud_Comunica_Baja\\";
 	
 	public static final String rutaRespuesta = "Respuesta_sunat\\";
+	
+	public static final String rutaRespuestaComunicacionBaja = "Respuesta_sunat_comunica_baja\\";
 
 	public static final String rutaImportar = "Importar_txt\\";
+	
+	public static final String rutaImportarNotaCredito = "Importar_txt_nota_credito\\";
 
 	public static final String rutaImportarComunicaBaja = "Importar_txt_comunica_baja\\";
 
 	public static final String rutaCertificado = "Certificados\\";
-
-	public static final String archivoImportar = "Exp_20181015.txt";
 
 	public static final String rutaPlantillasReportes = "Plantillas_Reportes\\FORM\\";
 
@@ -159,9 +161,4 @@ public class Constantes {
 	public static final Integer CONSTANTE_CODIGO_ENVIO_PREVIO = 1033;
 
 	
-
-	
-
-	
-
 }

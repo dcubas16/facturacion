@@ -141,6 +141,7 @@ public class GeneradorComunicacionBaja {
 
 		UBLVersionIDType ublVersionIDType = new UBLVersionIDType("2.0");
 		CustomizationIDType customizationIDType = new CustomizationIDType("1.0");
+		
 		// Constantes.comu
 		IDType idType = new IDType(Constantes.siglaIdentComunicacionBaja + Constantes.separadorNombreArchivo
 				+ Utilitario.obtenerFechaFormatoComunicaBaja(comunicacionBaja.getFechaGeneraComunica())

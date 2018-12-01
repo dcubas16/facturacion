@@ -1,21 +1,23 @@
 package org.facturacionelectronica.servicios;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.facturacionelectronica.dao.GeneradorComuncacionBajaDao;
 import org.facturacionelectronica.dao.GeneradorFacturaDao;
+import org.facturacionelectronica.dao.GeneradorNotaCreditoDao;
 import org.facturacionelectronica.dao.entidades.ComunicacionBajaDao;
 import org.facturacionelectronica.dao.entidades.DetalleComunicaBajaDao;
 import org.facturacionelectronica.dao.entidades.DetalleFacturaDao;
 import org.facturacionelectronica.dao.entidades.FacturaDao;
+import org.facturacionelectronica.dao.entidades.NotaCreditoDao;
 import org.facturacionelectronica.entidades.CabeceraFactura;
+import org.facturacionelectronica.entidades.CabeceraNotaCredito;
 import org.facturacionelectronica.entidades.ComunicacionBaja;
 import org.facturacionelectronica.entidades.DetalleComunicacionBaja;
 import org.facturacionelectronica.entidades.DetalleFactura;
+import org.facturacionelectronica.entidades.DetalleNotaCredito;
 import org.facturacionelectronica.util.GestorExcepciones;
-
 
 public class ExportadorBaseDatos {
 
@@ -23,13 +25,15 @@ public class ExportadorBaseDatos {
 	ManejadorArchivos manejadorArchivos = new ManejadorArchivos();
 	GeneradorFacturaDao generadorFacturaDao = new GeneradorFacturaDao();
 	GeneradorComuncacionBajaDao generadorComuncacionBajaDao = new GeneradorComuncacionBajaDao();
+	GeneradorNotaCreditoDao generadorNotaCreditoDao = new GeneradorNotaCreditoDao();
+//	generadorNotaCreditoDao
 
 	public ExportadorBaseDatos() {
 	}
 
-	public boolean exportarFacturas(String rutaArchivo){
+	public boolean exportarFacturas(String rutaArchivo) {
 		try {
-			
+
 			// Lee toda la carpeta
 			lineasArchivo = manejadorArchivos.leerCarpeta(rutaArchivo, "01");
 
@@ -44,12 +48,12 @@ public class ExportadorBaseDatos {
 			}
 
 			return true;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			GestorExcepciones.guardarExcepcion(e, this);
-			
+
 			return false;
 		}
-		
+
 	}
 
 	public FacturaDao obtenerFactura(String idFactura) {
@@ -94,22 +98,54 @@ public class ExportadorBaseDatos {
 	}
 
 	public List<ComunicacionBajaDao> obtenerComunicacionBajaImportados() {
-		List<ComunicacionBajaDao> listaComunicacionBajaDaos = generadorComuncacionBajaDao.obtenerComunicacionBajaImportados();
+		List<ComunicacionBajaDao> listaComunicacionBajaDaos = generadorComuncacionBajaDao
+				.obtenerComunicacionBajaImportados();
 
 		return listaComunicacionBajaDaos;
 	}
 
 	public List<DetalleComunicaBajaDao> obtenerDetalleComunicaBajaDao(String idComunicaionBaja) {
-		List<DetalleComunicaBajaDao> listDetalleComunicaBajaDao = generadorComuncacionBajaDao.obtenerDetalleComunicaBajaDao(idComunicaionBaja);
+		List<DetalleComunicaBajaDao> listDetalleComunicaBajaDao = generadorComuncacionBajaDao
+				.obtenerDetalleComunicaBajaDao(idComunicaionBaja);
 
 		return listDetalleComunicaBajaDao;
 	}
 
 	public List<ComunicacionBajaDao> obtenerComunicacionBajaPendiente() {
-		List<ComunicacionBajaDao> listaComunicacionBajaDaos = generadorComuncacionBajaDao.obtenerComunicacionBajaPendientes();
+		List<ComunicacionBajaDao> listaComunicacionBajaDaos = generadorComuncacionBajaDao
+				.obtenerComunicacionBajaPendientes();
 
 		return listaComunicacionBajaDaos;
 	}
 
+	public boolean exportarNotasCredito(String rutaArchivo) {
+		try {
+
+			// Lee toda la carpeta
+			lineasArchivo = manejadorArchivos.leerCarpeta(rutaArchivo, "07");
+
+			List<CabeceraNotaCredito> listaCabeceraNotaCredito = manejadorArchivos.generarCabeceraNotaCredito(lineasArchivo);
+
+			for (CabeceraNotaCredito cabeceraNotaCredito : listaCabeceraNotaCredito) {
+				List<DetalleNotaCredito> listaDetalleNotaCredito = manejadorArchivos.generarDetalleNotaCredito(lineasArchivo,
+						cabeceraNotaCredito.getIdNotaCredito());
+
+				generadorNotaCreditoDao.guardarNotaCredito(cabeceraNotaCredito, listaDetalleNotaCredito);
+
+			}
+
+			return true;
+		} catch (Exception e) {
+			GestorExcepciones.guardarExcepcion(e, this);
+
+			return false;
+		}
+	}
+
+	public List<NotaCreditoDao> obtenerNotaCreditoImportadas() {
+		List<NotaCreditoDao> listaNotaCreditoDao = generadorNotaCreditoDao.obtenerNotaCreditoImportadas();
+
+		return listaNotaCreditoDao;
+	}
 
 }
