@@ -48,7 +48,7 @@ public class AppEnviarSunat {
 					nombreArchivo + Constantes.extensionXml,
 					facturaDao.getNumeroDocumento().toString() + "GGIRON33", "MGGIRON3");
 			
-//			System.out.println("Usuario :" + facturaDao.getNumeroDocumento().toString() + "DOWSA206" + "---" + "Wong2018");
+			System.out.println("SUIT FAEL-------> Usuario :" + facturaDao.getNumeroDocumento().toString() + "GGIRON33" + "---" + "MGGIRON3");
 //			System.out.println("Usuario :" + facturaDao.getNumeroDocumento() + "WONG0001" + "---" + "w0ng0001");
 		}
 		

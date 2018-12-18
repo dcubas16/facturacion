@@ -18,7 +18,6 @@ import org.facturacionelectronica.util.Constantes;
 import org.facturacionelectronica.util.GestorExcepciones;
 import org.facturacionelectronica.util.ParametrosGlobales;
 import org.facturacionelectronica.util.Utilitario;
-
 import com.helger.commons.state.ESuccess;
 
 public class App {
@@ -58,14 +57,15 @@ public class App {
 			factura.setCabeceraFactura(new CabeceraFactura(facturaDao));
 			factura.setDetalleFactura(listaDetalleFactura);
 
-			GeneradorFactura generadorFactura = new GeneradorFactura();
+			ESuccess eSuccess;
 
-			ESuccess eSuccess = generadorFactura.generarFactura(factura);
+			GeneradorFactura21 generadorFactura21 = new GeneradorFactura21();
+			eSuccess = generadorFactura21.generarFactura(factura);
 
 			String nombreArchivo = Utilitario.obtenerNombreArchivoFactura(factura);
 
 			if (eSuccess.isSuccess()) {
-				
+
 				try {
 					GestorFirma gestorFirma = new GestorFirma();
 					InputStream inputStream = new FileInputStream(ParametrosGlobales.obtenerParametros().getRutaRaiz()
@@ -78,11 +78,9 @@ public class App {
 
 					outDocument.writeTo(fout);
 					fout.close();
-				}catch(Exception ex) {
+				} catch (Exception ex) {
 					GestorExcepciones.guardarExcepcionPorValidacion(ex, Object.class);
 				}
-
-				
 
 				// Generar archivo ZIP
 				// Compresor.comprimirArchivo(
@@ -99,7 +97,6 @@ public class App {
 				} catch (Exception e) {
 
 					GestorExcepciones.guardarExcepcionPorValidacion(e, Object.class);
-
 				}
 
 				GeneradorFacturaDao generadorFacturaDao = new GeneradorFacturaDao();

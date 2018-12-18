@@ -67,19 +67,19 @@ public class GeneradorFactura {
 
 		final InvoiceType aInvoice = new InvoiceType();
 
-		// Zona Informacion Basica
+		// Zona Informacion Basica--
 		generarDatosBasicosFactura(aInvoice, factura.getCabeceraFactura(), eCurrency, "2.0");
 
-		// Zona firma cabecera
+		// Zona firma cabecera--
 		aInvoice.addSignature(generarCabeceraFirma(factura.getCabeceraFactura()));
 
-		// Zona Cliente
+		// Zona Cliente--
 		aInvoice.setAccountingCustomerParty(generarZonaInformacionCliente(factura.getCabeceraFactura()));
 
-		// Zona Emisor
+		// Zona Emisor--
 		aInvoice.setAccountingSupplierParty(generarZonaInformacionEmisor(factura.getCabeceraFactura(), eCountry));
 
-		// Zona Impuesto Total
+		// Zona Impuesto Total--
 		aInvoice.addTaxTotal(generarImpuestosTotales(factura.getCabeceraFactura(), eCurrency));
 
 		// Detalle Factura

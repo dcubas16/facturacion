@@ -31,8 +31,8 @@ public class ConfiguracionBaseDatos {
 
 			System.out.println("Ruta configuración de base de datos : " + path);
 
-//			File f = new File(path + Constantes.hibernate_cfg_xml);// --------------------->>> PRODUCCION
-			 File f = new File("D://Suit_Fael//hibernate.cfg.xml");//--------------------->>> PRUEBAS
+			File f = new File(path + Constantes.hibernate_cfg_xml);// --------------------->>> PRODUCCION
+//			File f = new File("D://Suit_Fael//hibernate.cfg.xml");//--------------------->>> PRUEBAS
 
 			Configuration configuration = new Configuration();
 			configuration.configure(f);

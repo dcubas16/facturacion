@@ -74,7 +74,7 @@ public class GeneradorNotaCreditoDao {
 		
 	}
 
-	private NotaCreditoDao obtenerNotaCredito(String idNotaCredito) {
+	public NotaCreditoDao obtenerNotaCredito(String idNotaCredito) {
 		NotaCreditoDao notaCreditoDao = new NotaCreditoDao();
 
 		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
@@ -119,160 +119,57 @@ public class GeneradorNotaCreditoDao {
 		return listaNotaCreditoDaos;
 	}
 
-//	private boolean eliminarFactura(FacturaDao facturaDao) {
-//
-//		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
-//
-//		// Creating Transaction Object
-//		Transaction transObj = session.beginTransaction();
-//
-//		session.delete(facturaDao);
-//
-//		transObj.commit();
-//
-//		session.close();
-//
-//		return true;
-//	}
-//
-//	public boolean guardarDetalleFactura() {
-//
-//		return false;
-//	}
-//
-//	public FacturaDao obtenerFactura(String idFactura) {
-//
-//		FacturaDao facturaDao = new FacturaDao();
-//
-//		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
-//
-//		// session = ConfiguracionBaseDatos.getSessionFactory().openSession();
-//
-//		facturaDao = (FacturaDao) session.get(FacturaDao.class, idFactura);
-//
-//		session.close();
-//
-//		return facturaDao;
-//	}
-//
-//	public boolean existeFactura(String idFactura) {
-//
-//		FacturaDao facturaDao = new FacturaDao();
-//
-//		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
-//
-//		// session = ConfiguracionBaseDatos.getSessionFactory().openSession();
-//
-//		facturaDao = (FacturaDao) session.get(FacturaDao.class, idFactura);
-//
-//		session.close();
-//
-//		return (facturaDao != null);
-//	}
-//
-//	@SuppressWarnings("unchecked")
-//	public List<DetalleFacturaDao> obtenerDetalleFactura(String idFactura) {
-//
-//		List<DetalleFacturaDao> listaDetalleFacturaDao = new ArrayList<DetalleFacturaDao>();
-//
-//		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
-//
-//		// session = ConfiguracionBaseDatos.getSessionFactory().openSession();
-//
-//		Query query = session.createQuery("FROM DetalleFacturaDao where id_factura = :id_factura");
-//		query.setParameter("id_factura", idFactura);
-//
-//		listaDetalleFacturaDao = (List<DetalleFacturaDao>) query.list();
-//
-//		session.close();
-//
-//		return listaDetalleFacturaDao;
-//	}
-//
-//	@SuppressWarnings("unchecked")
-//	public List<FacturaDao> obtenerFacturasImportadas() {
-//
-//		List<FacturaDao> listaFacturaDao = new ArrayList<FacturaDao>();
-//
-//		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
-//
-//		// session = ConfiguracionBaseDatos.getSessionFactory().openSession();
-//
-//		Query query = session.createQuery("FROM FacturaDao WHERE ESTADO = :estado");
-//		query.setParameter("estado", 5);
-//
-//		listaFacturaDao = (List<FacturaDao>) query.list();
-//
-//		session.close();
-//
-//		return listaFacturaDao;
-//	}
-//	
-//	
-//	@SuppressWarnings("unchecked")
-//	public List<FacturaDao> obtenerFacturasPendientesDeEnvio() {
-//
-//		List<FacturaDao> listaFacturaDao = new ArrayList<FacturaDao>();
-//
-//		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
-//
-//		// session = ConfiguracionBaseDatos.getSessionFactory().openSession();
-//
-////		Query query = session.createQuery("FROM FacturaDao WHERE ESTADO = :estado");
-////		Query query = session.createQuery("FROM FacturaDao WHERE ESTADO = :estado AND idFactura = :idFactura");
-//		Query query = session.createQuery("FROM FacturaDao WHERE ESTADO = :estado AND numeroDocumento = :numeroDocumento");
-//		query.setParameter("estado", 6);
-////		query.setParameter("idFactura", "20101440355B00210");
-//		query.setParameter("numeroDocumento", new BigInteger("20600091370"));
-//		
-//		
-//		
-//		listaFacturaDao = (List<FacturaDao>) query.list();
-//
-//		session.close();
-//
-//		return listaFacturaDao;
-//	}
-//
-//	public boolean actualizarFactura(FacturaDao facturaDao) {
-//		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
-//
-//		// Creating Transaction Object
-//		Transaction transObj = session.beginTransaction();
-//
-//		session.update(facturaDao);
-//
-//		transObj.commit();
-//
-//		session.close();
-//
-//		return true;
-//
-//	}
-//	
-//	
-//	public boolean actualizarEstadoAceptado(FacturaDao facturaDao, int estado, String mensajeRespuesta) {
-//		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
-//
-//		// Creating Transaction Object
-//		Transaction transObj = session.beginTransaction();
-//		
-//		facturaDao.setEstado(estado);
-//		facturaDao.setMensajeRespuesta(mensajeRespuesta);
-//		facturaDao.setFechaRespuesta(new Date());
-//
-//		session.update(facturaDao);
-//
-//		transObj.commit();
-//
-//		session.close();
-//
-//		return true;
-//
-//	}
-//	
-//	
-//	
-	
+	public List<DetalleNotaCreditoDao> obtenerDetalleNotaCredito(String idNotaCredito) {
+		List<DetalleNotaCreditoDao> listaNotaCreditoDaos = new ArrayList<DetalleNotaCreditoDao>();
+		
+		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		// session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		Query query = session.createQuery("FROM DetalleNotaCreditoDao where id_nota_credito = :id_nota_credito");
+		query.setParameter("id_nota_credito", idNotaCredito);
+
+		listaNotaCreditoDaos = (List<DetalleNotaCreditoDao>) query.list();
+
+		session.close();
+		
+		return listaNotaCreditoDaos;
+	}
+
+	public boolean actualizarEstadoAceptado(NotaCreditoDao notaCreditoDao, int estado, String mensajeRespuesta) {
+		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		// Creating Transaction Object
+		Transaction transObj = session.beginTransaction();
+		
+		notaCreditoDao.setEstado(estado);
+		notaCreditoDao.setMensajeRespuesta(mensajeRespuesta);
+		notaCreditoDao.setFechaRespuesta(new Date());
+
+		session.update(notaCreditoDao);
+
+		transObj.commit();
+
+		session.close();
+
+		return true;
+		
+	}
+
+	public boolean actualizarEstadoNotaCredito(NotaCreditoDao notaCreditoDao) {
+		Session session = ConfiguracionBaseDatos.getSessionFactory().openSession();
+
+		// Creating Transaction Object
+		Transaction transObj = session.beginTransaction();
+
+		session.update(notaCreditoDao);
+
+		transObj.commit();
+
+		session.close();
+
+		return true;
+		
+	}
 	
 }

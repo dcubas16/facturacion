@@ -9,6 +9,7 @@ import org.facturacionelectronica.dao.GeneradorNotaCreditoDao;
 import org.facturacionelectronica.dao.entidades.ComunicacionBajaDao;
 import org.facturacionelectronica.dao.entidades.DetalleComunicaBajaDao;
 import org.facturacionelectronica.dao.entidades.DetalleFacturaDao;
+import org.facturacionelectronica.dao.entidades.DetalleNotaCreditoDao;
 import org.facturacionelectronica.dao.entidades.FacturaDao;
 import org.facturacionelectronica.dao.entidades.NotaCreditoDao;
 import org.facturacionelectronica.entidades.CabeceraFactura;
@@ -146,6 +147,14 @@ public class ExportadorBaseDatos {
 		List<NotaCreditoDao> listaNotaCreditoDao = generadorNotaCreditoDao.obtenerNotaCreditoImportadas();
 
 		return listaNotaCreditoDao;
+	}
+
+	public List<DetalleNotaCreditoDao> obtenerDetalleNotaCredito(String idNotaCredito) {
+		List<DetalleNotaCreditoDao> listaDetalleNotaCreditoDao = generadorNotaCreditoDao
+				.obtenerDetalleNotaCredito(idNotaCredito);
+
+		return listaDetalleNotaCreditoDao;
+		
 	}
 
 }

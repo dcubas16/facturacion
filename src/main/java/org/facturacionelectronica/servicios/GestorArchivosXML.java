@@ -20,6 +20,7 @@ import org.w3c.dom.NodeList;
 
 import com.helger.commons.state.ESuccess;
 import com.helger.ublpe.UBLPEWriter;
+//import com.helger.ubl21.UBL21Writer;
 
 import oasis.names.specification.ubl.schema.xsd.invoice_2.InvoiceType;
 import sunat.names.specification.ubl.peru.schema.xsd.voideddocuments_1.VoidedDocumentsType;
@@ -62,6 +63,26 @@ public class GestorArchivosXML {
 		}
 
 		final ESuccess eSuccess = UBLPEWriter.invoice().write(invoiceType, new File(ruta));
+
+		return eSuccess;
+	}
+	
+	public static ESuccess imprimirFacturaArchivo21(oasis.names.specification.ubl.schema.xsd.invoice_21.InvoiceType invoiceType, String ruta, String formato) {
+
+		Writer writer = null;
+
+		try {
+			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ruta), formato));
+		} catch (IOException ex) {
+			// Report
+		} finally {
+			try {
+				writer.close();
+			} catch (Exception ex) {
+				/* ignore */}
+		}
+
+		final ESuccess eSuccess = com.helger.ubl21.UBL21Writer.invoice().write(invoiceType, new File(ruta));
 
 		return eSuccess;
 	}

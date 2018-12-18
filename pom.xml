@@ -44,11 +44,32 @@
 		</dependency>
 
 		<!-- UBL 2.0 -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.helger</groupId> -->
+<!-- 			<artifactId>ph-ublpe</artifactId> -->
+<!-- 			<version>6.0.2</version> -->
+<!-- 		</dependency> -->
+
+		<!-- UBL 2.1 -->
 		<dependency>
 			<groupId>com.helger</groupId>
-			<artifactId>ph-ublpe</artifactId>
-			<version>6.0.2</version>
+			<artifactId>ph-ubl21</artifactId>
+			<version>6.1.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.helger</groupId>
+			<artifactId>ph-ubl21-codelists</artifactId>
+			<version>6.1.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.helger/ph-commons -->
+		<dependency>
+			<groupId>com.helger</groupId>
+			<artifactId>ph-commons</artifactId>
+			<version>9.2.0</version>
+		</dependency>
+
 
 
 		<!-- https://mvnrepository.com/artifact/com.helger/ph-datetime -->

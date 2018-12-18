@@ -588,7 +588,9 @@ public class ManejadorArchivos {
 
 				cabeceraNotaCredito.setSerieDocumentoAfectado(arregloNotaCredito[49]);
 				cabeceraNotaCredito.setNumeroCorrelativoDocumentoAfectado(arregloNotaCredito[50]);
-				cabeceraNotaCredito.setTipoNotaCredito(arregloNotaCredito[51]);
+				
+//				cabeceraNotaCredito.setTipoNotaCredito(arregloNotaCredito[51]);
+				cabeceraNotaCredito.setTipoNotaCredito("07");
 
 				listacabeceraNotaCreditos.add(cabeceraNotaCredito);
 			}

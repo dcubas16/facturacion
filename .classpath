@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="org/facturacionelectronica/dao/GeneradorComunicacionBajaDao.java|pe_prod/gob/sunat/service/|pe_prod/gob/sunat/servicio/registro/comppago/factura/gem/service/|pe_desa/gob/sunat/service/|pe_desa/gob/sunat/servicio/registro/comppago/factura/gem/service/" kind="src" output="target/classes" path="src/main/java">
+	<classpathentry excluding="org/facturacionelectronica/servicios/GeneradorComunicacionBaja.java|org/facturacionelectronica/servicios/GeneradorFactura.java|org/facturacionelectronica/servicios/GestorArchivosXML.java|org/facturacionelectronica/servicios/UBL20Writer.java|org/facturacionelectronica/servicios/AppComunicacionBaja.java|pe_DESA/gob/sunat/service/|pe_DESA/gob/sunat/servicio/registro/comppago/factura/gem/service/|org/facturacionelectronica/servicios/SOAPSecurityHandler.java" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
@@ -11,7 +11,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+	<classpathentry excluding="org/facturacionelectronica/" kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="test" value="true"/>
 			<attribute name="optional" value="true"/>

@@ -8,6 +8,8 @@ public class Constantes {
 	
 	public static final String rutaSolicitudComunicaBaja = "Solicitud_Comunica_Baja\\";
 	
+	public static final String rutaSolicitudNotaCredito = "Solicitud_Nota_Credito\\";
+	
 	public static final String rutaRespuesta = "Respuesta_sunat\\";
 	
 	public static final String rutaRespuestaComunicacionBaja = "Respuesta_sunat_comunica_baja\\";
@@ -25,10 +27,14 @@ public class Constantes {
 	public static final String rutaLogos = "Logos\\";
 
 	public static final String reporteFactura = "Plantilla_reporte_factura.jasper";
+	
+	public static final String reporteNotaCredito = "Plantilla_reporte_nota_credito.jasper";
 
 	public static final String extensionPdf = ".pdf";
 
 	public static final String rutaPdf = "Pdf\\";
+	
+	public static final String rutaPdfNotaCredito = "Pdf_Nota_Credito\\";
 
 	public static final String rutaImagenQr = "ImagenQr\\";
 
@@ -159,6 +165,9 @@ public class Constantes {
 	public static final String CONSTANTE_URL_PRUEBA = "www.sunat.gob.pe";
 	public static final String CONSTANTE_CODIGO_EXITO_CONSULTA_CDR = "0004";
 	public static final Integer CONSTANTE_CODIGO_ENVIO_PREVIO = 1033;
+
+	
+
 
 	
 }

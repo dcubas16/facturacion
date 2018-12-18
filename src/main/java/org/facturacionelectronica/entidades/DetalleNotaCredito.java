@@ -2,6 +2,8 @@ package org.facturacionelectronica.entidades;
 
 import java.math.BigDecimal;
 
+import org.facturacionelectronica.dao.entidades.DetalleNotaCreditoDao;
+
 public class DetalleNotaCredito {
 
 	private int numeroOrden ;//33
@@ -24,6 +26,24 @@ public class DetalleNotaCredito {
 	public DetalleNotaCredito() {
 		super();
 	}
+	
+
+	public DetalleNotaCredito(DetalleNotaCreditoDao detalleNotaCreditoDao) {
+		super();
+		this.numeroOrden = detalleNotaCreditoDao.getNumeroOrden();
+		this.unidadMedida = detalleNotaCreditoDao.getUnidadMedida();
+		this.codigoItem = detalleNotaCreditoDao.getCodigoItem();
+		this.descripcionItem = detalleNotaCreditoDao.getDescripcionItem();
+		this.cantidad = detalleNotaCreditoDao.getCantidad();
+		this.valorUnitarioPorItem = detalleNotaCreditoDao.getValorUnitarioPorItem();
+		this.precioVentaUnitarioPorItem = detalleNotaCreditoDao.getPrecioVentaUnitarioPorItem();
+		this.impuestoUnitarioPorItem = detalleNotaCreditoDao.getImpuestoUnitarioPorItem();
+		this.valorVentaBruto = detalleNotaCreditoDao.getValorVentaBruto();
+		this.valorVentaPorItem = detalleNotaCreditoDao.getValorVentaPorItem();
+		this.impuestoPorItem = detalleNotaCreditoDao.getImpuestoPorItem();
+		this.porcentajeImpuestoItem = detalleNotaCreditoDao.getPorcentajeImpuestoItem();
+	}
+	
 	public int getNumeroOrden() {
 		return numeroOrden;
 	}

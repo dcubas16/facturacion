@@ -8,6 +8,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.facturacionelectronica.entidades.CabeceraNotaCredito;
 import org.facturacionelectronica.entidades.ComunicacionBaja;
 import org.facturacionelectronica.entidades.Factura;
 
@@ -45,6 +46,21 @@ public class Utilitario {
 		}
 		return xmlFecha;
 	}
+	
+	public static XMLGregorianCalendar obtenerHoraXMLGregorianCalendar(Date fecha) {
+
+		SimpleDateFormat formatoFechaXml = new SimpleDateFormat("hh:mm:ss");
+		String cadenaFecha = formatoFechaXml.format(fecha);
+		XMLGregorianCalendar xmlFecha;
+
+		try {
+			xmlFecha = DatatypeFactory.newInstance().newXMLGregorianCalendar(cadenaFecha);
+		} catch (DatatypeConfigurationException e) {
+			xmlFecha = null;
+			GestorExcepciones.guardarExcepcionPorValidacion(e, Utilitario.class);
+		}
+		return xmlFecha;
+	}
 
 	public static String obtenerFechaFormatoComunicaBaja(Date fecha) {
 
@@ -63,6 +79,15 @@ public class Utilitario {
 				+ Constantes.siglaIdentComunicacionBaja + Constantes.separadorNombreArchivo
 				+ obtenerFechaFormatoComunicaBaja(comunicacionBaja.getFechaGeneraComunica())
 				+ Constantes.separadorNombreArchivo + Constantes.numeroComunicacionBaja;
+
+		return nombreArchivo;
+	}
+
+	public static String obtenerNombreArchivoNotaCredito(CabeceraNotaCredito cabeceraNotaCredito) {
+		String nombreArchivo = cabeceraNotaCredito.getNumeroDocumento() + Constantes.separadorNombreArchivo
+				+ cabeceraNotaCredito.getTipoNotaCredito() + Constantes.separadorNombreArchivo
+				+ cabeceraNotaCredito.getSerieNotaCredito() + Constantes.separadorNombreArchivo
+				+ cabeceraNotaCredito.getNumeroCorrelativoNotaCredito();
 
 		return nombreArchivo;
 	}

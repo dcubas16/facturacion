@@ -59,8 +59,8 @@ public class SecurityHandler implements SOAPHandler<SOAPMessageContext> {
 //				http://docs.oasisopen.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
 				final SOAPElement userToken = security.addChildElement("UsernameToken", "wsse");
 //				20381847927DOWSA206 -- PASWORD :Wong2018
-				userToken.addChildElement("Username", "wsse").addTextNode("20101440355L201014U");
-				userToken.addChildElement("Password", "wsse").addTextNode("ortopedi");
+				userToken.addChildElement("Username", "wsse").addTextNode("20600091370GGIRON33");
+				userToken.addChildElement("Password", "wsse").addTextNode("MGGIRON3");
 
 			} catch (final Exception e) {
 				e.printStackTrace();
